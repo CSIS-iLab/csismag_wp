@@ -20,3 +20,10 @@ node_modules/
 *.log
 *.sql
 *.sqlite
+
+# ignore WPEngine & Local setup
+.wpe-devkit/
+.wpe-pull-ignore
+.wpe-push-ignore
+.wpengine-conf/
+_wpeprivate/
