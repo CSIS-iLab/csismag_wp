@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - node
+  - lts/*
+branches:
+  only:
+    - development
+addons:
+  ssh_known_hosts: git.wpengine.com
+script:
+  - npm run build
+before_install:
+  - openssl aes-256-cbc -K $encrypted_deec70939cbe_key -iv $encrypted_deec70939cbe_iv -in csismag_rsa.enc -out /tmp/csismag_rsa -d
+  - cd wp-content/themes/csismag
+before_deploy:
+  - cd $TRAVIS_BUILD_DIR
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: chmod +x deploy-development.sh && sh deploy-development.sh
+    on:
+      branch: development
