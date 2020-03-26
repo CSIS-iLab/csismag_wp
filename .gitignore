@@ -91,8 +91,8 @@ Thumbs.db
 !CHANGELOG.md
 !composer.json
 !.travis.yml
-!deploy.sh
-!aerospace_travis.enc
+!deploy-development.sh
+!csismag_rsa.enc
 
 # track favicon files, if they exist
 !android-chrome-*.png
@@ -112,3 +112,5 @@ Thumbs.db
 !wp-content/themes/csismag/.stylelintrc.json
 
 wp-content/themes/*/**/*.css
+wp-content/themes/csismag/assets/images
+wp-content/themes/csismag/js
