@@ -437,3 +437,18 @@ gulp.task(
 		}
 	)
 )
+
+/**
+ * Watch Tasks.
+ *
+ * Watches for file changes and runs specific tasks.
+ */
+gulp.task(
+	'build',
+	gulp.parallel(
+		gulp.series('stylelint', 'styles'),
+		'vendorsJS',
+		'customJS',
+		'images'
+	)
+)
