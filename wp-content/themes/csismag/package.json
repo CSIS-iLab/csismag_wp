@@ -1,11 +1,11 @@
 {
-  "name": "your-project",
-  "description": "A WPGulp based project.",
+  "name": "csismag",
+  "description": "WordPress theme for CSIS Mag.",
   "version": "1.0.0",
-  "author": "Author Name (https://twitter.com/MrAhmadAwais/)",
+  "author": "CSIS iDeas Lab",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahmadawais/WPGulp"
+    "url": "https://github.com/CSIS-iLab/csismag_wp"
   },
   "license": "MIT",
   "devDependencies": {
