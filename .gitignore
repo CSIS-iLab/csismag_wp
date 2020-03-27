@@ -92,6 +92,7 @@ Thumbs.db
 !composer.json
 !.travis.yml
 !deploy-development.sh
+!deploy-staging.sh
 !csismag_rsa.enc
 
 # track favicon files, if they exist

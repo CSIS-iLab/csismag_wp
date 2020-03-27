@@ -4,6 +4,7 @@ node_js:
   - lts/*
 branches:
   only:
+    - master
     - development
 addons:
   ssh_known_hosts: git.wpengine.com
@@ -20,3 +21,8 @@ deploy:
     script: chmod +x deploy-development.sh && sh deploy-development.sh
     on:
       branch: development
+  - provider: script
+    skip_cleanup: true
+    script: chmod +x deploy-staging.sh && sh deploy-staging.sh
+    on:
+      branch: master
