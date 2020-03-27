@@ -8,4 +8,4 @@ git checkout development # switch to development branch
 git add wp-content/themes/csismag/*.css -f # force all compiled CSS files to be added
 git add wp-content/themes/csismag/assets -f # force all compiled JS & optimized images
 git commit -m "Compiled & bundled all assets" # commit the compiled CSS files
-git push -f development:development #deploy to development site from development
+git push -f csismag-development master:development #deploy to development site from development
