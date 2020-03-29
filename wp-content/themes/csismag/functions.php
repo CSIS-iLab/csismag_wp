@@ -99,8 +99,6 @@ function csismag_theme_support() {
 		'html5',
 		array(
 			'search-form',
-			'comment-form',
-			'comment-list',
 			'gallery',
 			'caption',
 			'script',
@@ -155,12 +153,6 @@ require get_template_directory() . '/inc/svg-icons.php';
 
 // Handle Customizer settings.
 require get_template_directory() . '/classes/class-csismag-customize.php';
-
-// Require Separator Control class.
-require get_template_directory() . '/classes/class-csismag-separator-control.php';
-
-// Custom comment walker.
-require get_template_directory() . '/classes/class-csismag-walker-comment.php';
 
 // Custom page walker.
 require get_template_directory() . '/classes/class-csismag-walker-page.php';

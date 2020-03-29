@@ -315,25 +315,6 @@ if ( ! class_exists( 'CSISMag_Customize' ) ) {
 				)
 			);
 
-			/* Separator --------------------- */
-
-			$wp_customize->add_setting(
-				'cover_template_separator_1',
-				array(
-					'sanitize_callback' => 'wp_filter_nohtml_kses',
-				)
-			);
-
-			$wp_customize->add_control(
-				new CSISMag_Separator_Control(
-					$wp_customize,
-					'cover_template_separator_1',
-					array(
-						'section' => 'cover_template_options',
-					)
-				)
-			);
-
 			/* Overlay Background Color ------ */
 
 			$wp_customize->add_setting(
