@@ -99,8 +99,6 @@ function csismag_theme_support() {
 		'html5',
 		array(
 			'search-form',
-			'comment-form',
-			'comment-list',
 			'gallery',
 			'caption',
 			'script',
@@ -156,12 +154,6 @@ require get_template_directory() . '/inc/svg-icons.php';
 // Handle Customizer settings.
 require get_template_directory() . '/classes/class-csismag-customize.php';
 
-// Require Separator Control class.
-require get_template_directory() . '/classes/class-csismag-separator-control.php';
-
-// Custom comment walker.
-require get_template_directory() . '/classes/class-csismag-walker-comment.php';
-
 // Custom page walker.
 require get_template_directory() . '/classes/class-csismag-walker-page.php';
 
@@ -173,6 +165,15 @@ require get_template_directory() . '/classes/class-csismag-non-latin-languages.p
 
 // Custom CSS.
 require get_template_directory() . '/inc/custom-css.php';
+
+// Disable default taxonomies.
+require get_template_directory() . '/inc/disable-default-taxonomies.php';
+
+// Issues Custom Post Type.
+require get_template_directory() . '/inc/cpt-issues.php';
+
+// Series Custom Taxonomy.
+require get_template_directory() . '/inc/tax-series.php';
 
 /**
  * Register and Enqueue Styles.

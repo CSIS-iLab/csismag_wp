@@ -10,7 +10,6 @@
 /**
  * Table of Contents:
  * Logo & Description
- * Comments
  * Post Meta
  * Menus
  * Classes
@@ -122,51 +121,6 @@ function csismag_site_description( $echo = true ) {
 }
 
 /**
- * Comments
- */
-/**
- * Check if the specified comment is written by the author of the post commented on.
- *
- * @param object $comment Comment data.
- *
- * @return bool
- */
-function csismag_is_comment_by_post_author( $comment = null ) {
-
-	if ( is_object( $comment ) && $comment->user_id > 0 ) {
-
-		$user = get_userdata( $comment->user_id );
-		$post = get_post( $comment->comment_post_ID );
-
-		if ( ! empty( $user ) && ! empty( $post ) ) {
-
-			return $comment->user_id === $post->post_author;
-
-		}
-	}
-	return false;
-
-}
-
-/**
- * Filter comment reply link to not JS scroll.
- * Filter the comment reply link to add a class indicating it should not use JS slow-scroll, as it
- * makes it scroll to the wrong position on the page.
- *
- * @param string $link Link to the top of the page.
- *
- * @return string $link Link to the top of the page.
- */
-function csismag_filter_comment_reply_link( $link ) {
-
-	$link = str_replace( 'class=\'', 'class=\'do-not-scroll ', $link );
-	return $link;
-
-}
-
-add_filter( 'comment_reply_link', 'csismag_filter_comment_reply_link' );
-
-/**
  * Post Meta
  */
 /**
@@ -262,7 +216,6 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 		* @param array $args {
 		*  @type string 'author'
 		*  @type string 'post-date'
-		*  @type string 'comments'
 		*  @type string 'sticky'
 		* }
 		*/
@@ -271,7 +224,6 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 			array(
 				'author',
 				'post-date',
-				'comments',
 				'sticky',
 			)
 		);
@@ -409,23 +361,6 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 						</span>
 						<span class="meta-text">
 							<?php the_tags( '', ', ', '' ); ?>
-						</span>
-					</li>
-					<?php
-
-				}
-
-				// Comments link.
-				if ( in_array( 'comments', $post_meta, true ) && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-
-					$has_meta = true;
-					?>
-					<li class="post-comment-link meta-wrapper">
-						<span class="meta-icon">
-							<?php csismag_the_theme_svg( 'comment' ); ?>
-						</span>
-						<span class="meta-text">
-							<?php comments_popup_link(); ?>
 						</span>
 					</li>
 					<?php
@@ -665,16 +600,6 @@ function csismag_body_classes( $classes ) {
 	} else {
 		$classes[] = 'has-no-pagination';
 	}
-
-	// Check if we're showing comments.
-	if ( $post && ( ( 'post' === $post_type || comments_open() || get_comments_number() ) && ! post_password_required() ) ) {
-		$classes[] = 'showing-comments';
-	} else {
-		$classes[] = 'not-showing-comments';
-	}
-
-	// Check if avatars are visible.
-	$classes[] = get_option( 'show_avatars' ) ? 'show-avatars' : 'hide-avatars';
 
 	// Slim page template class names (class = name - file suffix).
 	if ( is_page_template() ) {
