@@ -166,6 +166,15 @@ require get_template_directory() . '/classes/class-csismag-non-latin-languages.p
 // Custom CSS.
 require get_template_directory() . '/inc/custom-css.php';
 
+// Disable default taxonomies.
+require get_template_directory() . '/inc/disable-default-taxonomies.php';
+
+// Issues Custom Post Type.
+require get_template_directory() . '/inc/cpt-issues.php';
+
+// Series Custom Taxonomy.
+require get_template_directory() . '/inc/tax-series.php';
+
 /**
  * Register and Enqueue Styles.
  */
