@@ -1,0 +1,15 @@
+.component__caption,
+figcaption,
+cite {
+  display: block !important;
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  text-align: left !important;
+  color: #666666;
+  margin-top: 0.5rem;
+  //border-bottom: 1px solid rgba(162, 173, 175, 0.25);
+  .caption__source {
+    color: #8f8f8f;
+  }
+}

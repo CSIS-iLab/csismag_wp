@@ -1,0 +1,97 @@
+/**
+ * #.# Common SCSS
+ *
+ * Can include things like variables and mixins
+ * that are used across the project.
+*/
+@import "removed";
+// Colors.
+$black: rgb(41, 41, 41);
+$white: #f4f4f4;
+$gray: #dedede;
+$green: #bada55;
+$red: orangered;
+
+.editor-block-list__layout {
+  .components-panel__body.blocks-font-size {
+    display: none;
+  }
+
+  .editor-block-list__block-edit {
+    .small-title,
+    .tiny-text,
+    .component__caption {
+      font-family: sans-serif !important;
+      text-align: left;
+    }
+
+    .small-title {
+      font-weight: bold;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+  .component__imgcircle {
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+  }
+
+  //Block Layouts
+
+  .block-editor-block-list__block[data-type="core/embed"][data-align="left"]
+    .block-editor-block-list__block-edit,
+  .block-editor-block-list__block[data-type="core/embed"][data-align="right"]
+    .block-editor-block-list__block-edit,
+  .wp-block-embed.alignleft,
+  .wp-block-embed.alignright {
+    max-width: 500px;
+}
+    .block-editor-block-list__block[data-align="right"]
+      > .block-editor-block-list__block-edit,
+    .block-editor-block-list__block[data-align="left"]
+      > .block-editor-block-list__block-edit {
+      max-width: 50%;
+    }
+
+    .block-editor-block-list__block[data-align="right"][data-type="csismag-blocks/profile"]
+      > .block-editor-block-list__block-edit,
+    .block-editor-block-list__block[data-align="left"][data-type="csismag-blocks/profile"]
+      > .block-editor-block-list__block-edit {
+      width: 200px;
+    }
+
+    .editor-block-list__block:not([data-align="full"]):not([data-align="wide"]) {
+      max-width: 750px;
+    }
+
+    .block-editor-block-list__block[data-type="core/html"]{
+      max-width: 100% !important;
+    }
+
+.block-editor-block-list__block[data-type="core/html"] > .editor-block-list__block-edit {
+  margin-bottom: 0px;
+}
+
+    figcaption, .wp-block-pullquote__citation {
+      font-size: 14px;
+      color: #555d66;
+      text-transform: none;
+      font-family: sans-serif;
+    }
+
+
+.block-editor-block-list__block[data-align="wide"] .focus__container .block-editor-inner-blocks .editor-block-list__layout > .editor-block-list__block:not([data-align="right"])  {
+  max-width: 750px;
+  margin: unset;
+}
+
+.block-editor-block-list__block[data-align="wide"] .focus__content > .block-editor-inner-blocks .wp-block[data-align="right"]  {
+max-width: 100%;
+  .block-editor-block-list__block-edit{
+    width: 100%;}
+}
+
+}
