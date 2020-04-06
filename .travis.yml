@@ -9,10 +9,13 @@ branches:
 addons:
   ssh_known_hosts: git.wpengine.com
 script:
-  - npm run build
+  - pushd wp-content/themes/csismag; npm run build; popd
+  - pushd wp-content/plugins/csismag-blocks; npm run build; popd
 before_install:
   - openssl aes-256-cbc -K $encrypted_deec70939cbe_key -iv $encrypted_deec70939cbe_iv -in csismag_rsa.enc -out /tmp/csismag_rsa -d
-  - cd wp-content/themes/csismag
+install:
+  - pushd wp-content/themes/csismag; npm install; popd
+  - pushd wp-content/plugins/csismag-blocks; npm install; popd
 before_deploy:
   - cd $TRAVIS_BUILD_DIR
 deploy:

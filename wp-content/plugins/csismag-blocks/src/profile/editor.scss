@@ -1,0 +1,60 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+
+.theme-block__container {
+  border: 1px solid #d3d3d3;
+  padding: 8px 24px;
+
+  .theme-block__students ul li {
+    margin-left: 2rem !important;
+  }
+
+  .theme-block__title {
+    font-size: 1.2rem;
+    line-height: 1.2;
+    color: black;
+  }
+  .theme-block__agenda img,
+  .theme-block__article img {
+    max-width: 200px;
+  }
+
+  .block-label {
+    font-size: 13px;
+    padding-bottom: 0;
+    margin-top: 1rem;
+    text-transform: uppercase;
+
+    span {
+      text-transform: none;
+    }
+  }
+  .theme-block__article {
+    &-excerpt,
+    &-img {
+      display: none;
+    }
+  }
+}
+
+.is-style-profile-large {
+  .component__imgcircle {
+    height: 200px;
+    width: auto;
+    border-radius: 0;
+  }
+}
+
+.alignlife,
+.alignright {
+  clear: both;
+}
+
+
+.profile__container .component__caption {
+  margin-top: 0;
+}

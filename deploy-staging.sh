@@ -7,5 +7,6 @@ git status # check git status
 git checkout master # switch to master branch
 git add wp-content/themes/csismag/*.css -f # force all compiled CSS files to be added
 git add wp-content/themes/csismag/assets -f # force all compiled JS & optimized images
+git add wp-content/plugins/csismag-blocks/dist -f # force all compiled JS for blocks
 git commit -m "Compiled & bundled all assets" # commit the compiled CSS files
 git push -f csismag-staging master #deploy to staging site from master

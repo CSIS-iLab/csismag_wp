@@ -1,0 +1,46 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+.text-color__dark {
+  color: black;
+}
+
+.text-color__light .text-overlay__content {
+  p,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: white;
+  }
+}
+.text-overlay__text {
+  padding: 24px 24px 0;
+}
+
+.component__caption,
+figcaption {
+  font-size: 1rem;
+  font-family: sans-serif;
+  text-align: left;
+}
+
+.component__caption,
+figcaption,
+cite {
+  display: block !important;
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 1.3rem;
+  text-align: left !important;
+  color: #666666;
+  margin-top: 0.5rem;
+  padding-bottom: 12px;
+  //border-bottom: 1px solid rgba(162, 173, 175, 0.25);
+  .caption__source {
+    color: #8f8f8f;
+  }
+}
