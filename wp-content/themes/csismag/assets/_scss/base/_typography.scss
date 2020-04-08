@@ -1,0 +1,25 @@
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: inherit;
+    border: 0;
+  }
+
+  &:focus {
+    outline: thin dotted;
+  }
+
+  &:hover,
+  &:active {
+    outline: 0;
+  }
+}

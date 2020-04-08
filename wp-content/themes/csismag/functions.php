@@ -182,6 +182,8 @@ function csismag_register_styles() {
 
 	$theme_version = wp_get_theme()->get( 'Version' );
 
+	wp_enqueue_style( 'csismag-fonts', 'https://use.typekit.net/ngw0sua.css', array(), $theme_version );
+
 	wp_enqueue_style( 'csismag-style', get_stylesheet_uri(), array(), $theme_version );
 
 	// Add output of Customizer settings as inline style.
