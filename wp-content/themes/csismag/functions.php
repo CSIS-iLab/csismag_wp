@@ -189,9 +189,6 @@ function csismag_register_styles() {
 		wp_enqueue_style( 'csismag-style-home', get_stylesheet_directory_uri() . '/assets/css/pages/home.min.css', array(), $theme_version );
 	}
 
-	// Add output of Customizer settings as inline style.
-	wp_add_inline_style( 'csismag-style', csismag_get_customizer_css( 'front-end' ) );
-
 	// Add print CSS.
 	wp_enqueue_style( 'csismag-print-style', get_template_directory_uri() . '/print.css', null, $theme_version, 'print' );
 

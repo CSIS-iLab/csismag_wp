@@ -2,6 +2,97 @@
 
 .home {
   #site-content {
+    display: grid;
+    grid-gap: rem(48);
     margin-top: rem(16);
+    margin-bottom: rem(48);
+
+    @include breakpoint('large') {
+      grid-template-columns: 2fr 1fr;
+      margin-top: rem(24);
+    }
+
+    @include breakpoint('xlarge') {
+      grid-gap: rem(72);
+      margin-top: rem(32);
+    }
+  }
+
+  &__series {
+    --padding-top: #{rem(20)};
+    --padding-sides: 0;
+
+    /* prettier-ignore */
+    $gradient: linear-gradient(180deg, #f1f4f4 0%, rgba(245, 246, 247, 0.88) 100%);
+
+    padding: var(--padding-top) var(--padding-sides) 0;
+    color: $color-black-100;
+    background: $gradient;
+
+    @include breakpoint($break: 'medium', $until: 'large') {
+      display: grid;
+      grid-column-gap: rem(40);
+      grid-template-areas:
+        'title title'
+        'desc desc'
+        'articles img';
+      grid-template-columns: 2fr 1fr;
+    }
+
+    @include breakpoint($break: 'large', $dir: 'max-width') {
+      @include full-width-background($gradient);
+    }
+
+    @include breakpoint('medium') {
+      --padding-top: #{rem(24)};
+      --padding-sides: var(--padding-top);
+    }
+
+    @include breakpoint('xlarge') {
+      --padding-top: #{rem(32)};
+    }
+
+    &-title {
+      grid-area: title;
+      margin-bottom: rem(12);
+      @extend %font-heading-3-xl-serif;
+    }
+
+    &-desc {
+      grid-area: desc;
+      margin-bottom: rem(24);
+      @extend %font-body-md;
+    }
+
+    > img {
+      grid-area: img;
+      margin-bottom: rem(24);
+    }
+
+    &-articles {
+      grid-area: articles;
+      margin-bottom: var(--padding-top);
+    }
+
+    &-archive {
+      display: block;
+      max-width: fit-content;
+      margin: 0 0 0 auto;
+      padding: rem(4) 0 rem(4) rem(12);
+      color: $color-text-gray-70;
+      @extend %font-button;
+      text-transform: uppercase;
+
+      @include full-width-background($color-white-100, 'left', false);
+
+      &:hover {
+        color: $color-black-100;
+      }
+
+      svg {
+        margin-left: rem(4);
+        font-size: 0.8em;
+      }
+    }
   }
 }

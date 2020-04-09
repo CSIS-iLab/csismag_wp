@@ -61,6 +61,7 @@ a:not([class]) {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 /* Inherit fonts for inputs and buttons */
