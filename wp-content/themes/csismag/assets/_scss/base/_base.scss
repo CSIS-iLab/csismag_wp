@@ -1,6 +1,9 @@
 :root {
   --scrollbar: 0;
   --logo-width: 120px;
+  --logo-color: #{$color-black-100};
+  --breadcrumbs-color: #{$color-text-gray-70};
+  --breadcrumbs-color-hover: #{$color-black-100};
 
   @include breakpoint('medium') {
     --logo-width: 175px;
@@ -9,6 +12,12 @@
 
 *:focus {
   outline: 1px solid $color-primary-light;
+}
+
+.theme--light {
+  --logo-color: $color-white-100;
+  --breadcrumbs-color: #{$color-text-gray-10};
+  --breadcrumbs-color-hover: #{$color-white-100};
 }
 
 .container {
@@ -20,6 +29,7 @@
     'xlarge': 64,
   );
 
+  position: relative;
   max-width: $size__container-max-width;
   margin-right: auto;
   margin-left: auto;
@@ -32,5 +42,24 @@
     @include breakpoint($size) {
       --padding: #{rem($value)};
     }
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - (var(--logo-width) / 2));
+    width: var(--logo-width);
+    height: 2px;
+  }
+
+  &::before {
+    top: 0;
+    background: var(--logo-color);
+  }
+
+  &::after {
+    bottom: 0;
+    background: $color-text-gray-10;
   }
 }

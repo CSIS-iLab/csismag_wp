@@ -194,7 +194,7 @@
   line-height: 1.35;
 }
 
-%font-label-lg-reg {
+%font-label-lg {
   @include font-size(15px);
   font-family: $font__source;
   line-height: 1;
@@ -204,7 +204,7 @@
   }
 }
 
-%font-label-sm-reg {
+%font-label-sm {
   @include font-size(14px);
   font-family: $font__source;
   line-height: 1.15;

@@ -34,32 +34,10 @@
 
 		<div class="container">
 
-			<header id="site-header" class="header-footer-group" role="banner">
+			<header id="site-header" class="header" role="banner">
 
-			<?php echo csismag_breadcrumbs(); ?>
+				<?php echo csismag_breadcrumbs(); ?>
 
-				<div class="header-inner section-inner">
-
-					<div class="header-titles-wrapper">
-
-						<div class="header-titles">
-
-							<?php
-								// Site title or logo.
-								csismag_site_logo();
-
-								// Site description.
-								csismag_site_description();
-							?>
-
-						</div><!-- .header-titles -->
-
-					</div><!-- .header-titles-wrapper -->
-
-					<div class="header-navigation-wrapper">
-
-					</div><!-- .header-navigation-wrapper -->
-
-				</div><!-- .header-inner -->
+				<a href="<?php echo get_home_url(); ?>" class="header__logo" title="Go home"><?php include( get_template_directory() . '/assets/static/csismag-logo.svg'); ?></a>
 
 			</header><!-- #site-header -->

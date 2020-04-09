@@ -116,13 +116,4 @@
       text-align: left;
     }
   }
-
-  &__border {
-    position: absolute;
-    bottom: 0;
-    left: calc(50% - (var(--logo-width) / 2));
-    width: var(--logo-width);
-    height: 2px;
-    background: $color-text-gray-10;
-  }
 }

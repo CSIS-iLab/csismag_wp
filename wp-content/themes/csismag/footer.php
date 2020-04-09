@@ -40,8 +40,6 @@
 					Center for Strategic and International Studies.<br />All rights reserved. <a href="https://www.csis.org/privacy-policy">Privacy Policy</a>
 				</p><!-- .footer-copyright -->
 
-				<div class="footer__border"></div>
-
 			</footer><!-- #site-footer -->
 
 		</div><!-- .container -->
