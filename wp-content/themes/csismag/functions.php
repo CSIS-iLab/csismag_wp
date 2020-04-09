@@ -174,6 +174,9 @@ require get_template_directory() . '/inc/cpt-issues.php';
 // Series Custom Taxonomy.
 require get_template_directory() . '/inc/tax-series.php';
 
+// Breadcrumbs.
+require get_template_directory() . '/inc/breadcrumbs.php';
+
 /**
  * Register and Enqueue Styles.
  */
@@ -246,24 +249,6 @@ function csismag_non_latin_languages() {
 }
 
 add_action( 'wp_enqueue_scripts', 'csismag_non_latin_languages' );
-
-/**
- * Register navigation menus uses wp_nav_menu in five places.
- */
-function csismag_menus() {
-
-	$locations = array(
-		'primary'  => __( 'Desktop Horizontal Menu', 'csismag' ),
-		'expanded' => __( 'Desktop Expanded Menu', 'csismag' ),
-		'mobile'   => __( 'Mobile Menu', 'csismag' ),
-		'footer'   => __( 'Footer Menu', 'csismag' ),
-		'social'   => __( 'Social Menu', 'csismag' ),
-	);
-
-	register_nav_menus( $locations );
-}
-
-add_action( 'init', 'csismag_menus' );
 
 /**
  * Get the information about the logo.

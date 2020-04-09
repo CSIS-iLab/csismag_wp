@@ -167,7 +167,7 @@ function csismag_edit_post_link( $link, $post_id, $text ) {
 		get_the_title( $post_id )
 	);
 
-	return '<div class="post-meta-wrapper post-meta-edit-link-wrapper"><ul class="post-meta"><li class="post-edit meta-wrapper"><span class="meta-icon">' . csismag_get_theme_svg( 'edit' ) . '</span><span class="meta-text"><a href="' . esc_url( $edit_url ) . '">' . $text . '</a></span></li></ul><!-- .post-meta --></div><!-- .post-meta-wrapper -->';
+	return '<div class="post-meta-wrapper post-meta-edit-link-wrapper"><ul class="post-meta"><li class="post-edit meta-wrapper"><span class="meta-icon">' . csismag_get_svg( 'edit' ) . '</span><span class="meta-text"><a href="' . esc_url( $edit_url ) . '">' . $text . '</a></span></li></ul><!-- .post-meta --></div><!-- .post-meta-wrapper -->';
 
 }
 
@@ -487,7 +487,7 @@ function csismag_add_sub_toggles_to_main_menu( $args, $item, $depth ) {
 			$toggle_duration      = csismag_toggle_duration();
 
 			// Add the sub menu toggle.
-			$args->after .= '<button class="toggle sub-menu-toggle fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" data-toggle-duration="' . absint( $toggle_duration ) . '" aria-expanded="false"><span class="screen-reader-text">' . __( 'Show sub menu', 'csismag' ) . '</span>' . csismag_get_theme_svg( 'chevron-down' ) . '</button>';
+			$args->after .= '<button class="toggle sub-menu-toggle fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" data-toggle-duration="' . absint( $toggle_duration ) . '" aria-expanded="false"><span class="screen-reader-text">' . __( 'Show sub menu', 'csismag' ) . '</span>' . csismag_get_svg( 'chevron-down' ) . '</button>';
 
 		}
 
@@ -523,7 +523,7 @@ function csismag_nav_menu_social_icons( $item_output, $item, $depth, $args ) {
 	if ( 'social' === $args->theme_location ) {
 		$svg = CSISMag_SVG_Icons::get_social_link_svg( $item->url );
 		if ( empty( $svg ) ) {
-			$svg = csismag_get_theme_svg( 'link' );
+			$svg = csismag_get_svg( 'link' );
 		}
 		$item_output = str_replace( $args->link_after, '</span>' . $svg, $item_output );
 	}
@@ -712,4 +712,33 @@ function csismag_unique_id( $prefix = '' ) {
 		return wp_unique_id( $prefix );
 	}
 	return $prefix . (string) ++$id_counter;
+}
+
+/**
+ * Get post issue ID.
+ *
+ * Gets the issue ID for the given post.
+ *
+ * @return string Issue Number.
+ */
+if ( ! function_exists('csismag_get_post_issue') ) {
+
+	function csismag_get_post_issue( $is_link = true ) {
+		if ( 'issues' === get_post_type() ) {
+			$number = get_field( 'issue_number' );
+		} else {
+			$issue = get_field( 'issue' );
+			$number = get_field( 'issue_number', $issue->ID );
+		}
+
+		if ( !$number ) {
+			return;
+		}
+
+		if ( !$is_link ) {
+			return '<span class="meta__issue">Issue ' . $number . '</span>';
+		}
+
+		return '<a href="' . esc_url( get_permalink( $issue->ID ) ) . '" class="meta__issue">Issue ' . $number . '</a>';
+	}
 }
