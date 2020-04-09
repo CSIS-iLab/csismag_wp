@@ -1,0 +1,59 @@
+/* stylelint-disable-next-line */
+.addtoany_list {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+
+  a {
+    display: flex !important;
+    align-items: center;
+
+    &:first-of-type {
+      margin-left: -4px;
+    }
+
+    path {
+      transition: fill 0.3s ease-in-out;
+    }
+  }
+
+  /* stylelint-disable-next-line */
+  .a2a_svg {
+    border-radius: 50% !important;
+    transition: background 0.3s ease-in-out;
+  }
+
+  @each $company, $color in $social {
+    .a2a_button_#{$company}:hover .a2a_svg {
+      background: $color !important;
+      opacity: 1 !important;
+    }
+  }
+
+  /* stylelint-disable-next-line */
+  .a2a_button_youtube {
+    position: relative;
+    top: 3px;
+  }
+
+  .footer & {
+    @include breakpoint($break: 'medium', $dir: 'max-width') {
+      justify-content: center;
+    }
+
+    a {
+      flex: 1 1 auto;
+      max-width: fit-content;
+
+      /* stylelint-disable-next-line */
+      path {
+        fill: $color-text-gray-10;
+      }
+
+      /* stylelint-disable-next-line */
+      &:hover path {
+        fill: $color-white-100;
+      }
+    }
+  }
+}

@@ -148,7 +148,6 @@ add_action( 'after_setup_theme', 'csismag_theme_support' );
 require get_template_directory() . '/inc/template-tags.php';
 
 // Handle SVG icons.
-require get_template_directory() . '/classes/class-csismag-svg-icons.php';
 require get_template_directory() . '/inc/svg-icons.php';
 
 // Handle Customizer settings.
@@ -207,8 +206,8 @@ function csismag_register_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
-	wp_enqueue_script( 'csismag-js', get_template_directory_uri() . '/assets/js/index.js', array(), $theme_version, false );
-	wp_script_add_data( 'csismag-js', 'async', true );
+	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, false );
+	wp_script_add_data( 'csismag-vendor-js', 'async', true );
 
 }
 
@@ -350,17 +349,17 @@ add_action( 'wp_body_open', 'csismag_skip_link', 5 );
 function csismag_sidebar_registration() {
 
 	// Arguments used in all register_sidebar() calls.
-	$shared_args = array(
-		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
-		'after_title'   => '</h2>',
-		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
-		'after_widget'  => '</div></div>',
+	$footer_shared_args = array(
+		'before_title'  => '',
+		'after_title'   => '',
+		'before_widget' => '<div class="widget %2$s">',
+		'after_widget'  => '</div>',
 	);
 
 	// Footer #1.
 	register_sidebar(
 		array_merge(
-			$shared_args,
+			$footer_shared_args,
 			array(
 				'name'        => __( 'Footer #1', 'csismag' ),
 				'id'          => 'sidebar-1',
@@ -372,13 +371,24 @@ function csismag_sidebar_registration() {
 	// Footer #2.
 	register_sidebar(
 		array_merge(
-			$shared_args,
+			$footer_shared_args,
 			array(
 				'name'        => __( 'Footer #2', 'csismag' ),
 				'id'          => 'sidebar-2',
 				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'csismag' ),
 			)
 		)
+	);
+
+	// Social Share
+	register_sidebar(
+		array(
+				'name'        => __( 'Social Share', 'csismag' ),
+				'id'          => 'social-share',
+				'description' => __( 'Social Share Widget', 'csismag' ),
+				'before_widget' => '',
+				'after_widget' => ''
+			)
 	);
 
 }

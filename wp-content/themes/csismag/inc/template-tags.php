@@ -297,7 +297,7 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 					<li class="post-author meta-wrapper">
 						<span class="meta-icon">
 							<span class="screen-reader-text"><?php _e( 'Post author', 'csismag' ); ?></span>
-							<?php csismag_the_theme_svg( 'user' ); ?>
+							<?php csismag_get_svg( 'user' ); ?>
 						</span>
 						<span class="meta-text">
 							<?php
@@ -321,7 +321,7 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 					<li class="post-date meta-wrapper">
 						<span class="meta-icon">
 							<span class="screen-reader-text"><?php _e( 'Post date', 'csismag' ); ?></span>
-							<?php csismag_the_theme_svg( 'calendar' ); ?>
+							<?php csismag_get_svg( 'calendar' ); ?>
 						</span>
 						<span class="meta-text">
 							<a href="<?php the_permalink(); ?>"><?php the_time( get_option( 'date_format' ) ); ?></a>
@@ -339,7 +339,7 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 					<li class="post-categories meta-wrapper">
 						<span class="meta-icon">
 							<span class="screen-reader-text"><?php _e( 'Categories', 'csismag' ); ?></span>
-							<?php csismag_the_theme_svg( 'folder' ); ?>
+							<?php csismag_get_svg( 'folder' ); ?>
 						</span>
 						<span class="meta-text">
 							<?php _ex( 'In', 'A string that is output before one or more categories', 'csismag' ); ?> <?php the_category( ', ' ); ?>
@@ -357,7 +357,7 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 					<li class="post-tags meta-wrapper">
 						<span class="meta-icon">
 							<span class="screen-reader-text"><?php _e( 'Tags', 'csismag' ); ?></span>
-							<?php csismag_the_theme_svg( 'tag' ); ?>
+							<?php csismag_get_svg( 'tag' ); ?>
 						</span>
 						<span class="meta-text">
 							<?php the_tags( '', ', ', '' ); ?>
@@ -374,7 +374,7 @@ function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
 					?>
 					<li class="post-sticky meta-wrapper">
 						<span class="meta-icon">
-							<?php csismag_the_theme_svg( 'bookmark' ); ?>
+							<?php csismag_get_svg( 'bookmark' ); ?>
 						</span>
 						<span class="meta-text">
 							<?php _e( 'Sticky post', 'csismag' ); ?>

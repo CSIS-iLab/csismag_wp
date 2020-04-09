@@ -1,3 +1,36 @@
 :root {
   --scrollbar: 0;
+  --logo-width: 120px;
+
+  @include breakpoint('medium') {
+    --logo-width: 175px;
+  }
+}
+
+*:focus {
+  outline: 1px solid $color-primary-light;
+}
+
+.container {
+  --padding: #{rem(20)};
+
+  $padding: (
+    'small': 24,
+    'large': 48,
+    'xlarge': 64,
+  );
+
+  max-width: $size__container-max-width;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: rem(20);
+  padding-right: var(--padding);
+  padding-left: rem(20);
+  padding-left: var(--padding);
+
+  @each $size, $value in $padding {
+    @include breakpoint($size) {
+      --padding: #{rem($value)};
+    }
+  }
 }
