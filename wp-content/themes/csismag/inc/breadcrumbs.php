@@ -33,7 +33,7 @@ if ( ! function_exists('csismag_breadcrumbs') ) {
 				$class = 'breadcrumbs__active';
 			}
 
-			$item = csismag_get_post_issue( $is_link );
+			$item = csismag_get_post_issue( array('is_link' => $is_link ) );
 			$items .= '<li class="' . $class . '">' . $item . '</li>';
 		}
 

@@ -646,3 +646,16 @@ function csismag_get_elements_array() {
 	*/
 	return apply_filters( 'csismag_get_elements_array', $elements );
 }
+
+/** Modify Excerpt */
+function new_excerpt_more($more) {
+    return '...';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
+
+/** Modify Excerpt Classes */
+function csismag_filter_excerpt ($post_excerpt) {
+  $post_excerpt = '<p class="post-block__excerpt">' . $post_excerpt . '</p>';
+  return $post_excerpt;
+}
+add_filter ('get_the_excerpt','csismag_filter_excerpt');

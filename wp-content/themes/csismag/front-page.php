@@ -76,7 +76,7 @@ get_header();
 					while ( $seriesPosts->have_posts() ) {
 						$seriesPosts->the_post();
 
-						get_template_part( 'template-parts/content', get_post_type() );
+						get_template_part( 'template-parts/block', get_post_type() );
 					}
 
 					wp_reset_postdata();

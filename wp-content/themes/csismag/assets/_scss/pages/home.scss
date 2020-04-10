@@ -35,7 +35,8 @@
       grid-template-areas:
         'title title'
         'desc desc'
-        'articles img';
+        'articles img'
+        'archive archive';
       grid-template-columns: 2fr 1fr;
     }
 
@@ -76,6 +77,7 @@
 
     &-archive {
       display: block;
+      grid-area: archive;
       max-width: fit-content;
       margin: 0 0 0 auto;
       padding: rem(4) 0 rem(4) rem(12);
@@ -84,6 +86,10 @@
       text-transform: uppercase;
 
       @include full-width-background($color-white-100, 'left', false);
+
+      &::before {
+        width: calc(100vw - 100%);
+      }
 
       &:hover {
         color: $color-black-100;
