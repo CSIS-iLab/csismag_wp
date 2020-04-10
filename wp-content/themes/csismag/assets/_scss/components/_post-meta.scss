@@ -10,16 +10,6 @@
   &__top {
     display: flex;
     @extend %font-label-lg;
-
-    li + li {
-      margin-left: rem(8);
-    }
-
-    li:last-child::before {
-      content: '|';
-      margin-right: rem(8);
-      color: $color-black-125;
-    }
   }
 
   &__issue .post-meta__value,
@@ -35,6 +25,16 @@
 
     .post-meta__value {
       font-weight: 600;
+    }
+  }
+
+  &__date {
+    margin-left: rem(8);
+
+    &::before {
+      content: '|';
+      margin-right: rem(8);
+      color: $color-black-125;
     }
   }
 

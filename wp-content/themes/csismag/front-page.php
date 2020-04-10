@@ -29,7 +29,12 @@ get_header();
 		while ( $issues->have_posts() ) {
 			$issues->the_post();
 
-			get_template_part( 'template-parts/content', get_post_type() );
+			if ($issues->current_post === 0) {
+				get_template_part( 'template-parts/block-issues-featured' );
+			} else {
+				get_template_part( 'template-parts/block', get_post_type() );
+			}
+
 		}
 
 		wp_reset_postdata();

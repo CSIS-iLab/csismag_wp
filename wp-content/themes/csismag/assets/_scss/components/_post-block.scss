@@ -8,20 +8,4 @@
   &__excerpt {
     @extend %font-body-md;
   }
-
-  .home__series & {
-    &:not(:last-child) {
-      margin-bottom: rem(16);
-      padding-bottom: rem(16);
-      border-bottom: 1px solid $color-black-125;
-    }
-
-    > *:not(:last-child) {
-      margin-bottom: rem(8);
-    }
-
-    &__title {
-      @extend %font-heading-xl-sans;
-    }
-  }
 }
