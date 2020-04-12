@@ -33,7 +33,7 @@
       z-index: -1;
     }
 
-    .post-meta:not(.post-meta__original) {
+    > .post-meta:not(.post-meta__original) {
       position: relative;
       width: fit-content;
       margin-top: rem(-24);
@@ -58,7 +58,7 @@
       }
     }
 
-    .post-block__title {
+    > .post-block__title {
       position: relative;
       margin-bottom: calc(24px + #{$line-height});
       @extend %font-heading-4-xl-serif;
@@ -87,6 +87,28 @@
       @include breakpoint('medium') {
         margin-left: rem(84);
       }
+    }
+
+    .post-block__originals {
+      margin-top: rem(16);
+
+      @include breakpoint('medium') {
+        margin-top: rem(12);
+      }
+    }
+
+    .post-meta__original {
+      margin-bottom: rem(4);
+    }
+  }
+
+  .post-block--list {
+    + .post-block--list {
+      margin-top: rem(8);
+    }
+
+    .post-block__title {
+      @extend %font-heading-lg-sans;
     }
   }
 

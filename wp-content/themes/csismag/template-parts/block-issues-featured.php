@@ -51,12 +51,12 @@
 
 		echo '
 		<div class="post-block__originals">
-			<div class="post-meta post-meta__original">CSISMag Original</div>';
+			<h2 class="post-meta post-meta__original">CSISMag Original</h2>';
 
 		while ( $originals->have_posts() ) {
 			$originals->the_post();
 
-			the_title( '<h2><a href="' . esc_url( get_permalink() ) . '">', '</a></h2>' );
+			get_template_part( 'template-parts/block-post-list' );
 
 		}
 

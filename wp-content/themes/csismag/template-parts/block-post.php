@@ -23,8 +23,6 @@
 	the_excerpt();
 
 	csismag_authors();
-
-	$issue = get_field( 'issue' );
 	?>
 
 </article><!-- .post -->
