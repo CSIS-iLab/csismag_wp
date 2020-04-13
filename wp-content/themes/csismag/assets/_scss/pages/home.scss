@@ -29,12 +29,11 @@
     }
 
     .featured-media {
-      position: relative;
-      z-index: -1;
     }
 
     > .post-meta:not(.post-meta__original) {
       position: relative;
+      z-index: 1;
       width: fit-content;
       margin-top: rem(-24);
       margin-bottom: rem(8);
@@ -60,6 +59,7 @@
 
     > .post-block__title {
       position: relative;
+      z-index: 1;
       margin-bottom: calc(24px + #{$line-height});
       @extend %font-heading-4-xl-serif;
 

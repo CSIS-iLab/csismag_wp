@@ -3,9 +3,17 @@
 .post-block {
   &__title {
     color: $color-black-100;
+
+    a:hover {
+      color: $color-primary-base;
+    }
   }
 
   &__excerpt {
     @extend %font-body-md;
+  }
+
+  .featured-media a {
+    display: block;
   }
 }
