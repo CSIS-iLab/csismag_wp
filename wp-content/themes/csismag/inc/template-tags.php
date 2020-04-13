@@ -40,7 +40,7 @@ function csismag_site_logo( $args = array(), $echo = true ) {
 		'title'       => '<a href="%1$s">%2$s</a>',
 		'title_class' => 'site-title',
 		'home_wrap'   => '<h1 class="%1$s">%2$s</h1>',
-		'single_wrap' => '<div class="%1$s faux-heading">%2$s</div>',
+		'wrap' => '<div class="%1$s faux-heading">%2$s</div>',
 		'condition'   => ( is_front_page() || is_home() ) && ! is_page(),
 	);
 
@@ -123,415 +123,131 @@ function csismag_site_description( $echo = true ) {
 /**
  * Post Meta
  */
-/**
- * Get and Output Post Meta.
- * If it's a single post, output the post meta values specified in the Customizer settings.
- *
- * @param int    $post_id The ID of the post for which the post meta should be output.
- * @param string $location Which post meta location to output – single or preview.
- */
-function csismag_the_post_meta( $post_id = null, $location = 'single-top' ) {
-
-	echo csismag_get_post_meta( $post_id, $location ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in csismag_get_post_meta().
-
-}
 
 /**
- * Filters the edit post link to add an icon and use the post meta structure.
+ * Displays the post meta, including the issue number, post date, and whether it is a CSIS Mag original.
  *
- * @param string $link    Anchor tag for the edit link.
- * @param int    $post_id Post ID.
- * @param string $text    Anchor text.
- */
-function csismag_edit_post_link( $link, $post_id, $text ) {
-	if ( is_admin() ) {
-		return $link;
-	}
-
-	$edit_url = get_edit_post_link( $post_id );
-
-	if ( ! $edit_url ) {
-		return;
-	}
-
-	$text = sprintf(
-		wp_kses(
-			/* translators: %s: Post title. Only visible to screen readers. */
-			__( 'Edit <span class="screen-reader-text">%s</span>', 'csismag' ),
-			array(
-				'span' => array(
-					'class' => array(),
-				),
-			)
-		),
-		get_the_title( $post_id )
-	);
-
-	return '<div class="post-meta-wrapper post-meta-edit-link-wrapper"><ul class="post-meta"><li class="post-edit meta-wrapper"><span class="meta-icon">' . csismag_get_svg( 'edit' ) . '</span><span class="meta-text"><a href="' . esc_url( $edit_url ) . '">' . $text . '</a></span></li></ul><!-- .post-meta --></div><!-- .post-meta-wrapper -->';
-
-}
-
-add_filter( 'edit_post_link', 'csismag_edit_post_link', 10, 3 );
-
-/**
- * Get the post meta.
+ * @param array $args Arguments including whether to show the issue prefix or display CSIS Mag text.
  *
- * @param int    $post_id The ID of the post.
- * @param string $location The location where the meta is shown.
+ * @return string $html The HTML to display.
  */
-function csismag_get_post_meta( $post_id = null, $location = 'single-top' ) {
+function csismag_post_meta( array $options = array()
+) {
 
 	// Require post ID.
-	if ( ! $post_id ) {
+	if ( ! get_the_ID() ) {
 		return;
 	}
 
-	/**
-	 * Filters post types array
-	 *
-	 * This filter can be used to hide post meta information of post, page or custom post type registerd by child themes or plugins
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param array Array of post types
-	 */
-	$disallowed_post_types = apply_filters( 'csismag_disallowed_post_types_for_meta_output', array( 'page' ) );
-	// Check whether the post type is allowed to output post meta.
-	if ( in_array( get_post_type( $post_id ), $disallowed_post_types, true ) ) {
+	$args = array_merge(array(
+		'show_issue' => true,
+		'show_date' => true,
+		'show_csismag_original' => true,
+	 	'show_issue_prefix' => false
+	), $options);
+
+	$issue_output = '';
+	$date_output = '';
+	$csismag_output = '';
+
+	if ( $args['show_issue'] ) {
+		$issue = csismag_get_post_issue( array('has_prefix' => $args['show_issue_prefix'] ) );
+
+		if ( $issue ) {
+			$issue_output = '<li class="post-meta__issue">' . $issue . '</li>';
+		}
+	}
+
+	if ( $args['show_date'] ) {
+		$date_output = '<li class="post-meta__date">' . get_the_time( get_option( 'date_format' ) ) . '</li>';
+	}
+
+	if ( $args['show_csismag_original'] ) {
+		$csismag_output = csismag_get_csismag_original();
+	}
+
+	if ( $issue_output === '' && $date_output === '' && $csismag_output === '' ) {
 		return;
 	}
 
-	$post_meta_wrapper_classes = '';
-	$post_meta_classes         = '';
-
-	// Get the post meta settings for the location specified.
-	if ( 'single-top' === $location ) {
-		/**
-		* Filters post meta info visibility
-		*
-		* Use this filter to hide post meta information like Author, Post date, Comments, Is sticky status
-		*
-		* @since 1.0.0
-		*
-		* @param array $args {
-		*  @type string 'author'
-		*  @type string 'post-date'
-		*  @type string 'sticky'
-		* }
-		*/
-		$post_meta = apply_filters(
-			'csismag_post_meta_location_single_top',
-			array(
-				'author',
-				'post-date',
-				'sticky',
-			)
-		);
-
-		$post_meta_wrapper_classes = ' post-meta-single post-meta-single-top';
-
-	} elseif ( 'single-bottom' === $location ) {
-
-		/**
-		* Filters post tags visibility
-		*
-		* Use this filter to hide post tags
-		*
-		* @since 1.0.0
-		*
-		* @param array $args {
-		*   @type string 'tags'
-		* }
-		*/
-		$post_meta = apply_filters(
-			'csismag_post_meta_location_single_bottom',
-			array(
-				'tags',
-			)
-		);
-
-		$post_meta_wrapper_classes = ' post-meta-single post-meta-single-bottom';
-
-	}
-
-	// If the post meta setting has the value 'empty', it's explicitly empty and the default post meta shouldn't be output.
-	if ( $post_meta && ! in_array( 'empty', $post_meta, true ) ) {
-
-		// Make sure we don't output an empty container.
-		$has_meta = false;
-
-		global $post;
-		$the_post = get_post( $post_id );
-		setup_postdata( $the_post );
-
-		ob_start();
-
-		?>
-
-		<div class="post-meta-wrapper<?php echo esc_attr( $post_meta_wrapper_classes ); ?>">
-
-			<ul class="post-meta<?php echo esc_attr( $post_meta_classes ); ?>">
-
-				<?php
-
-				/**
-				 * Fires before post meta html display.
-				 *
-				 * Allow output of additional post meta info to be added by child themes and plugins.
-				 *
-				 * @since 1.0.0
-				 * @since CSIS Mag 1.1 Added the `$post_meta` and `$location` parameters.
-				 *
-				 * @param int    $post_id   Post ID.
-				 * @param array  $post_meta An array of post meta information.
-				 * @param string $location  The location where the meta is shown.
-				 *                          Accepts 'single-top' or 'single-bottom'.
-				 */
-				do_action( 'csismag_start_of_post_meta_list', $post_id, $post_meta, $location );
-
-				// Author.
-				if ( in_array( 'author', $post_meta, true ) ) {
-
-					$has_meta = true;
-					?>
-					<li class="post-author meta-wrapper">
-						<span class="meta-icon">
-							<span class="screen-reader-text"><?php _e( 'Post author', 'csismag' ); ?></span>
-							<?php csismag_get_svg( 'user' ); ?>
-						</span>
-						<span class="meta-text">
-							<?php
-							printf(
-								/* translators: %s: Author name */
-								__( 'By %s', 'csismag' ),
-								'<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a>'
-							);
-							?>
-						</span>
-					</li>
-					<?php
-
-				}
-
-				// Post date.
-				if ( in_array( 'post-date', $post_meta, true ) ) {
-
-					$has_meta = true;
-					?>
-					<li class="post-date meta-wrapper">
-						<span class="meta-icon">
-							<span class="screen-reader-text"><?php _e( 'Post date', 'csismag' ); ?></span>
-							<?php csismag_get_svg( 'calendar' ); ?>
-						</span>
-						<span class="meta-text">
-							<a href="<?php the_permalink(); ?>"><?php the_time( get_option( 'date_format' ) ); ?></a>
-						</span>
-					</li>
-					<?php
-
-				}
-
-				// Categories.
-				if ( in_array( 'categories', $post_meta, true ) && has_category() ) {
-
-					$has_meta = true;
-					?>
-					<li class="post-categories meta-wrapper">
-						<span class="meta-icon">
-							<span class="screen-reader-text"><?php _e( 'Categories', 'csismag' ); ?></span>
-							<?php csismag_get_svg( 'folder' ); ?>
-						</span>
-						<span class="meta-text">
-							<?php _ex( 'In', 'A string that is output before one or more categories', 'csismag' ); ?> <?php the_category( ', ' ); ?>
-						</span>
-					</li>
-					<?php
-
-				}
-
-				// Tags.
-				if ( in_array( 'tags', $post_meta, true ) && has_tag() ) {
-
-					$has_meta = true;
-					?>
-					<li class="post-tags meta-wrapper">
-						<span class="meta-icon">
-							<span class="screen-reader-text"><?php _e( 'Tags', 'csismag' ); ?></span>
-							<?php csismag_get_svg( 'tag' ); ?>
-						</span>
-						<span class="meta-text">
-							<?php the_tags( '', ', ', '' ); ?>
-						</span>
-					</li>
-					<?php
-
-				}
-
-				// Sticky.
-				if ( in_array( 'sticky', $post_meta, true ) && is_sticky() ) {
-
-					$has_meta = true;
-					?>
-					<li class="post-sticky meta-wrapper">
-						<span class="meta-icon">
-							<?php csismag_get_svg( 'bookmark' ); ?>
-						</span>
-						<span class="meta-text">
-							<?php _e( 'Sticky post', 'csismag' ); ?>
-						</span>
-					</li>
-					<?php
-
-				}
-
-				/**
-				 * Fires after post meta html display.
-				 *
-				 * Allow output of additional post meta info to be added by child themes and plugins.
-				 *
-				 * @since 1.0.0
-				 * @since CSIS Mag 1.1 Added the `$post_meta` and `$location` parameters.
-				 *
-				 * @param int    $post_id   Post ID.
-				 * @param array  $post_meta An array of post meta information.
-				 * @param string $location  The location where the meta is shown.
-				 *                          Accepts 'single-top' or 'single-bottom'.
-				 */
-				do_action( 'csismag_end_of_post_meta_list', $post_id, $post_meta, $location );
-
-				?>
-
-			</ul><!-- .post-meta -->
-
-		</div><!-- .post-meta-wrapper -->
-
-		<?php
-
-		wp_reset_postdata();
-
-		$meta_output = ob_get_clean();
-
-		// If there is meta to output, return it.
-		if ( $has_meta && $meta_output ) {
-
-			return $meta_output;
-
-		}
-	}
-
+	echo '<div class="post-meta"><ul class="post-meta__top">' . $issue_output . $date_output . '</ul>' . $csismag_output . '</div>';
 }
 
 /**
- * Menus
- */
-/**
- * Filter Classes of wp_list_pages items to match menu items.
- * Filter the class applied to wp_list_pages() items with children to match the menu class, to simplify.
- * styling of sub levels in the fallback. Only applied if the match_menu_classes argument is set.
+ * Displays the post authors. Uses CoAuthors Plus plugin to display guest authors in place of standard WP authors.
  *
- * @param array  $css_class CSS Class names.
- * @param string $item Comment.
- * @param int    $depth Depth of the current comment.
- * @param array  $args An array of arguments.
- * @param string $current_page Whether or not the item is the current item.
- *
- * @return array $css_class CSS Class names.
  */
-function csismag_filter_wp_list_pages_item_classes( $css_class, $item, $depth, $args, $current_page ) {
-
-	// Only apply to wp_list_pages() calls with match_menu_classes set to true.
-	$match_menu_classes = isset( $args['match_menu_classes'] );
-
-	if ( ! $match_menu_classes ) {
-		return $css_class;
+function csismag_authors() {
+	if ( function_exists( 'coauthors' ) ) {
+    $authors = coauthors( ', ', ', ', null, null, false );
+	} else {
+		$authors = get_the_author();
 	}
 
-	// Add current menu item class.
-	if ( in_array( 'current_page_item', $css_class, true ) ) {
-		$css_class[] = 'current-menu-item';
+	if ( !$authors ) {
+		return;
 	}
 
-	// Add menu item has children class.
-	if ( in_array( 'page_item_has_children', $css_class, true ) ) {
-		$css_class[] = 'menu-item-has-children';
-	}
-
-	return $css_class;
-
+	echo '<div class="post-meta post-meta__authors"><span class="post-meta__label">Written by</span> <span class="post-meta__value">' . $authors . '</span></div>';
 }
 
-add_filter( 'page_css_class', 'csismag_filter_wp_list_pages_item_classes', 10, 5 );
-
 /**
- * Add a Sub Nav Toggle to the Expanded Menu and Mobile Menu.
+ * Get post issue number.
  *
- * @param stdClass $args An array of arguments.
- * @param string   $item Menu item.
- * @param int      $depth Depth of the current menu item.
+ * Gets the issue number for the given post.
  *
- * @return stdClass $args An object of wp_nav_menu() arguments.
+ * @return string Issue Number.
  */
-function csismag_add_sub_toggles_to_main_menu( $args, $item, $depth ) {
+if ( ! function_exists('csismag_get_post_issue') ) {
 
-	// Add sub menu toggles to the Expanded Menu with toggles.
-	if ( isset( $args->show_toggles ) && $args->show_toggles ) {
+	function csismag_get_post_issue( $args = array("is_link" => true, "has_prefix" => false ) ) {
 
-		// Wrap the menu item link contents in a div, used for positioning.
-		$args->before = '<div class="ancestor-wrapper">';
-		$args->after  = '';
-
-		// Add a toggle to items with children.
-		if ( in_array( 'menu-item-has-children', $item->classes, true ) ) {
-
-			$toggle_target_string = '.menu-modal .menu-item-' . $item->ID . ' > .sub-menu';
-			$toggle_duration      = csismag_toggle_duration();
-
-			// Add the sub menu toggle.
-			$args->after .= '<button class="toggle sub-menu-toggle fill-children-current-color" data-toggle-target="' . $toggle_target_string . '" data-toggle-type="slidetoggle" data-toggle-duration="' . absint( $toggle_duration ) . '" aria-expanded="false"><span class="screen-reader-text">' . __( 'Show sub menu', 'csismag' ) . '</span>' . csismag_get_svg( 'chevron-down' ) . '</button>';
-
-		}
-
-		// Close the wrapper.
-		$args->after .= '</div><!-- .ancestor-wrapper -->';
-
-		// Add sub menu icons to the primary menu without toggles.
-	} elseif ( 'primary' === $args->theme_location ) {
-		if ( in_array( 'menu-item-has-children', $item->classes, true ) ) {
-			$args->after = '<span class="icon"></span>';
+		if ( 'issues' === get_post_type() ) {
+			$number = get_field( 'issue_number' );
 		} else {
-			$args->after = '';
+			$issue = get_field( 'issue' );
+			$number = get_field( 'issue_number', $issue->ID );
 		}
+
+		if ( !$number ) {
+			return;
+		}
+
+		$prefix = '';
+		if ( $args['has_prefix'] ) {
+			$prefix = '<span class="post-meta__label">From</span> ';
+		}
+
+		if ( !$args['is_link'] ) {
+			return $prefix. '<span class="post-meta__value">Issue ' . $number . '</span>';
+		}
+
+		return '<a href="' . esc_url( get_permalink( $issue->ID ) ) . '" class="post-meta__value">Issue ' . $number . '</a>';
 	}
-
-	return $args;
-
 }
-
-add_filter( 'nav_menu_item_args', 'csismag_add_sub_toggles_to_main_menu', 10, 3 );
 
 /**
- * Display SVG icons in social links menu.
+ * Gets CSISMag Original meta if it applies.
  *
- * @param  string  $item_output The menu item output.
- * @param  WP_Post $item        Menu item object.
- * @param  int     $depth       Depth of the menu.
- * @param  array   $args        wp_nav_menu() arguments.
- * @return string  $item_output The menu item output with social icon.
+ * @return string CSISMag Original.
  */
-function csismag_nav_menu_social_icons( $item_output, $item, $depth, $args ) {
-	// Change SVG icon inside social links menu if there is supported URL.
-	if ( 'social' === $args->theme_location ) {
-		$svg = CSISMag_SVG_Icons::get_social_link_svg( $item->url );
-		if ( empty( $svg ) ) {
-			$svg = csismag_get_svg( 'link' );
+if ( ! function_exists('csismag_get_csismag_original') ) {
+
+	function csismag_get_csismag_original() {
+
+		if ( 'post' !== get_post_type() ) {
+			return;
 		}
-		$item_output = str_replace( $args->link_after, '</span>' . $svg, $item_output );
+
+		$is_original = get_field( 'is_csismag_original' );
+
+		if ( !$is_original ) {
+			return;
+		}
+
+		return '<div class="post-meta__original">CSISMag Original</div>';
 	}
-
-	return $item_output;
 }
-
-add_filter( 'walker_nav_menu_start_el', 'csismag_nav_menu_social_icons', 10, 4 );
 
 /**
  * Classes
@@ -712,33 +428,4 @@ function csismag_unique_id( $prefix = '' ) {
 		return wp_unique_id( $prefix );
 	}
 	return $prefix . (string) ++$id_counter;
-}
-
-/**
- * Get post issue ID.
- *
- * Gets the issue ID for the given post.
- *
- * @return string Issue Number.
- */
-if ( ! function_exists('csismag_get_post_issue') ) {
-
-	function csismag_get_post_issue( $is_link = true ) {
-		if ( 'issues' === get_post_type() ) {
-			$number = get_field( 'issue_number' );
-		} else {
-			$issue = get_field( 'issue' );
-			$number = get_field( 'issue_number', $issue->ID );
-		}
-
-		if ( !$number ) {
-			return;
-		}
-
-		if ( !$is_link ) {
-			return '<span class="meta__issue">Issue ' . $number . '</span>';
-		}
-
-		return '<a href="' . esc_url( get_permalink( $issue->ID ) ) . '" class="meta__issue">Issue ' . $number . '</a>';
-	}
 }

@@ -159,9 +159,6 @@ require get_template_directory() . '/classes/class-csismag-walker-page.php';
 // Custom script loader class.
 require get_template_directory() . '/classes/class-csismag-script-loader.php';
 
-// Non-latin language handling.
-require get_template_directory() . '/classes/class-csismag-non-latin-languages.php';
-
 // Custom CSS.
 require get_template_directory() . '/inc/custom-css.php';
 
@@ -186,10 +183,11 @@ function csismag_register_styles() {
 
 	wp_enqueue_style( 'csismag-fonts', 'https://use.typekit.net/ngw0sua.css', array(), $theme_version );
 
-	wp_enqueue_style( 'csismag-style', get_stylesheet_uri(), array(), $theme_version );
+	wp_enqueue_style( 'csismag-style', get_stylesheet_directory_uri() . '/style.min.css', array(), $theme_version );
 
-	// Add output of Customizer settings as inline style.
-	wp_add_inline_style( 'csismag-style', csismag_get_customizer_css( 'front-end' ) );
+	if ( is_front_page() || is_home() ) {
+		wp_enqueue_style( 'csismag-style-home', get_stylesheet_directory_uri() . '/assets/css/pages/home.min.css', array(), $theme_version );
+	}
 
 	// Add print CSS.
 	wp_enqueue_style( 'csismag-print-style', get_template_directory_uri() . '/print.css', null, $theme_version, 'print' );
@@ -234,78 +232,6 @@ function csismag_skip_link_focus_fix() {
 }
 add_action( 'wp_print_footer_scripts', 'csismag_skip_link_focus_fix' );
 
-/** Enqueue non-latin language styles
- *
- * @since 1.0.0
- *
- * @return void
- */
-function csismag_non_latin_languages() {
-	$custom_css = CSISMag_Non_Latin_Languages::get_non_latin_css( 'front-end' );
-
-	if ( $custom_css ) {
-		wp_add_inline_style( 'csismag-style', $custom_css );
-	}
-}
-
-add_action( 'wp_enqueue_scripts', 'csismag_non_latin_languages' );
-
-/**
- * Get the information about the logo.
- *
- * @param string $html The HTML output from get_custom_logo (core function).
- *
- * @return string $html
- */
-function csismag_get_custom_logo( $html ) {
-
-	$logo_id = get_theme_mod( 'custom_logo' );
-
-	if ( ! $logo_id ) {
-		return $html;
-	}
-
-	$logo = wp_get_attachment_image_src( $logo_id, 'full' );
-
-	if ( $logo ) {
-		// For clarity.
-		$logo_width  = esc_attr( $logo[1] );
-		$logo_height = esc_attr( $logo[2] );
-
-		// If the retina logo setting is active, reduce the width/height by half.
-		if ( get_theme_mod( 'retina_logo', false ) ) {
-			$logo_width  = floor( $logo_width / 2 );
-			$logo_height = floor( $logo_height / 2 );
-
-			$search = array(
-				'/width=\"\d+\"/iU',
-				'/height=\"\d+\"/iU',
-			);
-
-			$replace = array(
-				"width=\"{$logo_width}\"",
-				"height=\"{$logo_height}\"",
-			);
-
-			// Add a style attribute with the height, or append the height to the style attribute if the style attribute already exists.
-			if ( strpos( $html, ' style=' ) === false ) {
-				$search[]  = '/(src=)/';
-				$replace[] = "style=\"height: {$logo_height}px;\" src=";
-			} else {
-				$search[]  = '/(style="[^"]*)/';
-				$replace[] = "$1 height: {$logo_height}px;";
-			}
-
-			$html = preg_replace( $search, $replace, $html );
-
-		}
-	}
-
-	return $html;
-
-}
-
-add_filter( 'get_custom_logo', 'csismag_get_custom_logo' );
 
 if ( ! function_exists( 'wp_body_open' ) ) {
 
@@ -394,9 +320,6 @@ function csismag_block_editor_styles() {
 	// Add inline style from the Customizer.
 	wp_add_inline_style( 'csismag-block-editor-styles', csismag_get_customizer_css( 'block-editor' ) );
 
-	// Add inline style for non-latin fonts.
-	wp_add_inline_style( 'csismag-block-editor-styles', CSISMag_Non_Latin_Languages::get_non_latin_css( 'block-editor' ) );
-
 	// Enqueue the editor script.
 	wp_enqueue_script( 'csismag-block-editor-script', get_theme_file_uri( '/assets/js/editor-script-block.js' ), array( 'wp-blocks', 'wp-dom' ), wp_get_theme()->get( 'Version' ), true );
 }
@@ -441,35 +364,6 @@ function csismag_add_classic_editor_customizer_styles( $mce_init ) {
 }
 
 add_filter( 'tiny_mce_before_init', 'csismag_add_classic_editor_customizer_styles' );
-
-/**
- * Output non-latin font styles in the classic editor.
- * Adds styles to the head of the TinyMCE iframe. Kudos to @Otto42 for the original solution.
- *
- * @param array $mce_init TinyMCE styles.
- *
- * @return array $mce_init TinyMCE styles.
- */
-function csismag_add_classic_editor_non_latin_styles( $mce_init ) {
-
-	$styles = CSISMag_Non_Latin_Languages::get_non_latin_css( 'classic-editor' );
-
-	// Return if there are no styles to add.
-	if ( ! $styles ) {
-		return $mce_init;
-	}
-
-	if ( ! isset( $mce_init['content_style'] ) ) {
-		$mce_init['content_style'] = $styles . ' ';
-	} else {
-		$mce_init['content_style'] .= ' ' . $styles . ' ';
-	}
-
-	return $mce_init;
-
-}
-
-add_filter( 'tiny_mce_before_init', 'csismag_add_classic_editor_non_latin_styles' );
 
 /**
  * Block Editor Settings.
@@ -752,3 +646,16 @@ function csismag_get_elements_array() {
 	*/
 	return apply_filters( 'csismag_get_elements_array', $elements );
 }
+
+/** Modify Excerpt */
+function new_excerpt_more($more) {
+    return '...';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
+
+/** Modify Excerpt Classes */
+function csismag_filter_excerpt ($post_excerpt) {
+  $post_excerpt = '<p class="post-block__excerpt">' . $post_excerpt . '</p>';
+  return $post_excerpt;
+}
+add_filter ('get_the_excerpt','csismag_filter_excerpt');

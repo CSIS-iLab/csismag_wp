@@ -1,0 +1,25 @@
+@use 'abstracts' as *;
+
+.post-block {
+  &__title {
+    color: $color-black-100;
+
+    a {
+      &:visited {
+        color: $color-text-gray-70;
+      }
+
+      &:hover {
+        color: $color-primary-base;
+      }
+    }
+  }
+
+  &__excerpt {
+    @extend %font-body-md;
+  }
+
+  .featured-media a {
+    display: block;
+  }
+}

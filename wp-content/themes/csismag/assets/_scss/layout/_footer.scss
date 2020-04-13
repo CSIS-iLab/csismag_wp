@@ -1,3 +1,5 @@
+@use 'abstracts' as *;
+
 .footer {
   --padding-top: #{rem(24)};
   --padding-bottom: #{rem(40)};

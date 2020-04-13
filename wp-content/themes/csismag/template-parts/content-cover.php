@@ -111,8 +111,6 @@
 									<?php
 								}
 
-								csismag_the_post_meta( get_the_ID(), 'single-top' );
-
 							}
 							?>
 
@@ -141,10 +139,6 @@
 				'link_after'  => '</span>',
 			)
 		);
-
-		edit_post_link();
-		// Single bottom post meta.
-		csismag_the_post_meta( get_the_ID(), 'single-bottom' );
 
 		if ( is_single() ) {
 
