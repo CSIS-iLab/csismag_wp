@@ -4,8 +4,14 @@
   &__title {
     color: $color-black-100;
 
-    a:hover {
-      color: $color-primary-base;
+    a {
+      &:visited {
+        color: $color-text-gray-70;
+      }
+
+      &:hover {
+        color: $color-primary-base;
+      }
     }
   }
 
