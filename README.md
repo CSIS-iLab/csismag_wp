@@ -78,6 +78,16 @@ Write clear and concise commit messages describing the changes you are making an
 - This project uses the [BEM](http://getbem.com/introduction/) naming convention.
 - This project uses [Stylelint](https://stylelint.io) to maintain a consistent code style. Errors are flagged in the console during development and can be automatically fixed by running `npm run stylelint-fix`.
 
+### Block Development
+
+This theme uses a custom plugin for Gutenbeg blocks: `csismag-blocks`. To develop blocks, follow these steps:
+
+```shell
+$ cd wp-content/plugins/csismag-blocks
+$ npm install
+$ npm start
+```
+
 ## Copyright / License Info
 
 Copyright © 2020 CSIS iDeas Lab under the [MIT License](https://github.com/CSIS-iLab/csismag_wp/blob/master/LICENSE).
