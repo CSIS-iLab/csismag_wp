@@ -1,0 +1,132 @@
+@use '../abstracts' as *;
+
+.single {
+  .container {
+    @include breakpoint('large') {
+      --padding: #{rem(40px)};
+    }
+
+    @include breakpoint('xlarge') {
+      --padding: #{rem(56)};
+    }
+  }
+
+  &__title {
+    color: var(--page-title);
+    @extend %font-heading-5-xl;
+  }
+
+  &__excerpt {
+    --line-height: #{rem(10)};
+    position: relative;
+    color: var(--page-excerpt);
+    @extend %font-body-lg-post;
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      width: rem(60);
+      height: var(--line-height);
+      background-color: var(--page-title-underline);
+    }
+  }
+
+  &__header {
+    position: relative;
+    min-height: 80vh;
+
+    @include breakpoint('large') {
+      min-height: 700px;
+    }
+  }
+
+  &.issues-template-default {
+    .single__header {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .single__header-wrapper {
+      position: relative;
+      flex: 1 1 auto;
+      padding: rem(40) 0;
+
+      @include breakpoint('medium') {
+        width: 75%;
+        max-width: 600px;
+        padding-bottom: rem(24);
+      }
+
+      @include breakpoint('large') {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: rem(24);
+      }
+
+      @include breakpoint('xlarge') {
+        padding-left: rem(70);
+      }
+    }
+
+    .featured-media {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: calc(50% - 50vw);
+        display: block;
+        width: 100vw;
+        /* prettier-ignore */
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.26), rgba(0, 0, 0, 0.26)), linear-gradient(90deg, rgba(0, 0, 0, 0.56) 0%, rgba(0, 0, 0, 0) 67.03%);
+      }
+
+      img {
+        object-fit: cover;
+        width: 100vw;
+        max-width: unset;
+        height: 100%;
+        margin-left: calc(50% - 50vw);
+      }
+    }
+
+    .post-meta {
+      margin-bottom: rem(8);
+    }
+
+    .single__title {
+      margin-bottom: rem(32);
+    }
+
+    .single__excerpt {
+      padding-top: calc(var(--line-height) + 8px);
+
+      @include breakpoint('medium') {
+        display: grid;
+        grid-gap: rem(24);
+        grid-template-columns: repeat(2, auto);
+        padding-top: 0;
+      }
+
+      &::before {
+        top: 0;
+        left: 0;
+
+        @include breakpoint('medium') {
+          position: relative;
+          top: 8px;
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,11 @@
   --logo-color: #{$color-black-100};
   --breadcrumbs-color: #{$color-text-gray-70};
   --breadcrumbs-color-hover: #{$color-black-100};
+  --page-title: #{$color-black-100};
+  --page-title-underline: #{$color-black-100};
+  --page-excerpt: #{$color-text-gray-70};
+  --post-meta: #{$color-text-gray-70};
+  --post-meta-divider: #{$color-black-125};
 
   @include breakpoint('medium') {
     --logo-width: 175px;
@@ -16,10 +21,19 @@
   outline: 1px solid $color-primary-light;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .theme--light {
   --logo-color: $color-white-100;
   --breadcrumbs-color: #{$color-text-gray-10};
   --breadcrumbs-color-hover: #{$color-white-100};
+  --page-title: #{$color-white-100};
+  --page-title-underline: #{$color-white-100};
+  --page-excerpt: #{$color-text-gray-05};
+  --post-meta: #{$color-text-gray-05};
+  --post-meta-divider: #{$color-white-130};
 }
 
 .container {

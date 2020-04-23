@@ -1,7 +1,7 @@
 @use 'abstracts' as *;
 
 .post-meta {
-  color: $color-text-gray-70;
+  color: var(--post-meta);
 
   &__label {
     font-style: italic;
@@ -34,7 +34,7 @@
     &::before {
       content: '|';
       margin-right: rem(8);
-      color: $color-black-125;
+      color: var(--post-meta-divider);
     }
   }
 

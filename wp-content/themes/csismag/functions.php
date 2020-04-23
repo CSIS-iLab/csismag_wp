@@ -189,6 +189,14 @@ function csismag_register_styles() {
 		wp_enqueue_style( 'csismag-style-home', get_stylesheet_directory_uri() . '/assets/css/pages/home.min.css', array(), $theme_version );
 	}
 
+	if ( is_singular() ) {
+		wp_enqueue_style( 'csismag-style-single', get_stylesheet_directory_uri() . '/assets/css/pages/single.min.css', array(), $theme_version );
+	}
+
+	if ( 'issues' === get_post_type() ) {
+		wp_enqueue_style( 'csismag-style-issues', get_stylesheet_directory_uri() . '/assets/css/pages/issues.min.css', array(), $theme_version );
+	}
+
 	// Add print CSS.
 	wp_enqueue_style( 'csismag-print-style', get_template_directory_uri() . '/print.css', null, $theme_version, 'print' );
 
@@ -655,7 +663,13 @@ add_filter('excerpt_more', 'new_excerpt_more');
 
 /** Modify Excerpt Classes */
 function csismag_filter_excerpt ($post_excerpt) {
-  $post_excerpt = '<p class="post-block__excerpt">' . $post_excerpt . '</p>';
+	$class = 'post-block__excerpt';
+
+	if ( !is_front_page() && is_singular() ) {
+		$class = 'single__excerpt';
+	}
+
+  $post_excerpt = '<p class="' . $class . '">' . $post_excerpt . '</p>';
   return $post_excerpt;
 }
 add_filter ('get_the_excerpt','csismag_filter_excerpt');
