@@ -50,9 +50,77 @@
   }
 }
 
+.single__content {
+  color: $color-text-gray-90;
+
+  p {
+    @extend %font-body-lg-post;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: var(--heading-margin-top, rem(24));
+    margin-bottom: rem(12);
+  }
+
+  h2 {
+    --heading-margin-top: #{rem(48)};
+    @extend %font-heading-3-xl-serif;
+    text-align: center;
+
+    @include breakpoint('medium') {
+      --heading-margin-top: #{rem(56)};
+    }
+
+    @include breakpoint('large') {
+      --heading-margin-top: #{rem(64)};
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      width: 2px;
+      height: rem(48);
+      margin: 0 auto rem(12);
+      background: $color-text-gray-30;
+    }
+  }
+
+  h3 {
+    --heading-margin-top: #{rem(40)};
+    @extend %font-heading-2-xl-serif;
+  }
+
+  h4 {
+    --heading-margin-top: #{rem(32)};
+    @extend %font-heading-xl-serif;
+  }
+
+  h5 {
+    @extend %font-heading-lg-serif;
+  }
+
+  h6 {
+    @extend %font-heading-md-serif;
+  }
+
+  ul,
+  ol {
+    margin: rem(8) 0 rem(24);
+    padding-left: rem(48);
+    @extend %font-body-lg-post, %font-body-lg-list;
+
+    li + li {
+      margin-top: rem(8);
+    }
+  }
+}
+
 .single__footer {
   margin-top: rem(80);
-  color: $color-text-gray-90;
   @extend %font-body-sm;
 
   &::before {

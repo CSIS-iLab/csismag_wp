@@ -145,19 +145,24 @@
 }
 
 %font-body-lg-post {
+  --line-height: 1.5;
   @include font-size(18px);
   font-family: $font__minion-caption;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--line-height, 1.5);
 
   @include breakpoint('medium') {
+    --line-height: 1.6;
     @include font-size(20px);
-    line-height: 1.6;
   }
 }
 
 %font-body-lg-list {
-  line-height: 1.4;
+  --line-height: 1.4;
+
+  @include breakpoint('medium') {
+    --line-height: 1.4;
+  }
 }
 
 %font-body-lg-description {
