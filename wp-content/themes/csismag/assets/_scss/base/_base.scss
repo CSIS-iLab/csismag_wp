@@ -3,9 +3,11 @@
 :root {
   --scrollbar: 0;
   --logo-width: 120px;
+  --logo-height: 32px;
   --logo-color: #{$color-black-100};
   --breadcrumbs-color: #{$color-text-gray-70};
   --breadcrumbs-color-hover: #{$color-black-100};
+  --breadcrumbs-divider: #{$color-black-130};
   --page-title: #{$color-black-100};
   --page-title-underline: #{$color-black-100};
   --page-excerpt: #{$color-text-gray-70};
@@ -14,6 +16,7 @@
 
   @include breakpoint('medium') {
     --logo-width: 175px;
+    --logo-height: 48px;
   }
 }
 
@@ -26,9 +29,10 @@ body {
 }
 
 .theme--light {
-  --logo-color: $color-white-100;
+  --logo-color: #{$color-white-100};
   --breadcrumbs-color: #{$color-text-gray-10};
   --breadcrumbs-color-hover: #{$color-white-100};
+  --breadcrumbs-divider: #{$color-white-150};
   --page-title: #{$color-white-100};
   --page-title-underline: #{$color-white-100};
   --page-excerpt: #{$color-text-gray-05};
