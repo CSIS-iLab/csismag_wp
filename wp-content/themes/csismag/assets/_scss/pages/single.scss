@@ -168,4 +168,25 @@
       }
     }
   }
+
+  .featured-media__caption {
+    margin-bottom: rem(12);
+    color: $color-text-gray-70;
+    @extend %font-body-sm;
+
+    &::after {
+      content: '';
+      display: block;
+      width: rem(40);
+      height: 2px;
+      margin-top: rem(12);
+      background: $color-black-125;
+    }
+  }
+
+  &__content {
+    p + p {
+      margin-top: rem(24);
+    }
+  }
 }
