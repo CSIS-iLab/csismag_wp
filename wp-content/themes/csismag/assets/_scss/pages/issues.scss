@@ -1,6 +1,18 @@
 @use '../abstracts' as *;
 
 .single-issues {
+  .single__header {
+    min-height: 80vh;
+
+    @include breakpoint('large') {
+      min-height: 700px;
+    }
+  }
+
+  .single__title {
+    @extend %font-heading-5-xl;
+  }
+
   .issue__overview {
     flex: 0 0 auto;
     width: 100%;
@@ -121,6 +133,46 @@
       max-width: $size__issues-content-max-width;
       margin: 0 auto;
       padding: rem(48) rem(40) 0;
+    }
+  }
+
+  .issue__scroll {
+    display: none;
+
+    @include breakpoint('large') {
+      position: absolute;
+      bottom: rem(59);
+      left: rem(84);
+      display: block;
+      color: $color-white-150;
+      @include font-size(14px);
+      font-family: $font__source;
+      line-height: 1;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transform: rotate(-90deg);
+
+      &::before,
+      &::after {
+        --right: 8px;
+        --background: #{$color-white-130};
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: calc(100% + var(--right));
+        height: 2px;
+        background: var(--background);
+      }
+
+      &::before {
+        width: rem(32);
+      }
+
+      &::after {
+        --right: calc(8px + 32px);
+        --background: #{$color-black-125};
+        width: rem(40);
+      }
     }
   }
 }

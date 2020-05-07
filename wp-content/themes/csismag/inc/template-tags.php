@@ -323,7 +323,11 @@ function csismag_body_classes( $classes ) {
 	}
 
 	// Page has light theme
-	if ( is_single() && 'issues' === get_post_type() ) {
+	if ( is_single() && 'issues' === $post_type ) {
+		$classes[] = 'theme--light';
+	}
+
+	if ( get_field( 'use_light_theme' ) ) {
 		$classes[] = 'theme--light';
 	}
 
