@@ -60,8 +60,8 @@ if ( 'issues' === get_post_type() ) {
 			</div>';
 		}
 
+		echo '<div class="issue__scroll">Scroll</div>';
 	}
 	?>
-	<div class="issue__scroll">Scroll</div>
 
 </header><!-- .entry-header -->

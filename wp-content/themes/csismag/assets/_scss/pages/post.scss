@@ -1,37 +1,82 @@
 @use '../abstracts' as *;
 
-.single-post {
-  .single__title {
-    @extend %font-heading-4-xl-sans;
+.single__title {
+  @extend %font-heading-4-xl-sans;
+}
+
+.single__header {
+  @include breakpoint('medium') {
+    min-height: 540px;
   }
 
-  .single__header {
-    @include breakpoint('medium') {
-      min-height: 540px;
-    }
-
-    @include breakpoint('xlarge') {
-      min-height: 640px;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: rem(-48);
-      left: 50%;
-      width: 2px;
-      height: 80px;
-      /* stylelint-disable */
-      background-image: linear-gradient(
-        to bottom,
-        $color-white-130,
-        $color-white-130 40%,
-        $color-black-125 40%
-      );
-      /* stylelint-enable */
-    }
+  @include breakpoint('xlarge') {
+    min-height: 640px;
   }
 
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: rem(-48);
+    left: 50%;
+    width: 2px;
+    height: 80px;
+    /* stylelint-disable */
+    background-image: linear-gradient(
+      to bottom,
+      $color-white-130,
+      $color-white-130 40%,
+      $color-black-125 40%
+    );
+    /* stylelint-enable */
+  }
+}
+
+.single__content,
+.single__footer {
+  max-width: $size__content-max-width;
+  margin-right: auto;
+  margin-left: auto;
+
+  a:not([class]) {
+    @include link-underline($color-primary-base);
+
+    &:hover {
+      color: $color-primary-base;
+    }
+
+    &:visited {
+      color: $color-text-gray-70;
+    }
+  }
+}
+
+.single__footer {
+  margin-top: rem(80);
+  color: $color-text-gray-90;
+  @extend %font-body-sm;
+
+  &::before {
+    content: '';
+    display: block;
+    width: rem(120);
+    height: 2px;
+    margin: 0 auto rem(44);
+    background: $color-black-100;
+  }
+
+  p + p {
+    margin-top: 1rem;
+  }
+
+  .heading {
+    margin-bottom: rem(8);
+    color: $color-black-100;
+    @extend %font-heading-md-sans;
+    text-transform: uppercase;
+  }
+}
+
+.post {
   .post-meta__authors {
     margin-top: rem(12);
     @extend %font-label-sm;
@@ -47,5 +92,12 @@
       font-style: normal;
       text-transform: uppercase;
     }
+  }
+
+  &__authors {
+    margin-top: rem(48);
+    margin-bottom: rem(32);
+    padding-top: rem(24);
+    border-top: 1px solid $color-black-125;
   }
 }

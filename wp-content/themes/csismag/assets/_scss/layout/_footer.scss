@@ -47,6 +47,10 @@
     --padding-bottom: #{rem(56)};
   }
 
+  .single & {
+    margin-top: rem(64);
+  }
+
   a {
     &:hover {
       color: $color-white-100;

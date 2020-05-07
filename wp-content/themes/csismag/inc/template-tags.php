@@ -191,6 +191,33 @@ function csismag_authors() {
 	echo '<div class="post-meta post-meta__authors"><span class="post-meta__label">Written by</span> <span class="post-meta__value">' . $authors . '</span></div>';
 }
 
+if (! function_exists('csismag_authors_list_extended')) :
+	/**
+	 * Prints HTML with short author list.
+	 */
+	function csismag_authors_list_extended()
+	{
+		global $post;
+
+		if (function_exists('coauthors_posts_links')) {
+			$authors = '<h2 class="heading">Authors</h2>';
+
+			foreach (get_coauthors() as $coauthor) {
+				$name = $coauthor->display_name;
+
+				if ( $coauthor->website ) {
+					$name = '<a href="' . $coauthor->website . '">' . $coauthor->display_name . '</a>';
+				}
+
+				$authors .= '<p class="post__authors-author">' . $name . ' ' . $coauthor->description . '</p>';
+			}
+		} else {
+			$authors = the_author_posts_link();
+		}
+		return '<div class="post__authors">' . $authors . '</div>';
+	}
+endif;
+
 /**
  * Get post issue number.
  *
@@ -246,6 +273,52 @@ if ( ! function_exists('csismag_get_csismag_original') ) {
 		}
 
 		return '<div class="post-meta__original">CSISMag Original</div>';
+	}
+}
+
+/**
+ * Gets iLab Language for posts.
+ *
+ * @return string iLab Language.
+ */
+if ( ! function_exists('csismag_get_ilab_language') ) {
+
+	function csismag_get_ilab_language() {
+
+		if ( 'post' !== get_post_type() ) {
+			return;
+		}
+
+		$include_lang = get_field( 'include_ilab_language' );
+
+		if ( !$include_lang ) {
+			return;
+		}
+
+		return '<div class="post__ilab"><h2 class="heading">Development & Design</h2><p>This CSIS<span style="font-style: italic; ">Mag</span> article is a product of the <a href="https://www.csis.org/programs/dracopoulos-ideas-lab">Andreas C. Dracopoulos iDeas Lab</a>, the in-house digital, multimedia, and design agency at the Center for Strategic and International Studies.</p></div>';
+	}
+}
+
+/**
+ * Gets Post Notes if notes field is filled out.
+ *
+ * @return string Post Notes.
+ */
+if ( ! function_exists('csismag_get_notes') ) {
+
+	function csismag_get_notes() {
+
+		if ( 'post' !== get_post_type() ) {
+			return;
+		}
+
+		$notes = get_field( 'notes' );
+
+		if ( !$notes ) {
+			return;
+		}
+
+		return '<div class="post__notes"><h2 class="heading">Notes</h2>' . $notes . '</div>';
 	}
 }
 
