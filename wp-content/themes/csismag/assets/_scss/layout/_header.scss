@@ -10,20 +10,21 @@
     display: block;
     width: fit-content;
     margin: 0 auto;
+    color: var(--logo-color);
     text-align: center;
 
     svg {
       width: auto;
-      height: 32px;
+      height: var(--logo-height);
       transition: filter 0.3s ease-in-out;
-
-      @include breakpoint('medium') {
-        height: 48px;
-      }
     }
 
-    &:hover svg {
-      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+    &:hover {
+      color: var(--logo-color);
+
+      svg {
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+      }
     }
   }
 
@@ -67,7 +68,7 @@
             content: '/';
             position: absolute;
             left: rem(-14);
-            color: $color-black-130;
+            color: var(--breadcrumbs-divider);
           }
         }
       }

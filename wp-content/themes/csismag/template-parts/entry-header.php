@@ -52,11 +52,12 @@ if ( 'issues' === get_post_type() ) {
 			<div class="issue__overview">
 				<h2 class="issue__overview-title">In this Issue</h2>
 				' . $in_this_issue . '
-				<div class="issue__scroll">Scroll</div>
+				<div class="issue__overview-marker"></div>
 			</div>';
 		}
 
 	}
 	?>
+	<div class="issue__scroll">Scroll</div>
 
 </header><!-- .entry-header -->

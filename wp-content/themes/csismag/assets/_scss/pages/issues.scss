@@ -86,17 +86,29 @@
     strong {
       color: $color-white-100;
     }
-  }
 
-  .issue__scroll {
-    $height: rem(32);
+    &-marker {
+      position: absolute;
+      top: rem(-32);
+      left: 50%;
+      z-index: -1;
+      width: 2px;
+      height: calc(100% + 32px);
+      background: $color-white-130;
 
-    position: absolute;
-    top: -$height;
-    left: 50%;
-    z-index: -1;
-    height: calc(#{$height} + 100% + 48px);
-    color: rgba(0, 0, 0, 0);
-    border-left: 1px solid $color-white-130;
+      @include breakpoint('large') {
+        display: none;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 2px;
+        height: rem(40);
+        background: $color-black-125;
+      }
+    }
   }
 }
