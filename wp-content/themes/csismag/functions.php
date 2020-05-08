@@ -174,6 +174,9 @@ require get_template_directory() . '/inc/tax-series.php';
 // Breadcrumbs.
 require get_template_directory() . '/inc/breadcrumbs.php';
 
+// Custom Blocks.
+require get_template_directory() . '/inc/custom-blocks.php';
+
 /**
  * Register and Enqueue Styles.
  */
@@ -199,6 +202,8 @@ function csismag_register_styles() {
 
 	if ( 'issues' === get_post_type() ) {
 		wp_enqueue_style( 'csismag-style-issues', get_stylesheet_directory_uri() . '/assets/css/pages/issues.min.css', array(), $theme_version );
+
+		wp_enqueue_style( 'csismag-style-issues-blocks', get_stylesheet_directory_uri() . '/assets/css/blocks/issues.min.css', array(), $theme_version );
 	}
 
 	// Add print CSS.
