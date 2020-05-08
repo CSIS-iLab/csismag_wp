@@ -4,6 +4,10 @@
   @extend %font-heading-4-xl-sans;
 }
 
+.single__excerpt {
+  line-height: 1.35 !important;
+}
+
 .single__header {
   @include breakpoint('medium') {
     min-height: 540px;
@@ -51,7 +55,16 @@
 }
 
 .single__content {
+  padding-top: rem(32);
   color: $color-text-gray-90;
+
+  @include breakpoint('small') {
+    padding-top: rem(40);
+  }
+
+  @include breakpoint('medium') {
+    padding-top: rem(48);
+  }
 
   p {
     @extend %font-body-lg-post;
@@ -111,11 +124,12 @@
   ol {
     margin: rem(8) 0 rem(24);
     padding-left: rem(48);
-    @extend %font-body-lg-post, %font-body-lg-list;
+    @extend %font-body-lg-post;
+    line-height: 1.4 !important;
+  }
 
-    li + li {
-      margin-top: rem(8);
-    }
+  li + li {
+    margin-top: rem(8);
   }
 }
 
