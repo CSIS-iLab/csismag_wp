@@ -43,6 +43,7 @@
   }
 
   &__original {
+    margin-top: rem(4);
     font-weight: 600;
     @extend %font-label-lg;
     letter-spacing: 0.02em;

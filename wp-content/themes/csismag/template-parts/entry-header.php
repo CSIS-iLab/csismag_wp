@@ -38,6 +38,10 @@ if ( 'issues' === get_post_type() ) {
 				the_excerpt();
 			}
 
+			if ( !$is_issue ) {
+				csismag_authors();
+			}
+
 			get_template_part( 'template-parts/featured-image' );
 		?>
 
@@ -56,8 +60,8 @@ if ( 'issues' === get_post_type() ) {
 			</div>';
 		}
 
+		echo '<div class="issue__scroll">Scroll</div>';
 	}
 	?>
-	<div class="issue__scroll">Scroll</div>
 
 </header><!-- .entry-header -->

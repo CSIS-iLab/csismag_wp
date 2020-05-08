@@ -19,56 +19,20 @@
 
 	get_template_part( 'template-parts/entry-header' );
 
-	if ( ! is_search() ) {
-		get_template_part( 'template-parts/featured-image' );
-	}
-
 	?>
 
-	<div class="post-inner <?php echo is_page_template( 'templates/template-full-width.php' ) ? '' : 'thin'; ?> ">
-
-		<div class="entry-content">
-
-			<?php
-			if ( is_search() || ! is_singular() && 'summary' === get_theme_mod( 'blog_content', 'full' ) ) {
-				the_excerpt();
-			} else {
-				the_content( __( 'Continue reading', 'csismag' ) );
-			}
-			?>
-
-		</div><!-- .entry-content -->
-
+	<div class="single__content">
+		<?php
+			the_content( __( 'Continue reading', 'csismag' ) );
+		?>
 	</div><!-- .post-inner -->
 
-	<div class="section-inner">
-		<?php
-		wp_link_pages(
-			array(
-				'before'      => '<nav class="post-nav-links bg-light-background" aria-label="' . esc_attr__( 'Page', 'csismag' ) . '"><span class="label">' . __( 'Pages:', 'csismag' ) . '</span>',
-				'after'       => '</nav>',
-				'link_before' => '<span class="page-number">',
-				'link_after'  => '</span>',
-			)
-		);
-
-		if ( is_single() ) {
-
-			get_template_part( 'template-parts/entry-author-bio' );
-
-		}
-		?>
-
-	</div><!-- .section-inner -->
-
-	<?php
-
-	if ( is_single() ) {
-
-		get_template_part( 'template-parts/navigation' );
-
-	}
-
-	?>
+	<footer class="single__footer">
+		<?php get_template_part( 'template-parts/featured-image-caption' ); ?>
+		<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) { ADDTOANY_SHARE_SAVE_KIT(); } ?>
+		<?php echo csismag_get_notes(); ?>
+		<?php echo csismag_authors_list_extended(); ?>
+		<?php echo csismag_get_ilab_language(); ?>
+	</footer>
 
 </article><!-- .post -->

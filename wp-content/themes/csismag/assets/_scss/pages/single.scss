@@ -13,7 +13,6 @@
 
   &__title {
     color: var(--page-title);
-    @extend %font-heading-5-xl;
   }
 
   &__excerpt {
@@ -34,22 +33,21 @@
 
   &__header {
     position: relative;
-    min-height: 80vh;
     margin-bottom: rem(48);
-
-    @include breakpoint('large') {
-      min-height: 700px;
-    }
   }
 
-  &.issues-template-default {
+  &.issues-template-default,
+  &.post-template-default {
     .single__header {
       display: flex;
       flex-direction: column;
     }
 
     .single__header-wrapper {
+      display: flex;
       flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: center;
       padding: rem(40) 0;
 
       @include breakpoint('medium') {
@@ -59,9 +57,6 @@
       }
 
       @include breakpoint('large') {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         margin-left: rem(24);
       }
 
@@ -125,46 +120,6 @@
           position: relative;
           top: 8px;
         }
-      }
-    }
-  }
-
-  .issue__scroll {
-    display: none;
-
-    @include breakpoint('large') {
-      position: absolute;
-      bottom: rem(59);
-      left: rem(84);
-      display: block;
-      color: $color-white-150;
-      @include font-size(14px);
-      font-family: $font__source;
-      line-height: 1;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      transform: rotate(-90deg);
-
-      &::before,
-      &::after {
-        --right: 8px;
-        --background: #{$color-white-130};
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: calc(100% + var(--right));
-        height: 2px;
-        background: var(--background);
-      }
-
-      &::before {
-        width: rem(32);
-      }
-
-      &::after {
-        --right: calc(8px + 32px);
-        --background: #{$color-black-125};
-        width: rem(40);
       }
     }
   }

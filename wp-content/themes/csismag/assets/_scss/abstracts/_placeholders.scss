@@ -156,14 +156,6 @@
   }
 }
 
-%font-body-lg-list {
-  line-height: 1.4;
-}
-
-%font-body-lg-description {
-  line-height: 1.35;
-}
-
 %font-body-md {
   @include font-size(17px);
   font-family: $font__minion-caption;

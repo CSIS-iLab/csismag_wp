@@ -14,13 +14,19 @@
       margin-left: -4px;
     }
 
+    &:hover path {
+      fill: $color-text-gray-05;
+    }
+
     path {
       transition: fill 0.3s ease-in-out;
+      fill: $color-text-gray-70;
     }
   }
 
   /* stylelint-disable-next-line */
   .a2a_svg {
+    padding: 2px;
     border-radius: 50% !important;
     transition: background 0.3s ease-in-out;
   }
@@ -36,6 +42,29 @@
   .a2a_button_youtube {
     position: relative;
     top: 3px;
+  }
+
+  .single__footer & {
+    margin-bottom: rem(16);
+
+    @include breakpoint('small') {
+      width: fit-content;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    @include breakpoint('large') {
+      margin-top: rem(32);
+    }
+
+    &::before {
+      content: 'Share';
+      margin-right: rem(12);
+      color: $color-text-gray-50;
+      @extend %font-label-lg;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
   }
 
   .footer & {
