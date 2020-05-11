@@ -1,15 +1,15 @@
 @use '../abstracts' as *;
 
 .single {
-  .container {
-    @include breakpoint('large') {
-      --padding: #{rem(40px)};
-    }
+  // .container {
+  //   @include breakpoint('large') {
+  //     --container-padding: #{rem(40px)};
+  //   }
 
-    @include breakpoint('xlarge') {
-      --padding: #{rem(56)};
-    }
-  }
+  //   @include breakpoint('xlarge') {
+  //     --container-padding: #{rem(56)};
+  //   }
+  // }
 
   &__title {
     color: var(--page-title);

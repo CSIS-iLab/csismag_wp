@@ -9,7 +9,7 @@
 
 function csismag_lzb_block_render_attributes( $attributes, $content, $block, $context ) {
     // Change value of custom attribute "my-attribute"
-    $attributes['className'] .= 'csis-block';
+		$attributes['className'] .= 'csis-block';
 
     return $attributes;
 }

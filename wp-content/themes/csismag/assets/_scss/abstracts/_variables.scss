@@ -38,7 +38,7 @@ $color-utilities-red-100: rgba(255, 134, 134, 1);
 $color-utilities-red-200: rgba(245, 88, 88, 1);
 $color-utilities-red-140: rgba(255, 134, 134, 0.4);
 
-$color-text-link-light-base: rgba(76, 44, 146, 1);
+$color-text-link-light-base: rgba(71, 107, 128, 1);
 
 $social: (
   facebook: rgba(59, 89, 152, 1),
@@ -68,3 +68,4 @@ $breakpoints: (
 $size__container-max-width: 1280px;
 $size__content-max-width: 680px;
 $size__issues-content-max-width: 900px;
+$size__issues-content-wide-max-width: 1152px;

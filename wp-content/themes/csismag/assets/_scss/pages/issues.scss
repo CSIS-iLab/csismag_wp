@@ -126,13 +126,14 @@
 
   .single__content {
     padding-top: rem(40);
+    color: $color-text-gray-90;
     @extend %font-body-md;
 
     @include breakpoint('large') {
       box-sizing: content-box;
       max-width: $size__issues-content-max-width;
       margin: 0 auto;
-      padding: rem(48) rem(40) 0;
+      padding-top: rem(48);
     }
   }
 

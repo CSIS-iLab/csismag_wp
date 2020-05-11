@@ -41,7 +41,7 @@ body {
 }
 
 .container {
-  --padding: #{rem(20)};
+  --container-padding: #{rem(20)};
 
   $padding: (
     'small': 24,
@@ -54,13 +54,13 @@ body {
   margin-right: auto;
   margin-left: auto;
   padding-right: rem(20);
-  padding-right: var(--padding);
+  padding-right: var(--container-padding);
   padding-left: rem(20);
-  padding-left: var(--padding);
+  padding-left: var(--container-padding);
 
   @each $size, $value in $padding {
     @include breakpoint($size) {
-      --padding: #{rem($value)};
+      --container-padding: #{rem($value)};
     }
   }
 
