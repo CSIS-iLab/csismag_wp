@@ -220,11 +220,15 @@ function csismag_register_scripts() {
 
 	$theme_version = wp_get_theme()->get( 'Version' );
 
-	if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+	if ( ( ! is_admin() ) && is_singular() ) {
+		wp_enqueue_script( 'csismag-iframeResizer', 'https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js', array(), $theme_version, true );
+
+		wp_add_inline_script( 'csismag-iframeResizer', 'const iframes = iFrameResize({ log: false }, ".js-resize")' );
+
+		// wp_script_add_data( 'csismag-iframeResizer', 'async', true );
 	}
 
-	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, false );
+	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, true );
 	wp_script_add_data( 'csismag-vendor-js', 'async', true );
 
 }
