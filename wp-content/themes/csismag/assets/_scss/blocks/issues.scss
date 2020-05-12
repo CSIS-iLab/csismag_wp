@@ -1,25 +1,16 @@
 @use '../abstracts' as *;
 
-$block: '.csis-block';
-
-@mixin full-width-wrapper {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-}
-
-@mixin full-width-content {
-  max-width: $size__issues-content-wide-max-width;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: var(--container-padding);
-  padding-left: var(--container-padding);
-}
+@use 'issues/csis-content';
+@use 'issues/interactives';
+@use 'issues/stats';
+@use 'issues/videos-podcasts';
 
 .csis-block {
-  $block: &;
+  margin-bottom: rem(48);
 
-  margin-top: rem(36);
-  margin-bottom: rem(36);
+  @include breakpoint('medium') {
+    margin-bottom: rem(56);
+  }
 
   &__heading {
     margin-bottom: rem(16);
@@ -33,338 +24,24 @@ $block: '.csis-block';
   }
 
   &__type {
+    letter-spacing: 0.02em;
     text-transform: uppercase;
   }
 
   &__series {
     font-style: italic;
+
+    .csis-block__type + & {
+      &::before {
+        content: '|';
+        margin: 0 5px;
+        color: $color-black-125;
+      }
+    }
   }
 
   &__section-link {
     @extend %font-button;
     text-transform: uppercase;
-  }
-
-  /*----------  Stat  ----------*/
-  &.wp-block-lazyblock-issue-stats {
-    @include breakpoint('large') {
-      @include full-width-wrapper();
-    }
-
-    > * {
-      @include breakpoint('large') {
-        @include full-width-content();
-      }
-    }
-  }
-
-  &--stat {
-    display: grid;
-    grid-gap: rem(8);
-    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
-  }
-
-  .stat {
-    --stat-bg: #{$color-bg-lt-blue};
-    --stat-padding: #{rem(20)};
-    --stat-padding-bottom: #{rem(24)};
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: var(--stat-padding);
-    padding-bottom: var(--stat-padding-bottom);
-    background: var(--stat-bg);
-
-    @include breakpoint('large') {
-      --stat-padding: #{rem(24)};
-      --stat-padding-bottom: #{rem(32)};
-    }
-
-    @include breakpoint('xlarge') {
-      --stat-padding: #{rem(32)};
-      --stat-padding-bottom: #{rem(40)};
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      box-shadow: 0 0 12px rgba(36, 44, 48, 0.14),
-        0 4px 5px rgba(10, 52, 80, 0.02);
-    }
-
-    &:hover {
-      --stat-bg: #{$color-primary-darkest};
-      color: $color-white-100;
-
-      &::after {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      .stat__value {
-        color: inherit;
-      }
-
-      #{$block}__title {
-        color: $color-text-ltblue-100;
-      }
-
-      #{$block}__meta {
-        color: $color-text-ltblue-80;
-      }
-    }
-
-    &:hover,
-    &:focus {
-      #{$block}__title,
-      #{$block}__meta {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
-
-    .csis-block__desc {
-      flex: 1 1 auto;
-      margin-bottom: rem(32);
-    }
-
-    &__value {
-      display: block;
-      color: $color-black-100;
-      @extend %font-heading-4-xl-sans;
-    }
-
-    #{$block}__title {
-      @extend %font-heading-lg-sans;
-    }
-
-    #{$block}__meta {
-      color: $color-text-link-light-base;
-    }
-
-    &::after,
-    #{$block}__title,
-    #{$block}__meta {
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    }
-  }
-}
-
-/*----------  Video & Podcast  ----------*/
-.wp-block-lazyblock-issue-videos,
-.wp-block-lazyblock-issue-podcasts {
-  @include full-width-wrapper();
-  padding-top: rem(48);
-  background: var(--bg);
-
-  @include breakpoint('large') {
-    padding-top: rem(56);
-  }
-
-  > * {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    @include full-width-content();
-
-    > *:not(.csis-block__section-link) {
-      grid-column: 1 / -1;
-    }
-  }
-
-  #{$block}__title {
-    display: block;
-    @extend %font-heading-xl-sans;
-  }
-
-  #{$block}__block {
-    @include breakpoint('small') {
-      --gap: #{rem(32)};
-      display: grid;
-      grid-column-gap: var(--gap);
-      grid-template-areas: var(--grid-areas);
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: max-content auto;
-
-      @include breakpoint('medium') {
-        --gap: #{rem(40)};
-      }
-
-      @include breakpoint('large') {
-        --gap: #{rem(48)};
-      }
-    }
-  }
-
-  #{$block}__block + #{$block}__block {
-    margin-top: rem(32);
-
-    @include breakpoint('large') {
-      margin-top: rem(40);
-    }
-  }
-
-  #{$block}__section-link {
-    display: block;
-    grid-column: 2;
-    max-width: fit-content;
-    margin: rem(32) 0 0 auto;
-    padding: rem(8) 0 rem(8) rem(12);
-    color: var(--section-link-color);
-
-    @include full-width-background($color-white-100, 'left', false);
-
-    @include breakpoint('large') {
-      margin-top: rem(40);
-    }
-
-    &::before {
-      width: calc(100vw - 100%);
-      pointer-events: none;
-    }
-
-    &:hover {
-      color: $color-black-100;
-    }
-
-    svg {
-      margin-left: rem(4);
-      font-size: 0.8em;
-    }
-  }
-
-  #{$block}__header {
-    grid-area: header;
-  }
-
-  #{$block}__desc {
-    grid-area: desc;
-  }
-}
-
-.wp-block-lazyblock-issue-videos {
-  --grid-areas: 'header embed' 'desc embed';
-  --bg: linear-gradient(180deg, #242c30 0%, rgba(36, 50, 56, 0.88) 100%);
-  --section-link-color: #{$color-text-ltblue-100};
-
-  #{$block}__section-link:hover {
-    color: $color-white-100;
-  }
-
-  #{$block}__heading,
-  #{$block}__title {
-    color: $color-white-100;
-  }
-
-  #{$block}__title {
-    margin-bottom: rem(8);
-
-    @include breakpoint('large') {
-      margin-bottom: rem(12);
-    }
-  }
-
-  #{$block}__meta {
-    color: $color-text-gray-10;
-  }
-
-  #{$block}__desc {
-    margin-bottom: rem(16);
-    color: $color-text-gray-05;
-  }
-
-  .videoWrapper {
-    grid-area: embed;
-  }
-}
-
-.wp-block-lazyblock-issue-podcasts {
-  --grid-areas: 'header header' 'desc embed';
-  --bg: linear-gradient(180deg, #f1f4f4 0%, rgba(245, 246, 247, 0.88) 100%);
-  --section-link-color: #{$color-text-gray-70};
-
-  #{$block}__header {
-    @include breakpoint('small') {
-      display: grid;
-      grid-column-gap: rem(16);
-      grid-template-columns: max-content auto;
-      grid-template-rows: max-content auto;
-    }
-  }
-
-  #{$block}__img {
-    grid-row: 1 / -1;
-    margin-bottom: rem(16);
-  }
-
-  #{$block}__title,
-  #{$block}__desc {
-    margin-bottom: rem(16);
-  }
-
-  iframe {
-    grid-area: embed;
-  }
-}
-
-/*----------  Interactives  ----------*/
-#{$block}--interactive {
-  @include breakpoint('medium') {
-    display: grid;
-    grid-column-gap: rem(40);
-    grid-template-areas:
-      'embed embed'
-      'meta desc'
-      'title desc'
-      'cta desc';
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto max-content max-content;
-  }
-
-  @include breakpoint('large') {
-    grid-column-gap: rem(48);
-  }
-
-  .interactive__content {
-    @include breakpoint('medium') {
-      grid-area: embed;
-    }
-  }
-
-  iframe {
-    width: 100%;
-    margin-bottom: rem(24);
-
-    &:not(.no-shadow) {
-      box-shadow: 0 0 12px rgba(36, 44, 48, 0.14),
-        0 4px 5px rgba(10, 52, 80, 0.02);
-    }
-  }
-
-  #{$block}__title {
-    grid-area: title;
-    margin-bottom: rem(16);
-    @extend %font-heading-lg-sans;
-  }
-
-  #{$block}__meta {
-    grid-area: meta;
-  }
-
-  #{$block}__desc {
-    grid-area: desc;
-    margin-bottom: rem(16);
-  }
-
-  #{$block}__cta {
-    grid-area: cta;
-    align-self: start;
-    width: fit-content;
   }
 }

@@ -1,0 +1,158 @@
+@use '../abstracts' as *;
+
+$block: '.csis-block';
+
+.wp-block-lazyblock-issue-videos,
+.wp-block-lazyblock-issue-podcasts {
+  @include issues-block-full-width-wrapper();
+  padding-top: rem(48);
+  background: var(--bg);
+
+  @include breakpoint('large') {
+    padding-top: rem(56);
+  }
+
+  > * {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    @include issues-block-full-width-content();
+
+    > *:not(.csis-block__section-link) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  #{$block}__title {
+    display: block;
+    @extend %font-heading-xl-sans;
+  }
+
+  #{$block}__block {
+    @include breakpoint('small') {
+      --gap: #{rem(32)};
+      display: grid;
+      grid-column-gap: var(--gap);
+      grid-template-areas: var(--grid-areas);
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: max-content auto;
+
+      @include breakpoint('medium') {
+        --gap: #{rem(40)};
+      }
+
+      @include breakpoint('large') {
+        --gap: #{rem(48)};
+      }
+    }
+  }
+
+  #{$block}__block + #{$block}__block {
+    margin-top: rem(32);
+
+    @include breakpoint('large') {
+      margin-top: rem(40);
+    }
+  }
+
+  #{$block}__section-link {
+    display: block;
+    grid-column: 2;
+    max-width: fit-content;
+    margin: rem(32) 0 0 auto;
+    padding: rem(8) 0 rem(8) rem(12);
+    color: var(--section-link-color);
+
+    @include full-width-background($color-white-100, 'left', false);
+
+    @include breakpoint('large') {
+      margin-top: rem(40);
+    }
+
+    &::before {
+      width: calc(100vw - 100%);
+      pointer-events: none;
+    }
+
+    &:hover {
+      color: $color-black-100;
+    }
+
+    svg {
+      margin-left: rem(4);
+      font-size: 0.8em;
+    }
+  }
+
+  #{$block}__header {
+    grid-area: header;
+  }
+
+  #{$block}__desc {
+    grid-area: desc;
+  }
+}
+
+.wp-block-lazyblock-issue-videos {
+  --grid-areas: 'header embed' 'desc embed';
+  --bg: linear-gradient(180deg, #242c30 0%, rgba(36, 50, 56, 0.88) 100%);
+  --section-link-color: #{$color-text-ltblue-100};
+
+  #{$block}__section-link:hover {
+    color: $color-white-100;
+  }
+
+  #{$block}__heading,
+  #{$block}__title {
+    color: $color-white-100;
+  }
+
+  #{$block}__title {
+    margin-bottom: rem(8);
+
+    @include breakpoint('large') {
+      margin-bottom: rem(12);
+    }
+  }
+
+  #{$block}__meta {
+    color: $color-text-gray-10;
+  }
+
+  #{$block}__desc {
+    margin-bottom: rem(16);
+    color: $color-text-gray-05;
+  }
+
+  .videoWrapper {
+    grid-area: embed;
+  }
+}
+
+.wp-block-lazyblock-issue-podcasts {
+  --grid-areas: 'header header' 'desc embed';
+  --bg: linear-gradient(180deg, #f1f4f4 0%, rgba(245, 246, 247, 0.88) 100%);
+  --section-link-color: #{$color-text-gray-70};
+
+  #{$block}__header {
+    @include breakpoint('small') {
+      display: grid;
+      grid-column-gap: rem(16);
+      grid-template-columns: max-content auto;
+      grid-template-rows: max-content auto;
+    }
+  }
+
+  #{$block}__img {
+    grid-row: 1 / -1;
+    margin-bottom: rem(16);
+  }
+
+  #{$block}__title,
+  #{$block}__desc {
+    margin-bottom: rem(16);
+  }
+
+  iframe {
+    grid-area: embed;
+  }
+}
