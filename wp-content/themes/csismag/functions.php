@@ -174,6 +174,9 @@ require get_template_directory() . '/inc/tax-series.php';
 // Breadcrumbs.
 require get_template_directory() . '/inc/breadcrumbs.php';
 
+// Custom Blocks.
+require get_template_directory() . '/inc/custom-blocks.php';
+
 /**
  * Register and Enqueue Styles.
  */
@@ -199,6 +202,8 @@ function csismag_register_styles() {
 
 	if ( 'issues' === get_post_type() ) {
 		wp_enqueue_style( 'csismag-style-issues', get_stylesheet_directory_uri() . '/assets/css/pages/issues.min.css', array(), $theme_version );
+
+		wp_enqueue_style( 'csismag-style-issues-blocks', get_stylesheet_directory_uri() . '/assets/css/blocks/issues.min.css', array(), $theme_version );
 	}
 
 	// Add print CSS.
@@ -215,11 +220,15 @@ function csismag_register_scripts() {
 
 	$theme_version = wp_get_theme()->get( 'Version' );
 
-	if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+	if ( ( ! is_admin() ) && is_singular() ) {
+		wp_enqueue_script( 'csismag-iframeResizer', 'https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js', array(), $theme_version, true );
+
+		wp_add_inline_script( 'csismag-iframeResizer', 'const iframes = iFrameResize({ log: false }, ".js-resize")' );
+
+		// wp_script_add_data( 'csismag-iframeResizer', 'async', true );
 	}
 
-	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, false );
+	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, true );
 	wp_script_add_data( 'csismag-vendor-js', 'async', true );
 
 }

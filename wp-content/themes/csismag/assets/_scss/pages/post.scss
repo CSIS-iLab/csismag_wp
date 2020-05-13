@@ -4,10 +4,6 @@
   @extend %font-heading-4-xl-sans;
 }
 
-.single__excerpt {
-  line-height: 1.35 !important;
-}
-
 .single__header {
   @include breakpoint('medium') {
     min-height: 540px;
@@ -32,6 +28,10 @@
       $color-black-125 40%
     );
     /* stylelint-enable */
+  }
+
+  .single__excerpt {
+    line-height: 1.35 !important;
   }
 }
 

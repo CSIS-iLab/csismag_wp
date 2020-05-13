@@ -1,0 +1,50 @@
+@use '../abstracts' as *;
+
+@use 'issues/csis-content';
+@use 'issues/csismag-original';
+@use 'issues/interactives';
+@use 'issues/stats';
+@use 'issues/videos-podcasts';
+
+.csis-block {
+  margin-top: rem(48);
+  margin-bottom: rem(48);
+
+  @include breakpoint('medium') {
+    margin-top: rem(56);
+    margin-bottom: rem(56);
+  }
+
+  &__heading {
+    margin-bottom: rem(16);
+    @extend %font-heading-4-xl-serif;
+  }
+
+  &__meta {
+    margin-bottom: rem(4);
+    @extend %font-label-lg;
+    font-weight: 600;
+  }
+
+  &__type {
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  &__series {
+    font-style: italic;
+
+    .csis-block__type + & {
+      &::before {
+        content: '|';
+        margin: 0 5px;
+        color: $color-black-125;
+      }
+    }
+  }
+
+  &__section-link {
+    @extend %font-button;
+    text-transform: uppercase;
+  }
+}

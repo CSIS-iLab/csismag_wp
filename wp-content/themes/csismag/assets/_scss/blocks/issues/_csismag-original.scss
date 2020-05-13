@@ -1,0 +1,118 @@
+@use '../abstracts' as *;
+
+$block: '.csis-block';
+
+.wp-block-lazyblock-csismag-original {
+  .post-block {
+    @include breakpoint('small') {
+      display: grid;
+      grid-column-gap: rem(32);
+      grid-template-areas:
+        'header header'
+        'excerpt excerpt'
+        'authors img';
+      grid-template-columns: auto 60%;
+      grid-template-rows: repeat(2, max-content);
+    }
+
+    @include breakpoint('medium') {
+      position: relative;
+      grid-gap: 0;
+      grid-template-areas:
+        'header .'
+        'excerpt .'
+        'authors .';
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .post-meta {
+    margin-bottom: rem(4);
+  }
+
+  .post-meta__original {
+    color: $color-primary-base;
+  }
+
+  .post-meta__authors {
+    --post-meta: #{$color-gray-1};
+    --padding-bottom: #{rem(12)};
+    grid-area: authors;
+    padding-bottom: var(--padding-bottom);
+    @extend %font-label-sm;
+
+    @include breakpoint('medium') {
+      --padding-right: #{rem(40)};
+      --padding-bottom: 0;
+      min-height: var(--padding-right);
+      padding-right: var(--padding-right);
+    }
+
+    @include breakpoint('large') {
+      --padding-right: #{rem(64)};
+    }
+
+    .post-meta__label {
+      display: block;
+      color: $color-primary-darkest;
+      font-weight: 600;
+      font-style: normal;
+      text-transform: uppercase;
+    }
+  }
+
+  .post-block__header {
+    --padding-bottom: #{rem(16)};
+    grid-area: header;
+    padding-bottom: var(--padding-bottom);
+
+    @include breakpoint('medium') {
+      --padding-bottom: #{rem(4)};
+    }
+  }
+
+  .single__excerpt {
+    --padding-bottom: #{rem(12)};
+    grid-area: excerpt;
+    padding-bottom: var(--padding-bottom);
+
+    @include breakpoint('medium') {
+      --padding-bottom: #{rem(32)};
+    }
+  }
+
+  .post-block__header,
+  .single__excerpt {
+    @include breakpoint('medium') {
+      --padding-right: #{rem(32)};
+      position: relative;
+      z-index: 1;
+      padding-right: var(--padding-right);
+      background: $color-white-100;
+    }
+
+    @include breakpoint('large') {
+      --padding-right: #{rem(40)};
+    }
+  }
+
+  .featured-media {
+    grid-area: img;
+    max-width: 100%;
+
+    @include breakpoint('medium') {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 60%;
+    }
+
+    img {
+      @include breakpoint('medium') {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
