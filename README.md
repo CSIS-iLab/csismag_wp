@@ -80,13 +80,18 @@ Write clear and concise commit messages describing the changes you are making an
 
 ### Block Development
 
-This theme uses a custom plugin for Gutenbeg blocks: `csismag-blocks`. To develop blocks, follow these steps:
+This theme uses a custom plugin for Gutenberg blocks: `csismag-blocks`. To develop blocks, follow these steps:
 
 ```shell
 $ cd wp-content/plugins/csismag-blocks
 $ npm install
 $ npm start
 ```
+
+### Editor Notes
+
+- Add `js-resize` to iFrames to have their height be dynamically calculated on their content.
+- To format the source information, you must select the source text in the caption and select the "Source Style" button on the toolbar
 
 ## Copyright / License Info
 
