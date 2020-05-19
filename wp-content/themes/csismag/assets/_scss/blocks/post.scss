@@ -5,6 +5,7 @@
 @use 'post/interactive';
 @use 'post/publications';
 @use 'post/stat';
+@use 'post/text-overlay';
 
 .csis-block,
 .wp-block-image {
@@ -17,7 +18,8 @@
 /*----------  Captions  ----------*/
 .wp-block-image figcaption,
 .csis-block--video .csis-block__desc,
-.csis-block--interactive .csis-block__desc {
+.csis-block--interactive .csis-block__desc,
+.wp-block-lazyblock-post-text-overlay .csis-block__desc {
   display: block !important;
   max-width: $size__content-max-width;
   margin: rem(12) auto 0;
@@ -37,7 +39,8 @@
 .alignfull figcaption,
 .alignwide figcaption,
 .wp-block-lazyblock-post-interactive.alignfull .csis-block__desc,
-.wp-block-lazyblock-post-interactive.alignwide .csis-block__desc {
+.wp-block-lazyblock-post-interactive.alignwide .csis-block__desc,
+.wp-block-lazyblock-post-text-overlay .csis-block__desc {
   --padding-sides: #{rem(20)};
   padding-right: var(--padding-sides);
   padding-left: var(--padding-sides);

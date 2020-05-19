@@ -47,11 +47,21 @@ function csismag_keep_plugins_blocks( $allowed_block_types, $post ) {
 
 add_filter( 'allowed_block_types', 'csismag_keep_plugins_blocks', 10, 2 );
 
+// Add `csis-block` class to all blocks
 function csismag_lzb_block_render_attributes( $attributes, $content, $block, $context ) {
-    // Change value of custom attribute "my-attribute"
 		$attributes['className'] .= 'csis-block';
 
     return $attributes;
 }
 
 add_filter( 'lzb/block_render/attributes', 'csismag_lzb_block_render_attributes', 10, 4 );
+
+
+// Set Text Overlay block to alignfull always
+function csismag_lzb_block_post_text_overlay_render_attributes( $attributes, $content, $block, $context ) {
+    $attributes['className'] .= ' alignfull';
+
+    return $attributes;
+}
+
+add_filter( 'lazyblock/post-text-overlay/attributes', 'csismag_lzb_block_post_text_overlay_render_attributes', 10, 4 );
