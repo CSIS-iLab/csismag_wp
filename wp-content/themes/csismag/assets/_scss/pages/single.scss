@@ -52,8 +52,12 @@
   }
 
   &__content {
-    p + p {
-      margin-top: rem(24);
+    p:not([class]) {
+      margin-bottom: rem(24);
+    }
+
+    p:empty {
+      display: none;
     }
   }
 }

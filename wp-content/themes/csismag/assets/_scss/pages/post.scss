@@ -57,6 +57,7 @@
 .single__content {
   padding-top: rem(32);
   color: $color-text-gray-90;
+  @extend %font-body-lg-post;
 
   @include breakpoint('small') {
     padding-top: rem(40);
@@ -64,10 +65,6 @@
 
   @include breakpoint('medium') {
     padding-top: rem(48);
-  }
-
-  p {
-    @extend %font-body-lg-post;
   }
 
   h2,

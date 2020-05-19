@@ -43,3 +43,22 @@
   color: $color-primary-dark;
   background: transparent;
 }
+
+.btn--gray {
+  color: $color-white-100;
+  background: $color-primary-darkest;
+
+  &:focus {
+    color: $color-white-100;
+  }
+}
+
+.btn--circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+}

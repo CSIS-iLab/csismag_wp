@@ -1,0 +1,52 @@
+@use '../abstracts' as *;
+
+.wp-block-lazyblock-blockquote {
+  padding-left: 1rem;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 10px;
+    margin-bottom: rem(16);
+    background: $color-black-100;
+  }
+
+  .blockquote {
+    &__content {
+      margin-bottom: rem(8);
+      @extend %font-quote;
+    }
+
+    &__author {
+      color: $color-text-gray-70;
+      @extend %font-heading-sm-sans;
+      font-style: normal;
+    }
+
+    &__author-info {
+      display: block;
+      color: $color-text-gray-50;
+      @extend %font-body-xs;
+    }
+  }
+
+  /*----------  Center Variation  ----------*/
+  &.aligncenter {
+    @include breakpoint('small') {
+      padding-left: 0;
+    }
+
+    @include breakpoint('medium') {
+      display: grid;
+      grid-gap: rem(32);
+      grid-template-columns: repeat(2, auto);
+    }
+
+    &::before {
+      @include breakpoint('medium') {
+        margin-top: 10px;
+      }
+    }
+  }
+}

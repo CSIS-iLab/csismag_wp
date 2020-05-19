@@ -4,7 +4,7 @@ $block: '.csis-block';
 
 .wp-block-lazyblock-issue-videos,
 .wp-block-lazyblock-issue-podcasts {
-  @include issues-block-full-width-wrapper();
+  @include csis-block-full-width-wrapper();
   padding-top: rem(48);
   background: var(--bg);
 
@@ -15,7 +15,7 @@ $block: '.csis-block';
   > * {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    @include issues-block-full-width-content();
+    @include csis-block-full-width-content();
 
     > *:not(.csis-block__section-link) {
       grid-column: 1 / -1;

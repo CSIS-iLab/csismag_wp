@@ -205,6 +205,8 @@ function csismag_register_styles() {
 
 	if ( 'post' === get_post_type() ) {
 		wp_enqueue_style( 'csismag-style-post', get_stylesheet_directory_uri() . '/assets/css/pages/post.min.css', array(), $theme_version );
+
+		wp_enqueue_style( 'csismag-style-post-blocks', get_stylesheet_directory_uri() . '/assets/css/blocks/post.min.css', array(), $theme_version );
 	}
 
 	if ( 'issues' === get_post_type() ) {

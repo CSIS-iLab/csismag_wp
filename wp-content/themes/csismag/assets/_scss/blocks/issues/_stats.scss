@@ -4,12 +4,12 @@ $block: '.csis-block';
 
 .wp-block-lazyblock-issue-stats {
   @include breakpoint('large') {
-    @include issues-block-full-width-wrapper();
+    @include csis-block-full-width-wrapper();
   }
 
   > * {
     @include breakpoint('large') {
-      @include issues-block-full-width-content();
+      @include csis-block-full-width-content();
     }
   }
 }
