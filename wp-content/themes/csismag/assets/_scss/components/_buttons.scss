@@ -6,6 +6,7 @@
   @extend %font-button;
   text-align: center;
   text-transform: uppercase;
+  background: transparent;
   border: 1px solid $color-primary-dark;
   border-radius: 3px;
   transition: color 0.3s ease-in-out, background 0.3s ease-in-out;

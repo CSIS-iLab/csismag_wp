@@ -45,7 +45,7 @@ function csismag_shortcode_share_button( $atts, $content = null ) {
 	ob_end_clean();
 
 	$output .= '
-		<button class="csis-block__share-btn btn btn--circle" aria-expanded="false">' . csismag_get_svg( 'share' ) . csismag_get_svg( 'close' ) . '</button>
+		<button class="csis-block__share-btn btn btn--circle" aria-expanded="false" aria-label="Share on social media">' . csismag_get_svg( 'share' ) . csismag_get_svg( 'close' ) . '</button>
 	</div>';
 
 	return $output;
