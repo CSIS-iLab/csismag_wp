@@ -1,0 +1,43 @@
+@use '../abstracts' as *;
+
+.wp-block-lazyblock-post-publication {
+  .csis-block--publication {
+    display: grid;
+    grid-column-gap: rem(16);
+    grid-row-gap: 0;
+    grid-template-columns: min-content auto;
+  }
+
+  .csis-block {
+    &__img {
+      grid-column: 1 / -1;
+      justify-self: center;
+      margin-bottom: rem(12);
+    }
+
+    &__pdf {
+      grid-row: span 2;
+    }
+
+    &__title {
+      margin-bottom: rem(4);
+      color: $color-text-gray-90;
+      @extend %font-heading-sm-sans;
+
+      a {
+        box-shadow: none;
+
+        /* stylelint-disable-next-line */
+        &:hover {
+          color: $color-primary-base;
+        }
+      }
+    }
+
+    &__desc {
+      grid-column: 2;
+      color: $color-text-gray-70;
+      @extend %font-body-xs;
+    }
+  }
+}

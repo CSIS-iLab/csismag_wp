@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+.wp-block-lazyblock-post-interactive {
+  .csis-block {
+    &__title {
+      max-width: $size__content-max-width;
+      margin: 0 auto rem(12);
+      @extend %font-heading-md-sans;
+
+      @include breakpoint('large') {
+        text-align: center;
+      }
+    }
+  }
+}

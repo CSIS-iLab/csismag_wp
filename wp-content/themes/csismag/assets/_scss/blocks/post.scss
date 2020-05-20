@@ -1,0 +1,146 @@
+@use '../abstracts' as *;
+
+@use 'post/audio';
+@use 'post/blockquote';
+@use 'post/interactive';
+@use 'post/publications';
+@use 'post/share';
+@use 'post/stat';
+@use 'post/text-overlay';
+
+.csis-block {
+  clear: both;
+  width: 100%;
+  margin-top: rem(32);
+  margin-bottom: rem(32);
+
+  img {
+    width: 100%;
+  }
+}
+
+/*----------  Captions  ----------*/
+.csis-block__footer {
+  display: grid !important;
+  grid-column-gap: rem(16);
+  grid-template-columns: auto max-content;
+  align-items: start;
+  max-width: $size__content-max-width;
+  margin: rem(12) auto 0;
+  @extend %font-body-sm;
+  color: $color-text-gray-70;
+
+  &::after {
+    content: '';
+    display: block;
+    width: rem(40);
+    height: 2px;
+    margin-top: rem(12);
+    background: $color-black-125;
+  }
+}
+
+.alignfull .csis-block__footer,
+.alignwide .csis-block__footer {
+  --padding-sides: #{rem(20)};
+  padding-right: var(--padding-sides);
+  padding-left: var(--padding-sides);
+
+  @include breakpoint('small') {
+    --padding-sides: #{rem(24)};
+  }
+
+  @include breakpoint('large') {
+    --padding-sides: 0;
+  }
+}
+
+/*----------  Aside Sizes  ----------*/
+.csis-block--large,
+.wp-block-lazyblock-post-audio,
+.wp-block-lazyblock-post-video:not(.alignfull):not(.aligncenter),
+.wp-block-lazyblock-post-interactive:not(.alignfull):not(.alignwide):not(.aligncenter) {
+  @include breakpoint('large') {
+    max-width: 50vw;
+  }
+
+  @include breakpoint('xlarge') {
+    max-width: 432px;
+  }
+}
+
+.csis-block--small,
+.wp-block-lazyblock-post-stat,
+.wp-block-lazyblock-post-publication {
+  @include breakpoint('large') {
+    max-width: 300px;
+  }
+}
+
+/*----------  Alignments  ----------*/
+.alignfull,
+.alignwide {
+  @include csis-block-full-width-wrapper;
+}
+
+.alignwide {
+  > *:not(figcaption) {
+    @include breakpoint('medium') {
+      @include csis-block-full-width-content;
+    }
+  }
+}
+
+.alignleft,
+.alignright {
+  float: none;
+
+  @include breakpoint('small') {
+    --padding-sides: var(--container-padding);
+    padding: 0 var(--padding-sides);
+  }
+
+  @include breakpoint('medium') {
+    --margin-text-side: #{rem(32)};
+    --padding-sides: 0;
+    max-width: 50%;
+    margin-top: 0;
+  }
+
+  @include breakpoint('large') {
+    --margin-text-side: #{rem(40)};
+    --margin-gutter-side: #{rem(-128)};
+  }
+
+  @include breakpoint('xlarge') {
+    --margin-text-side: #{rem(48)};
+  }
+
+  figcaption {
+    @include breakpoint('medium') {
+      --padding-sides: 0;
+    }
+  }
+}
+
+.csis-block {
+  &.alignleft {
+    float: none;
+    margin-right: var(--margin-text-side);
+    margin-left: var(--margin-gutter-side, 0);
+
+    @include breakpoint('medium') {
+      float: left;
+    }
+  }
+
+  &.alignright {
+    float: none;
+    margin-right: var(--margin-gutter-side, 0);
+    margin-left: var(--margin-text-side);
+
+    @include breakpoint('medium') {
+      float: right;
+    }
+  }
+}

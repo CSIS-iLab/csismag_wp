@@ -1,0 +1,83 @@
+@use '../abstracts' as *;
+
+.wp-block-lazyblock-post-text-overlay {
+  .csis-block {
+    &--text-overlay {
+      width: 100vw;
+      padding-top: 50vh;
+      background-color: transparent;
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+
+      @include breakpoint('large') {
+        padding-top: 0;
+      }
+    }
+
+    &--light {
+      --bg-fallback: #{$color-black-130};
+      --text: #{$color-white-100};
+    }
+
+    &--dark {
+      --bg-fallback: #{$color-white-130};
+      --text: #{$color-text-gray-90};
+    }
+
+    &--left {
+      --margin-right: auto;
+      --margin-left: 0;
+    }
+
+    &--right {
+      --margin-right: 0;
+      --margin-left: auto;
+    }
+  }
+
+  .text-overlay__content {
+    --width: 100%;
+    --padding-top: #{rem(32)};
+    --padding-sides: #{rem(20)};
+    position: relative;
+    width: var(--width);
+    height: 100%;
+    padding: var(--padding-top) var(--padding-sides);
+    color: var(--text);
+    @extend %font-body-lg-post;
+
+    @include breakpoint('small') {
+      --padding-sides: #{rem(24)};
+    }
+
+    @include breakpoint('large') {
+      --width: 40%;
+      --padding-top: var(--padding-sides);
+      --padding-sides: #{rem(40)};
+      max-width: 500px;
+      margin: 0 var(--margin-right, auto) 0 var(--margin-left, 0);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 0;
+      background: var(--bg-color, var(--bg-fallback));
+      opacity: 0.85;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

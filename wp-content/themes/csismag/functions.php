@@ -117,6 +117,13 @@ function csismag_theme_support() {
 	// Add support for full and wide align images.
 	add_theme_support( 'align-wide' );
 
+	/* Disable custom font sizes, colors, gradients in Blocks */
+	add_theme_support( 'editor-font-sizes', array() );
+	add_theme_support( 'disable-custom-font-sizes' );
+	add_theme_support( 'disable-custom-colors' );
+	add_theme_support( 'editor-color-palette' );
+	add_theme_support( 'disable-custom-gradients' );
+
 	/*
 	 * Adds starter content to highlight the theme on fresh sites.
 	 * This is done conditionally to avoid loading the starter content on every
@@ -177,6 +184,9 @@ require get_template_directory() . '/inc/breadcrumbs.php';
 // Custom Blocks.
 require get_template_directory() . '/inc/custom-blocks.php';
 
+// Shortcodes.
+require get_template_directory() . '/inc/shortcodes.php';
+
 /**
  * Register and Enqueue Styles.
  */
@@ -198,6 +208,8 @@ function csismag_register_styles() {
 
 	if ( 'post' === get_post_type() ) {
 		wp_enqueue_style( 'csismag-style-post', get_stylesheet_directory_uri() . '/assets/css/pages/post.min.css', array(), $theme_version );
+
+		wp_enqueue_style( 'csismag-style-post-blocks', get_stylesheet_directory_uri() . '/assets/css/blocks/post.min.css', array(), $theme_version );
 	}
 
 	if ( 'issues' === get_post_type() ) {
@@ -230,6 +242,9 @@ function csismag_register_scripts() {
 
 	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, true );
 	wp_script_add_data( 'csismag-vendor-js', 'async', true );
+
+	wp_enqueue_script( 'csismag-custom-js', get_template_directory_uri() . '/assets/js/custom.min.js', array(), $theme_version, true );
+	wp_script_add_data( 'csismag-custom-js', 'defer', true );
 
 }
 
@@ -391,79 +406,6 @@ add_filter( 'tiny_mce_before_init', 'csismag_add_classic_editor_customizer_style
  * Add custom colors and font sizes to the block editor.
  */
 function csismag_block_editor_settings() {
-
-	// Block Editor Palette.
-	$editor_color_palette = array(
-		array(
-			'name'  => __( 'Accent Color', 'csismag' ),
-			'slug'  => 'accent',
-			'color' => csismag_get_color_for_area( 'content', 'accent' ),
-		),
-		array(
-			'name'  => __( 'Primary', 'csismag' ),
-			'slug'  => 'primary',
-			'color' => csismag_get_color_for_area( 'content', 'text' ),
-		),
-		array(
-			'name'  => __( 'Secondary', 'csismag' ),
-			'slug'  => 'secondary',
-			'color' => csismag_get_color_for_area( 'content', 'secondary' ),
-		),
-		array(
-			'name'  => __( 'Subtle Background', 'csismag' ),
-			'slug'  => 'subtle-background',
-			'color' => csismag_get_color_for_area( 'content', 'borders' ),
-		),
-	);
-
-	// Add the background option.
-	$background_color = get_theme_mod( 'background_color' );
-	if ( ! $background_color ) {
-		$background_color_arr = get_theme_support( 'custom-background' );
-		$background_color     = $background_color_arr[0]['default-color'];
-	}
-	$editor_color_palette[] = array(
-		'name'  => __( 'Background Color', 'csismag' ),
-		'slug'  => 'background',
-		'color' => '#' . $background_color,
-	);
-
-	// If we have accent colors, add them to the block editor palette.
-	if ( $editor_color_palette ) {
-		add_theme_support( 'editor-color-palette', $editor_color_palette );
-	}
-
-	// Block Editor Font Sizes.
-	add_theme_support(
-		'editor-font-sizes',
-		array(
-			array(
-				'name'      => _x( 'Small', 'Name of the small font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'S', 'Short name of the small font size in the block editor.', 'csismag' ),
-				'size'      => 18,
-				'slug'      => 'small',
-			),
-			array(
-				'name'      => _x( 'Regular', 'Name of the regular font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'M', 'Short name of the regular font size in the block editor.', 'csismag' ),
-				'size'      => 21,
-				'slug'      => 'normal',
-			),
-			array(
-				'name'      => _x( 'Large', 'Name of the large font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'L', 'Short name of the large font size in the block editor.', 'csismag' ),
-				'size'      => 26.25,
-				'slug'      => 'large',
-			),
-			array(
-				'name'      => _x( 'Larger', 'Name of the larger font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'XL', 'Short name of the larger font size in the block editor.', 'csismag' ),
-				'size'      => 32,
-				'slug'      => 'larger',
-			),
-		)
-	);
-
 	// If we have a dark background color then add support for dark editor style.
 	// We can determine if the background color is dark by checking if the text-color is white.
 	if ( '#ffffff' === strtolower( csismag_get_color_for_area( 'content', 'text' ) ) ) {

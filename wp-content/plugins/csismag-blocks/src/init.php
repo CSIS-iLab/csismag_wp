@@ -16,24 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Enqueue Gutenberg block assets for both frontend + backend.
  *
- * @uses {wp-editor} for WP editor styles.
- * @since 1.0.0
- */
-function multi_block_cgb_block_assets() {
-	// Styles.
-	wp_enqueue_style(
-		'multi_block-cgb-style-css', // Handle.
-		plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ), // Block style CSS.
-		array( 'wp-editor' ) // Dependency to include the CSS after it.
-		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: File modification time.
-	);
-} // End function multi_block_cgb_block_assets().
-
-// Hook: Frontend assets.
-add_action( 'enqueue_block_assets', 'multi_block_cgb_block_assets' );
-
-/**
- * Enqueue Gutenberg block assets for backend editor.
+ * Assets enqueued:
+ * 1. blocks.style.build.css - Frontend + Backend.
+ * 2. blocks.build.js - Backend.
+ * 3. blocks.editor.build.css - Backend.
  *
  * @uses {wp-blocks} for block type registration & related functions.
  * @uses {wp-element} for WP Element abstraction — structure of blocks.
@@ -41,55 +27,64 @@ add_action( 'enqueue_block_assets', 'multi_block_cgb_block_assets' );
  * @uses {wp-editor} for WP editor styles.
  * @since 1.0.0
  */
-function multi_block_cgb_editor_assets() {
-	// Scripts.
-	wp_enqueue_script(
-		'multi_block-cgb-block-js', // Handle.
+function csismag_blocks_cgb_block_assets() { // phpcs:ignore
+	// Register block styles for both frontend + backend.
+	// wp_register_style(
+	// 	'csismag_blocks-cgb-style-css', // Handle.
+	// 	plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ), // Block style CSS.
+	// 	is_admin() ? array( 'wp-editor' ) : null, // Dependency to include the CSS after it.
+	// 	null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: File modification time.
+	// );
+
+	// Register block editor script for backend.
+	wp_register_script(
+		'csismag_blocks-cgb-block-js', // Handle.
 		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ), // Block.build.js: We register the block here. Built with Webpack.
-		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-compose', 'lodash', 'wp-hooks', 'wp-plugins', 'wp-edit-post', 'wp-data',  'wp-api', 'wp-api-fetch') // Dependencies, defined above.
-		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ) // Version: File modification time.
+		array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-dom-ready', 'wp-edit-post' ), // Dependencies, defined above.
+		null, // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
+		true // Enqueue the script in the footer.
 	);
 
+	// Register block editor styles for backend.
+	// wp_register_style(
+	// 	'csismag_blocks-cgb-block-editor-css', // Handle.
+	// 	plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ), // Block editor CSS.
+	// 	array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
+	// 	null // filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
+	// );
 
-
-	// Styles.
-	wp_enqueue_style(
-		'multi_block-cgb-block-editor-css', // Handle.
-		plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ), // Block editor CSS.
-		array( 'wp-edit-blocks' ) // Dependency to include the CSS after it.
-		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: File modification time.
+	// WP Localized globals. Use dynamic PHP stuff in JavaScript via `cgbGlobal` object.
+	wp_localize_script(
+		'csismag_blocks-cgb-block-js',
+		'cgbGlobal', // Array containing dynamic data for a JS Global.
+		[
+			'pluginDirPath' => plugin_dir_path( __DIR__ ),
+			'pluginDirUrl'  => plugin_dir_url( __DIR__ ),
+			// Add more data here that you want to access from `cgbGlobal` object.
+		]
 	);
 
-
-} // End function multi_block_cgb_editor_assets().
-
-// Hook: Editor assets.
-add_action( 'enqueue_block_editor_assets', 'multi_block_cgb_editor_assets' );
-
-
-
-
-
-
-add_action( 'rest_api_init', 'add_thumbnail_to_JSON' );
-function add_thumbnail_to_JSON() {
-//Add featured image
-register_rest_field(
-    'post', // Where to add the field (Here, blog posts. Could be an array)
-    'featured_image_src', // Name of new field (You can call this anything)
-    array(
-        'get_callback'    => 'get_image_src',
-        'update_callback' => null,
-        'schema'          => null,
-         )
-    );
+	/**
+	 * Register Gutenberg block on server-side.
+	 *
+	 * Register the block on server-side to ensure that the block
+	 * scripts and styles for both frontend and backend are
+	 * enqueued when the editor loads.
+	 *
+	 * @link https://wordpress.org/gutenberg/handbook/blocks/writing-your-first-block-type#enqueuing-block-scripts
+	 * @since 1.16.0
+	 */
+	register_block_type(
+		'cgb/block-csismag-blocks', array(
+			// Enqueue blocks.style.build.css on both frontend & backend.
+			// 'style'         => 'csismag_blocks-cgb-style-css',
+			// Enqueue blocks.build.js in the editor only.
+			'editor_script' => 'csismag_blocks-cgb-block-js',
+			// Enqueue blocks.editor.build.css in the editor only.
+			// 'editor_style'  => 'csismag_blocks-cgb-block-editor-css',
+		)
+	);
 }
 
-function get_image_src( $object, $field_name, $request ) {
-  $feat_img_array = wp_get_attachment_image_src(
-    $object['featured_media'], // Image attachment ID
-    'thumbnail',  // Size.  Ex. "thumbnail", "large", "full", etc..
-    true // Whether the image should be treated as an icon.
-  );
-  return $feat_img_array[0];
-}
+// Hook: Block assets.
+add_action( 'init', 'csismag_blocks_cgb_block_assets' );
