@@ -32,7 +32,7 @@ function csismag_keep_plugins_blocks( $allowed_block_types, $post ) {
 
 	// merge the whitelist with plugins blocks
 	return array_merge( array(
-		'core/image',
+		// 'core/image',
 		'core/paragraph',
 		'core/heading',
 		'core/list',
@@ -65,3 +65,49 @@ function csismag_lzb_block_post_text_overlay_render_attributes( $attributes, $co
 }
 
 add_filter( 'lazyblock/post-text-overlay/attributes', 'csismag_lzb_block_post_text_overlay_render_attributes', 10, 4 );
+
+// Set Aside size class if Image is aligned to left or right
+function csismag_lzb_block_post_image_render_attributes( $attributes, $content, $block, $context ) {
+	if ($attributes['align'] === 'left' || $attributes['align'] === 'right') {
+		$attributes['className'] .= ' csis-block--' . $attributes['aside-size'];
+	}
+
+	return $attributes;
+}
+
+add_filter( 'lazyblock/post-image/attributes', 'csismag_lzb_block_post_image_render_attributes', 10, 4 );
+
+
+// Create Handlebars Helper for Images
+function csismag_lazyblock_handlebars_helper_img ( $handlebars ) {
+
+  $handlebars->registerHelper('display-img', function($img) {
+		$srcset = wp_get_attachment_image_srcset($img['id']);
+		$info = wp_get_attachment_image_src($img['id'], 'large');
+		// $width = $info['width'];
+		$width = $info[1];
+
+		return '<img src="' . $img['url'] . '" alt="' . $img['alt'] . '" class="wp-image-' . $img['id'] . '" srcset="' . $srcset . '" sizes="(max-width: ' . $width . 'px) 100vw, ' . $width . 'px" />';
+
+	});
+}
+add_action( 'lzb/handlebars/object', 'csismag_lazyblock_handlebars_helper_img' );
+
+// Create Handlebars Helper for Image Source
+function csismag_lazyblock_handlebars_helper_img_source ( $handlebars ) {
+
+  $handlebars->registerHelper('img-source', function($img) {
+		$source = get_field('source', $img['id']);
+
+		if ( !$source ) {
+			return;
+		}
+
+		return '<span class="caption__source">' . $source . '</span>';
+
+	});
+}
+
+add_action( 'lzb/handlebars/object', 'csismag_lazyblock_handlebars_helper_img_source' );
+
+

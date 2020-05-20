@@ -9,5 +9,4 @@
  * Webpack is compiling as the input file.
  */
 
-import "./extend/aside-size.js";
 import "./extend/source-style.js";

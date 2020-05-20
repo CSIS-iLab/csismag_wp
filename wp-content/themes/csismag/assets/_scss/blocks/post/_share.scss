@@ -1,0 +1,70 @@
+@use '../abstracts' as *;
+
+.csis-block__share {
+  position: relative;
+  z-index: 10;
+  width: 40px;
+  text-align: center;
+
+  /* stylelint-disable-next-line */
+  .addtoany_list {
+    position: absolute;
+    bottom: 5px;
+    flex-direction: column;
+    width: fit-content;
+    padding: 0.5rem 0 2.75rem;
+    background: $color-white-100;
+    border-radius: 100%/20%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
+    transition: clip-path 0.3s ease-in-out;
+    clip-path: inset(100% 0 0 0);
+
+    &.is-active {
+      clip-path: inset(-10%);
+    }
+
+    a:first-of-type {
+      margin-left: 0;
+    }
+  }
+
+  &-btn {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    margin: 0 auto;
+    @include font-size(32);
+    border: 0 !important;
+    transition: color 0.3s ease-in-out, background 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+
+    &:hover {
+      background: $color-primary-darkest;
+    }
+
+    &[aria-expanded='false'] {
+      .icon-close {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+
+    &[aria-expanded='true'] {
+      color: $color-text-ltblue-100;
+      background: $color-primary-darkest;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
+      transform: scale(1.25);
+
+      &:hover {
+        color: $color-white-100;
+      }
+
+      .icon-share {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+  }
+}

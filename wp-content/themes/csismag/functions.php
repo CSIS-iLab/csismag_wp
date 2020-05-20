@@ -184,6 +184,9 @@ require get_template_directory() . '/inc/breadcrumbs.php';
 // Custom Blocks.
 require get_template_directory() . '/inc/custom-blocks.php';
 
+// Shortcodes.
+require get_template_directory() . '/inc/shortcodes.php';
+
 /**
  * Register and Enqueue Styles.
  */
@@ -239,6 +242,9 @@ function csismag_register_scripts() {
 
 	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, true );
 	wp_script_add_data( 'csismag-vendor-js', 'async', true );
+
+	wp_enqueue_script( 'csismag-custom-js', get_template_directory_uri() . '/assets/js/custom.min.js', array(), $theme_version, true );
+	wp_script_add_data( 'csismag-custom-js', 'defer', true );
 
 }
 
