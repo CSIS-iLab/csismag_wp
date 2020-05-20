@@ -3,6 +3,10 @@
 $block: '.csis-block';
 
 .wp-block-lazyblock-csismag-original {
+  @include breakpoint('large') {
+    @include csis-block-full-width-wrapper();
+  }
+
   .post-block {
     @include breakpoint('small') {
       display: grid;
@@ -23,6 +27,14 @@ $block: '.csis-block';
         'excerpt .'
         'authors .';
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include breakpoint('large') {
+      @include csis-block-full-width-content();
+    }
+
+    &__title {
+      @extend %font-heading-4-xl-serif;
     }
   }
 
@@ -96,7 +108,7 @@ $block: '.csis-block';
     }
   }
 
-  .featured-media {
+  .post-block__img {
     grid-area: img;
     max-width: 100%;
 
@@ -106,6 +118,11 @@ $block: '.csis-block';
       right: 0;
       bottom: 0;
       width: 60%;
+    }
+
+    @include breakpoint('large') {
+      // Offset by the container padding for oversized container on large screens.
+      right: var(--container-padding);
     }
 
     img {

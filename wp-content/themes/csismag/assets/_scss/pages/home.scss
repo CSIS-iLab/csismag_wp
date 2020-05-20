@@ -4,6 +4,7 @@
   #site-content {
     display: grid;
     grid-gap: rem(48);
+    align-items: start;
     margin-top: rem(16);
     margin-bottom: rem(48);
 
@@ -16,6 +17,11 @@
       grid-gap: rem(72);
       margin-top: rem(32);
     }
+  }
+
+  &__recent {
+    position: relative;
+    z-index: 1;
   }
 
   .post-block--issues-featured {
@@ -230,7 +236,8 @@
       @extend %font-body-md;
     }
 
-    > img {
+    &-img {
+      display: block;
       grid-area: img;
       margin-bottom: rem(24);
     }
@@ -252,8 +259,17 @@
 
       @include full-width-background($color-white-100, 'left', false);
 
+      &::before,
+      &::after {
+        pointer-events: none;
+      }
+
       &::before {
         width: calc(100vw - 100%);
+
+        @include breakpoint('large') {
+          width: 100%;
+        }
       }
 
       &:hover {

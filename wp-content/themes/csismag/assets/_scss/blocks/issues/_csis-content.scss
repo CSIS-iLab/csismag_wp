@@ -31,6 +31,10 @@ $block: '.csis-block';
 
   #{$block}__title {
     @extend %font-heading-3-xl-serif;
+
+    a:hover {
+      color: $color-primary-base;
+    }
   }
 
   #{$block}__header,
