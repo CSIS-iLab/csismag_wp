@@ -25,6 +25,10 @@ $block: '.csis-block';
   #{$block}__title {
     display: block;
     @extend %font-heading-xl-sans;
+
+    &:hover {
+      color: $color-primary-base;
+    }
   }
 
   #{$block}__block {
