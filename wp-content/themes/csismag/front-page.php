@@ -69,11 +69,18 @@ get_header();
 				<p class="home__series-desc"><?php echo esc_html( $series->description ); ?></p>
 
 				<?php
+					$archive_text = get_field('archive_link_text', 'series_' . $series->term_id);
+					$archive_url = get_field('archive_url', 'series_' . $series->term_id);
+
+					if ( !$archive_url ) {
+						$archive_url = get_term_link( $series );
+						$archive_text = 'Read More';
+					}
 
 					$image = get_field('image', 'series_' . $series->term_id);
 					$size = 'full';
 					if ( $image ) {
-						echo wp_get_attachment_image( $image, $size );
+						echo '<a href="' . $archive_url . '" class="home__series-img">' . wp_get_attachment_image( $image, $size ) . '</a>';
 					}
 
 					echo '<div class="home__series-articles">';
@@ -87,14 +94,6 @@ get_header();
 					wp_reset_postdata();
 
 					echo '</div>';
-
-					$archive_text = get_field('archive_link_text', 'series_' . $series->term_id);
-					$archive_url = get_field('archive_url', 'series_' . $series->term_id);
-
-					if ( !$archive_url ) {
-						$archive_url = get_term_link( $series );
-						$archive_text = 'Read More';
-					}
 
 					echo '<a href="' . $archive_url . '" class="home__series-archive">' . $archive_text . csismag_get_svg( 'arrow-right') . '</a>';
 				?>
