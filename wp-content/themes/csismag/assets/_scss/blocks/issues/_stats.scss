@@ -1,0 +1,113 @@
+@use '../abstracts' as *;
+
+$block: '.csis-block';
+
+.wp-block-lazyblock-issue-stats {
+  @include breakpoint('large') {
+    @include csis-block-full-width-wrapper();
+  }
+
+  > * {
+    @include breakpoint('large') {
+      @include csis-block-full-width-content();
+    }
+  }
+}
+
+#{$block}--stat {
+  display: grid;
+  grid-gap: rem(8);
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+}
+
+.stat {
+  --stat-bg: #{$color-bg-lt-blue};
+  --stat-padding: #{rem(20)};
+  --stat-padding-bottom: #{rem(24)};
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--stat-padding);
+  padding-bottom: var(--stat-padding-bottom);
+  background: var(--stat-bg);
+
+  @include breakpoint('large') {
+    --stat-padding: #{rem(24)};
+    --stat-padding-bottom: #{rem(32)};
+  }
+
+  @include breakpoint('xlarge') {
+    --stat-padding: #{rem(32)};
+    --stat-padding-bottom: #{rem(40)};
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 0 12px rgba(36, 44, 48, 0.14),
+      0 4px 5px rgba(10, 52, 80, 0.02);
+  }
+
+  &:hover {
+    --stat-bg: #{$color-primary-darkest};
+    color: $color-white-100;
+
+    &::after {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .stat__value {
+      color: inherit;
+    }
+
+    #{$block}__title {
+      color: $color-text-ltblue-100;
+    }
+
+    #{$block}__meta {
+      color: $color-text-ltblue-80;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    #{$block}__title,
+    #{$block}__meta {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .csis-block__desc {
+    flex: 1 1 auto;
+    margin-bottom: rem(32);
+  }
+
+  &__value {
+    display: block;
+    color: $color-black-100;
+    @extend %font-heading-4-xl-sans;
+  }
+
+  #{$block}__title {
+    @extend %font-heading-lg-sans;
+  }
+
+  #{$block}__meta {
+    color: $color-text-link-light-base;
+  }
+
+  &::after,
+  #{$block}__title,
+  #{$block}__meta {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+}

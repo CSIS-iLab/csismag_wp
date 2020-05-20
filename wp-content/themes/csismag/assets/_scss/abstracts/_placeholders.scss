@@ -1,0 +1,224 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+/*==============================
+=          Placeholders        =
+==============================*/
+
+%font-heading-5-xl {
+  font-family: $font__minion-display;
+  font-weight: 500;
+  @include font-size(40px);
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(52px);
+  }
+
+  @include breakpoint('large') {
+    @include font-size(64px);
+  }
+}
+
+%font-heading-4-xl-serif {
+  font-family: $font__minion-display;
+  font-weight: 500;
+  @include font-size(32px);
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(36px);
+  }
+
+  @include breakpoint('large') {
+    @include font-size(40px);
+  }
+}
+
+%font-heading-4-xl-sans {
+  @include font-size(34px);
+  font-family: $font__source;
+  font-weight: bold;
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(36px);
+  }
+
+  @include breakpoint('large') {
+    @include font-size(40px);
+  }
+}
+
+%font-heading-3-xl-serif {
+  @include font-size(28px);
+  font-family: $font__minion-display;
+  font-weight: 500;
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(30px);
+  }
+
+  @include breakpoint('large') {
+    @include font-size(32px);
+  }
+}
+
+%font-heading-2-xl-serif {
+  @include font-size(25px);
+  font-family: $font__minion-display;
+  font-weight: 500;
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(28px);
+  }
+}
+
+%font-heading-xl-serif {
+  @include font-size(22px);
+  font-family: $font__minion-display;
+  font-weight: 500;
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(24px);
+  }
+}
+
+%font-heading-xl-sans {
+  @include font-size(22px);
+  font-family: $font__source;
+  font-weight: 600;
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(24px);
+  }
+}
+
+%font-heading-lg-serif {
+  @include font-size(20px);
+  font-family: $font__minion-display;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+%font-heading-lg-sans {
+  @include font-size(19px);
+  font-family: $font__source;
+  font-weight: 600;
+  line-height: 1.15;
+
+  @include breakpoint('medium') {
+    @include font-size(20px);
+  }
+}
+
+%font-heading-md-serif {
+  @include font-size(18px);
+  font-family: $font__minion-display;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+%font-heading-md-sans {
+  @include font-size(18px);
+  font-family: $font__source;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+%font-heading-sm-serif {
+  @include font-size(16px);
+  font-family: $font__minion-display;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+%font-heading-sm-sans {
+  @include font-size(16px);
+  font-family: $font__source;
+  font-weight: bold;
+  line-height: 1.35;
+}
+
+%font-body-lg-post {
+  @include font-size(18px);
+  font-family: $font__minion-caption;
+  font-weight: 400;
+  line-height: 1.5;
+
+  @include breakpoint('medium') {
+    @include font-size(20px);
+    line-height: 1.6;
+  }
+}
+
+%font-body-md {
+  @include font-size(17px);
+  font-family: $font__minion-caption;
+  font-weight: 400;
+  line-height: 1.35;
+
+  @include breakpoint('medium') {
+    @include font-size(18px);
+  }
+}
+
+%font-body-sm {
+  @include font-size(15px);
+  font-family: $font__source;
+  line-height: 1.35;
+
+  @include breakpoint('medium') {
+    @include font-size(16px);
+  }
+}
+
+%font-body-xs {
+  @include font-size(14px);
+  font-family: $font__source;
+  line-height: 1.35;
+}
+
+%font-body-2-xs {
+  @include font-size(13px);
+  font-family: $font__source;
+  line-height: 1.35;
+}
+
+%font-label-lg {
+  @include font-size(15px);
+  font-family: $font__source;
+  line-height: 1;
+
+  @include breakpoint('medium') {
+    @include font-size(16px);
+  }
+}
+
+%font-label-sm {
+  @include font-size(14px);
+  font-family: $font__source;
+  line-height: 1.15;
+}
+
+%font-button {
+  @include font-size(14px);
+  font-family: $font__source;
+  font-weight: 600;
+  line-height: 1;
+}
+
+%font-quote {
+  @include font-size(22px);
+  font-family: $font__minion-display;
+  font-weight: 500;
+  line-height: 1.35;
+
+  @include breakpoint('medium') {
+    @include font-size(24px);
+  }
+}

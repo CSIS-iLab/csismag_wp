@@ -12,48 +12,37 @@
  */
 
 ?>
-			<footer id="site-footer" role="contentinfo" class="header-footer-group">
+			<footer id="site-footer" class="footer" role="contentinfo">
+				<a href="https://www.csis.org" class="footer__logo"><?php include( get_template_directory() . '/assets/static/csis-logo.svg'); ?></a>
 
-				<div class="section-inner">
+				<?php dynamic_sidebar( 'sidebar-1' ); ?>
+				<?php dynamic_sidebar( 'sidebar-2' ); ?>
 
-					<div class="footer-credits">
+				<div class="footer__contact">
+					<address class="footer__address">
+						1616 Rhode Island Ave NW<br />
+						Washington, DC 20036
+					</address>
 
-						<p class="footer-copyright">&copy;
-							<?php
-							echo date_i18n(
-								/* translators: Copyright date format, see https://secure.php.net/date */
-								_x( 'Y', 'copyright date format', 'csismag' )
-							);
-							?>
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
-						</p><!-- .footer-copyright -->
+					<p class="footer__phone">(202) 887-0200</p>
 
-						<p class="powered-by-wordpress">
-							<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'csismag' ) ); ?>">
-								<?php _e( 'Powered by WordPress', 'csismag' ); ?>
-							</a>
-						</p><!-- .powered-by-wordpress -->
+					<?php dynamic_sidebar( 'social-share' ); ?>
+				</div>
 
-					</div><!-- .footer-credits -->
 
-					<a class="to-the-top" href="#site-header">
-						<span class="to-the-top-long">
-							<?php
-							/* translators: %s: HTML character for up arrow */
-							printf( __( 'To the top %s', 'csismag' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
-							?>
-						</span><!-- .to-the-top-long -->
-						<span class="to-the-top-short">
-							<?php
-							/* translators: %s: HTML character for up arrow */
-							printf( __( 'Up %s', 'csismag' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
-							?>
-						</span><!-- .to-the-top-short -->
-					</a><!-- .to-the-top -->
-
-				</div><!-- .section-inner -->
+				<p class="footer__copyright">Copyright &copy;
+					<?php
+					echo date_i18n(
+						/* translators: Copyright date format, see https://secure.php.net/date */
+						_x( 'Y', 'copyright date format', 'csismag' )
+					);
+					?>
+					Center for Strategic and International Studies.<br />All rights reserved. <a href="https://www.csis.org/privacy-policy">Privacy Policy</a>
+				</p><!-- .footer-copyright -->
 
 			</footer><!-- #site-footer -->
+
+		</div><!-- .container -->
 
 		<?php wp_footer(); ?>
 

@@ -1,0 +1,52 @@
+@use 'abstracts' as *;
+
+.post-meta {
+  color: var(--post-meta);
+
+  &__label {
+    font-style: italic;
+  }
+
+  &__top {
+    display: flex;
+    @extend %font-label-lg;
+  }
+
+  &__issue .post-meta__value,
+  &__date {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__issue {
+    .post-meta__label {
+      text-transform: lowercase;
+    }
+
+    .post-meta__value {
+      font-weight: 600;
+    }
+  }
+
+  &__date {
+    margin-left: rem(8);
+
+    &::before {
+      content: '|';
+      margin-right: rem(8);
+      color: var(--post-meta-divider);
+    }
+  }
+
+  &__authors {
+    @extend %font-body-sm;
+  }
+
+  &__original {
+    margin-top: rem(4);
+    font-weight: 600;
+    @extend %font-label-lg;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+}

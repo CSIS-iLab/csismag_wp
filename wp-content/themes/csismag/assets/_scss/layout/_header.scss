@@ -1,0 +1,90 @@
+@use 'abstracts' as *;
+
+.header {
+  position: relative;
+  z-index: 10;
+
+  &__logo {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    color: var(--logo-color);
+    text-align: center;
+
+    svg {
+      width: auto;
+      height: var(--logo-height);
+      transition: filter 0.3s ease-in-out;
+    }
+
+    &:hover {
+      color: var(--logo-color);
+
+      svg {
+        filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
+      }
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    ul {
+      display: flex;
+      width: 100%;
+      margin: rem(4) 0;
+      color: var(--breadcrumbs-color);
+      @extend %font-label-sm;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      @include breakpoint($break: 'medium', $dir: 'max-width') {
+        justify-content: space-between;
+      }
+    }
+
+    li {
+      position: relative;
+      margin: 0 rem(12);
+      transition: box-shadow 0.3s ease-in-out;
+
+      @include breakpoint('medium') {
+        margin: 0 rem(8);
+      }
+
+      &:not(:first-of-type) {
+        margin-left: rem(14px);
+
+        /* stylelint-disable-next-line */
+        &::before {
+          @include breakpoint('medium') {
+            content: '/';
+            position: absolute;
+            left: rem(-14);
+            color: var(--breadcrumbs-divider);
+          }
+        }
+      }
+    }
+
+    a {
+      &:hover {
+        color: var(--breadcrumbs-color-hover);
+      }
+    }
+
+    .breadcrumbs__active {
+      @include link-underline(
+        $color: var(--breadcrumbs-color),
+        $hideOnHover: false
+      );
+    }
+  }
+}

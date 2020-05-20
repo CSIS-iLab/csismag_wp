@@ -1,0 +1,73 @@
+/*=================================
+=            Variables            =
+=================================*/
+
+/*----------  Colors  ----------*/
+$color-white-100: rgba(255, 255, 255, 1);
+$color-white-130: rgba(255, 255, 255, 0.3);
+$color-white-150: rgba(255, 255, 255, 0.5);
+
+$color-black-100: rgba(0, 0, 0, 1);
+$color-black-125: rgba(0, 0, 0, 0.25);
+$color-black-130: rgba(0, 0, 0, 0.3);
+
+$color-gray-1: rgba(51, 51, 51, 1);
+
+$color-text-gray-05: rgba(240, 240, 240, 1);
+$color-text-gray-10: rgba(229, 229, 229, 1);
+$color-text-gray-30: rgba(173, 173, 173, 1);
+$color-text-gray-50: rgba(117, 117, 117, 1);
+$color-text-gray-70: rgba(69, 69, 69, 1);
+$color-text-gray-90: rgba(23, 23, 23, 1);
+
+$color-primary-base: rgba(0, 101, 166, 1);
+$color-primary-base-130: rgba(0, 101, 166, 0.3);
+$color-primary-base-180: rgba(25, 95, 143, 0.8);
+$color-primary-light: rgba(82, 146, 187, 1);
+$color-primary-dark: rgba(0, 72, 122, 1);
+$color-primary-dark-200: rgba(25, 95, 143, 1);
+$color-primary-darkest: rgba(36, 44, 48, 1);
+
+$color-gradient-light-end: rgba(245, 246, 247, 0.88);
+$color-gradient-dark-end: rgba(60, 72, 77, 1);
+
+$color-text-ltblue-80: rgba(165, 175, 181, 1);
+$color-text-ltblue-100: rgba(201, 207, 212, 1);
+
+$color-bg-lt-blue: rgba(241, 244, 244, 1);
+
+$color-utilities-red-100: rgba(255, 134, 134, 1);
+$color-utilities-red-200: rgba(245, 88, 88, 1);
+$color-utilities-red-140: rgba(255, 134, 134, 0.4);
+
+$color-text-link-light-base: rgba(71, 107, 128, 1);
+
+$social: (
+  facebook: rgba(59, 89, 152, 1),
+  twitter: rgba(29, 161, 242, 1),
+  linkedin: rgba(0, 123, 181, 1),
+  linkedin_company: rgba(0, 123, 181, 1),
+  instagram: rgba(195, 42, 163, 1),
+  youtube: rgba(255, 0, 0, 1),
+  email: rgba(242, 153, 74, 1),
+  copy_link: rgba(155, 81, 224, 1),
+);
+
+/*----------  Fonts  ----------*/
+$font__minion-display: minion-pro-display, serif;
+$font__minion-caption: minion-pro-caption, serif;
+$font__source: source-sans-pro, sans-serif;
+
+/*----------  Structure  ----------*/
+$breakpoints: (
+  'small': 30em,
+  'medium': 40em,
+  'large': 64em,
+  'xlarge': 80em,
+  'xxlarge': 87.5em,
+);
+
+$size__container-max-width: 1280px;
+$size__content-max-width: 680px;
+$size__issues-content-max-width: 900px;
+$size__content-wide-max-width: 1152px;

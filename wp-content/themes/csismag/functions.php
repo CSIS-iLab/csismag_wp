@@ -117,6 +117,13 @@ function csismag_theme_support() {
 	// Add support for full and wide align images.
 	add_theme_support( 'align-wide' );
 
+	/* Disable custom font sizes, colors, gradients in Blocks */
+	add_theme_support( 'editor-font-sizes', array() );
+	add_theme_support( 'disable-custom-font-sizes' );
+	add_theme_support( 'disable-custom-colors' );
+	add_theme_support( 'editor-color-palette' );
+	add_theme_support( 'disable-custom-gradients' );
+
 	/*
 	 * Adds starter content to highlight the theme on fresh sites.
 	 * This is done conditionally to avoid loading the starter content on every
@@ -148,7 +155,6 @@ add_action( 'after_setup_theme', 'csismag_theme_support' );
 require get_template_directory() . '/inc/template-tags.php';
 
 // Handle SVG icons.
-require get_template_directory() . '/classes/class-csismag-svg-icons.php';
 require get_template_directory() . '/inc/svg-icons.php';
 
 // Handle Customizer settings.
@@ -159,9 +165,6 @@ require get_template_directory() . '/classes/class-csismag-walker-page.php';
 
 // Custom script loader class.
 require get_template_directory() . '/classes/class-csismag-script-loader.php';
-
-// Non-latin language handling.
-require get_template_directory() . '/classes/class-csismag-non-latin-languages.php';
 
 // Custom CSS.
 require get_template_directory() . '/inc/custom-css.php';
@@ -175,6 +178,15 @@ require get_template_directory() . '/inc/cpt-issues.php';
 // Series Custom Taxonomy.
 require get_template_directory() . '/inc/tax-series.php';
 
+// Breadcrumbs.
+require get_template_directory() . '/inc/breadcrumbs.php';
+
+// Custom Blocks.
+require get_template_directory() . '/inc/custom-blocks.php';
+
+// Shortcodes.
+require get_template_directory() . '/inc/shortcodes.php';
+
 /**
  * Register and Enqueue Styles.
  */
@@ -182,10 +194,29 @@ function csismag_register_styles() {
 
 	$theme_version = wp_get_theme()->get( 'Version' );
 
-	wp_enqueue_style( 'csismag-style', get_stylesheet_uri(), array(), $theme_version );
+	wp_enqueue_style( 'csismag-fonts', 'https://use.typekit.net/ngw0sua.css', array(), $theme_version );
 
-	// Add output of Customizer settings as inline style.
-	wp_add_inline_style( 'csismag-style', csismag_get_customizer_css( 'front-end' ) );
+	wp_enqueue_style( 'csismag-style', get_stylesheet_directory_uri() . '/style.min.css', array(), $theme_version );
+
+	if ( is_front_page() || is_home() ) {
+		wp_enqueue_style( 'csismag-style-home', get_stylesheet_directory_uri() . '/assets/css/pages/home.min.css', array(), $theme_version );
+	}
+
+	if ( is_singular() ) {
+		wp_enqueue_style( 'csismag-style-single', get_stylesheet_directory_uri() . '/assets/css/pages/single.min.css', array(), $theme_version );
+	}
+
+	if ( 'post' === get_post_type() ) {
+		wp_enqueue_style( 'csismag-style-post', get_stylesheet_directory_uri() . '/assets/css/pages/post.min.css', array(), $theme_version );
+
+		wp_enqueue_style( 'csismag-style-post-blocks', get_stylesheet_directory_uri() . '/assets/css/blocks/post.min.css', array(), $theme_version );
+	}
+
+	if ( 'issues' === get_post_type() ) {
+		wp_enqueue_style( 'csismag-style-issues', get_stylesheet_directory_uri() . '/assets/css/pages/issues.min.css', array(), $theme_version );
+
+		wp_enqueue_style( 'csismag-style-issues-blocks', get_stylesheet_directory_uri() . '/assets/css/blocks/issues.min.css', array(), $theme_version );
+	}
 
 	// Add print CSS.
 	wp_enqueue_style( 'csismag-print-style', get_template_directory_uri() . '/print.css', null, $theme_version, 'print' );
@@ -201,12 +232,19 @@ function csismag_register_scripts() {
 
 	$theme_version = wp_get_theme()->get( 'Version' );
 
-	if ( ( ! is_admin() ) && is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+	if ( ( ! is_admin() ) && is_singular() ) {
+		wp_enqueue_script( 'csismag-iframeResizer', 'https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js', array(), $theme_version, true );
+
+		wp_add_inline_script( 'csismag-iframeResizer', 'const iframes = iFrameResize({ log: false }, ".js-resize")' );
+
+		// wp_script_add_data( 'csismag-iframeResizer', 'async', true );
 	}
 
-	wp_enqueue_script( 'csismag-js', get_template_directory_uri() . '/assets/js/index.js', array(), $theme_version, false );
-	wp_script_add_data( 'csismag-js', 'async', true );
+	wp_enqueue_script( 'csismag-vendor-js', get_template_directory_uri() . '/assets/js/vendor.min.js', array(), $theme_version, true );
+	wp_script_add_data( 'csismag-vendor-js', 'async', true );
+
+	wp_enqueue_script( 'csismag-custom-js', get_template_directory_uri() . '/assets/js/custom.min.js', array(), $theme_version, true );
+	wp_script_add_data( 'csismag-custom-js', 'defer', true );
 
 }
 
@@ -230,96 +268,6 @@ function csismag_skip_link_focus_fix() {
 }
 add_action( 'wp_print_footer_scripts', 'csismag_skip_link_focus_fix' );
 
-/** Enqueue non-latin language styles
- *
- * @since 1.0.0
- *
- * @return void
- */
-function csismag_non_latin_languages() {
-	$custom_css = CSISMag_Non_Latin_Languages::get_non_latin_css( 'front-end' );
-
-	if ( $custom_css ) {
-		wp_add_inline_style( 'csismag-style', $custom_css );
-	}
-}
-
-add_action( 'wp_enqueue_scripts', 'csismag_non_latin_languages' );
-
-/**
- * Register navigation menus uses wp_nav_menu in five places.
- */
-function csismag_menus() {
-
-	$locations = array(
-		'primary'  => __( 'Desktop Horizontal Menu', 'csismag' ),
-		'expanded' => __( 'Desktop Expanded Menu', 'csismag' ),
-		'mobile'   => __( 'Mobile Menu', 'csismag' ),
-		'footer'   => __( 'Footer Menu', 'csismag' ),
-		'social'   => __( 'Social Menu', 'csismag' ),
-	);
-
-	register_nav_menus( $locations );
-}
-
-add_action( 'init', 'csismag_menus' );
-
-/**
- * Get the information about the logo.
- *
- * @param string $html The HTML output from get_custom_logo (core function).
- *
- * @return string $html
- */
-function csismag_get_custom_logo( $html ) {
-
-	$logo_id = get_theme_mod( 'custom_logo' );
-
-	if ( ! $logo_id ) {
-		return $html;
-	}
-
-	$logo = wp_get_attachment_image_src( $logo_id, 'full' );
-
-	if ( $logo ) {
-		// For clarity.
-		$logo_width  = esc_attr( $logo[1] );
-		$logo_height = esc_attr( $logo[2] );
-
-		// If the retina logo setting is active, reduce the width/height by half.
-		if ( get_theme_mod( 'retina_logo', false ) ) {
-			$logo_width  = floor( $logo_width / 2 );
-			$logo_height = floor( $logo_height / 2 );
-
-			$search = array(
-				'/width=\"\d+\"/iU',
-				'/height=\"\d+\"/iU',
-			);
-
-			$replace = array(
-				"width=\"{$logo_width}\"",
-				"height=\"{$logo_height}\"",
-			);
-
-			// Add a style attribute with the height, or append the height to the style attribute if the style attribute already exists.
-			if ( strpos( $html, ' style=' ) === false ) {
-				$search[]  = '/(src=)/';
-				$replace[] = "style=\"height: {$logo_height}px;\" src=";
-			} else {
-				$search[]  = '/(style="[^"]*)/';
-				$replace[] = "$1 height: {$logo_height}px;";
-			}
-
-			$html = preg_replace( $search, $replace, $html );
-
-		}
-	}
-
-	return $html;
-
-}
-
-add_filter( 'get_custom_logo', 'csismag_get_custom_logo' );
 
 if ( ! function_exists( 'wp_body_open' ) ) {
 
@@ -348,17 +296,17 @@ add_action( 'wp_body_open', 'csismag_skip_link', 5 );
 function csismag_sidebar_registration() {
 
 	// Arguments used in all register_sidebar() calls.
-	$shared_args = array(
-		'before_title'  => '<h2 class="widget-title subheading heading-size-3">',
-		'after_title'   => '</h2>',
-		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
-		'after_widget'  => '</div></div>',
+	$footer_shared_args = array(
+		'before_title'  => '',
+		'after_title'   => '',
+		'before_widget' => '<div class="widget %2$s">',
+		'after_widget'  => '</div>',
 	);
 
 	// Footer #1.
 	register_sidebar(
 		array_merge(
-			$shared_args,
+			$footer_shared_args,
 			array(
 				'name'        => __( 'Footer #1', 'csismag' ),
 				'id'          => 'sidebar-1',
@@ -370,13 +318,24 @@ function csismag_sidebar_registration() {
 	// Footer #2.
 	register_sidebar(
 		array_merge(
-			$shared_args,
+			$footer_shared_args,
 			array(
 				'name'        => __( 'Footer #2', 'csismag' ),
 				'id'          => 'sidebar-2',
 				'description' => __( 'Widgets in this area will be displayed in the second column in the footer.', 'csismag' ),
 			)
 		)
+	);
+
+	// Social Share
+	register_sidebar(
+		array(
+				'name'        => __( 'Social Share', 'csismag' ),
+				'id'          => 'social-share',
+				'description' => __( 'Social Share Widget', 'csismag' ),
+				'before_widget' => '',
+				'after_widget' => ''
+			)
 	);
 
 }
@@ -396,9 +355,6 @@ function csismag_block_editor_styles() {
 
 	// Add inline style from the Customizer.
 	wp_add_inline_style( 'csismag-block-editor-styles', csismag_get_customizer_css( 'block-editor' ) );
-
-	// Add inline style for non-latin fonts.
-	wp_add_inline_style( 'csismag-block-editor-styles', CSISMag_Non_Latin_Languages::get_non_latin_css( 'block-editor' ) );
 
 	// Enqueue the editor script.
 	wp_enqueue_script( 'csismag-block-editor-script', get_theme_file_uri( '/assets/js/editor-script-block.js' ), array( 'wp-blocks', 'wp-dom' ), wp_get_theme()->get( 'Version' ), true );
@@ -446,112 +402,10 @@ function csismag_add_classic_editor_customizer_styles( $mce_init ) {
 add_filter( 'tiny_mce_before_init', 'csismag_add_classic_editor_customizer_styles' );
 
 /**
- * Output non-latin font styles in the classic editor.
- * Adds styles to the head of the TinyMCE iframe. Kudos to @Otto42 for the original solution.
- *
- * @param array $mce_init TinyMCE styles.
- *
- * @return array $mce_init TinyMCE styles.
- */
-function csismag_add_classic_editor_non_latin_styles( $mce_init ) {
-
-	$styles = CSISMag_Non_Latin_Languages::get_non_latin_css( 'classic-editor' );
-
-	// Return if there are no styles to add.
-	if ( ! $styles ) {
-		return $mce_init;
-	}
-
-	if ( ! isset( $mce_init['content_style'] ) ) {
-		$mce_init['content_style'] = $styles . ' ';
-	} else {
-		$mce_init['content_style'] .= ' ' . $styles . ' ';
-	}
-
-	return $mce_init;
-
-}
-
-add_filter( 'tiny_mce_before_init', 'csismag_add_classic_editor_non_latin_styles' );
-
-/**
  * Block Editor Settings.
  * Add custom colors and font sizes to the block editor.
  */
 function csismag_block_editor_settings() {
-
-	// Block Editor Palette.
-	$editor_color_palette = array(
-		array(
-			'name'  => __( 'Accent Color', 'csismag' ),
-			'slug'  => 'accent',
-			'color' => csismag_get_color_for_area( 'content', 'accent' ),
-		),
-		array(
-			'name'  => __( 'Primary', 'csismag' ),
-			'slug'  => 'primary',
-			'color' => csismag_get_color_for_area( 'content', 'text' ),
-		),
-		array(
-			'name'  => __( 'Secondary', 'csismag' ),
-			'slug'  => 'secondary',
-			'color' => csismag_get_color_for_area( 'content', 'secondary' ),
-		),
-		array(
-			'name'  => __( 'Subtle Background', 'csismag' ),
-			'slug'  => 'subtle-background',
-			'color' => csismag_get_color_for_area( 'content', 'borders' ),
-		),
-	);
-
-	// Add the background option.
-	$background_color = get_theme_mod( 'background_color' );
-	if ( ! $background_color ) {
-		$background_color_arr = get_theme_support( 'custom-background' );
-		$background_color     = $background_color_arr[0]['default-color'];
-	}
-	$editor_color_palette[] = array(
-		'name'  => __( 'Background Color', 'csismag' ),
-		'slug'  => 'background',
-		'color' => '#' . $background_color,
-	);
-
-	// If we have accent colors, add them to the block editor palette.
-	if ( $editor_color_palette ) {
-		add_theme_support( 'editor-color-palette', $editor_color_palette );
-	}
-
-	// Block Editor Font Sizes.
-	add_theme_support(
-		'editor-font-sizes',
-		array(
-			array(
-				'name'      => _x( 'Small', 'Name of the small font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'S', 'Short name of the small font size in the block editor.', 'csismag' ),
-				'size'      => 18,
-				'slug'      => 'small',
-			),
-			array(
-				'name'      => _x( 'Regular', 'Name of the regular font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'M', 'Short name of the regular font size in the block editor.', 'csismag' ),
-				'size'      => 21,
-				'slug'      => 'normal',
-			),
-			array(
-				'name'      => _x( 'Large', 'Name of the large font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'L', 'Short name of the large font size in the block editor.', 'csismag' ),
-				'size'      => 26.25,
-				'slug'      => 'large',
-			),
-			array(
-				'name'      => _x( 'Larger', 'Name of the larger font size in the block editor', 'csismag' ),
-				'shortName' => _x( 'XL', 'Short name of the larger font size in the block editor.', 'csismag' ),
-				'size'      => 32,
-				'slug'      => 'larger',
-			),
-		)
-	);
-
 	// If we have a dark background color then add support for dark editor style.
 	// We can determine if the background color is dark by checking if the text-color is white.
 	if ( '#ffffff' === strtolower( csismag_get_color_for_area( 'content', 'text' ) ) ) {
@@ -755,3 +609,22 @@ function csismag_get_elements_array() {
 	*/
 	return apply_filters( 'csismag_get_elements_array', $elements );
 }
+
+/** Modify Excerpt */
+function new_excerpt_more($more) {
+    return '...';
+}
+add_filter('excerpt_more', 'new_excerpt_more');
+
+/** Modify Excerpt Classes */
+function csismag_filter_excerpt ($post_excerpt) {
+	$class = 'post-block__excerpt';
+
+	if ( !is_front_page() && is_singular() ) {
+		$class = 'single__excerpt';
+	}
+
+  $post_excerpt = '<p class="' . $class . '">' . $post_excerpt . '</p>';
+  return $post_excerpt;
+}
+add_filter ('get_the_excerpt','csismag_filter_excerpt');

@@ -9,67 +9,59 @@
 
 $entry_header_classes = '';
 
-if ( is_singular() ) {
-	$entry_header_classes .= ' header-footer-group';
+$is_issue = false;
+$show_csismag_original = true;
+$show_issue_prefix = true;
+
+if ( 'issues' === get_post_type() ) {
+	$is_issue = true;
+	$show_csismag_original = false;
+	$show_issue_prefix = false;
 }
 
 ?>
 
-<header class="entry-header has-text-align-center<?php echo esc_attr( $entry_header_classes ); ?>">
+<header class="single__header<?php echo esc_attr( $entry_header_classes ); ?>">
 
-	<div class="entry-header-inner section-inner medium">
+	<div class="single__header-wrapper">
 
 		<?php
-			/**
-			 * Allow child themes and plugins to filter the display of the categories in the entry header.
-			 *
-			 * @since 1.0.0
-			 *
-			 * @param bool   Whether to show the categories in header, Default true.
-			 */
-		$show_categories = apply_filters( 'csismag_show_categories_in_entry_header', true );
+			csismag_post_meta( array(
+				 'show_csismag_original' => $show_csismag_original,
+				 'show_issue_prefix' => $show_issue_prefix
+				)
+			);
 
-		if ( true === $show_categories && has_category() ) {
-			?>
+			the_title( '<h1 class="single__title">', '</h1>' );
 
-			<div class="entry-categories">
-				<span class="screen-reader-text"><?php _e( 'Categories', 'csismag' ); ?></span>
-				<div class="entry-categories-inner">
-					<?php the_category( ' ' ); ?>
-				</div><!-- .entry-categories-inner -->
-			</div><!-- .entry-categories -->
+			if ( has_excerpt() && is_singular() ) {
+				the_excerpt();
+			}
 
-			<?php
-		}
+			if ( !$is_issue ) {
+				csismag_authors();
+			}
 
-		if ( is_singular() ) {
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		} else {
-			the_title( '<h2 class="entry-title heading-size-1"><a href="' . esc_url( get_permalink() ) . '">', '</a></h2>' );
-		}
-
-		$intro_text_width = '';
-
-		if ( is_singular() ) {
-			$intro_text_width = ' small';
-		} else {
-			$intro_text_width = ' thin';
-		}
-
-		if ( has_excerpt() && is_singular() ) {
-			?>
-
-			<div class="intro-text section-inner max-percentage<?php echo $intro_text_width; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static output ?>">
-				<?php the_excerpt(); ?>
-			</div>
-
-			<?php
-		}
-
-		// Default to displaying the post meta.
-		csismag_the_post_meta( get_the_ID(), 'single-top' );
+			get_template_part( 'template-parts/featured-image' );
 		?>
 
 	</div><!-- .entry-header-inner -->
+
+	<?php
+	if ( $is_issue ) {
+		$in_this_issue = get_field( 'in_this_issue' );
+
+		if ( $in_this_issue ) {
+			echo '
+			<div class="issue__overview">
+				<h2 class="issue__overview-title">In this Issue</h2>
+				' . $in_this_issue . '
+				<div class="issue__overview-marker"></div>
+			</div>';
+		}
+
+		echo '<div class="issue__scroll">Scroll</div>';
+	}
+	?>
 
 </header><!-- .entry-header -->

@@ -1,0 +1,130 @@
+@use 'variables' as *;
+@use 'functions' as *;
+@use 'sass:map';
+
+/*=================================
+=            Mixins            =
+=================================*/
+
+// Breakpoints
+// $break: Breakpoint to use
+// $dir: 'min-width' or 'max-width'
+// $until: Maximum width
+// @include breakpoint('medium');
+// @include breakpoint($break: 'medium', $until: 'large');
+// @include breakpoint($break: 'medium', $dir: 'max-width');
+@mixin breakpoint(
+  $break,
+  $dir: 'min-width',
+  $until: null,
+  $breakpoints-map: $breakpoints
+) {
+  @if not map-has-key($breakpoints-map, $break) {
+    $break: $break;
+  } @else {
+    $break: map-get($breakpoints-map, $break);
+  }
+
+  @if $break and $until {
+    @if not map-has-key($breakpoints-map, $until) {
+      $until: $until;
+    } @else {
+      $until: map-get($breakpoints-map, $until);
+    }
+
+    @media screen and (min-width: $break) and (max-width: $until) {
+      @content;
+    }
+  } @else {
+    @media screen and ($dir: $break) {
+      @content;
+    }
+  }
+}
+
+// Rem output with px fallback
+@mixin font-size($size) {
+  font-size: $size; //Fallback in px
+  font-size: rem($size);
+}
+
+@mixin vw100() {
+  width: 100vw; // Fallback for old browsers
+  width: calc(100vw - var(--scrollbar));
+}
+
+// Extend Background to full width of window
+@mixin full-width-background(
+  $background,
+  $direction: '',
+  $includeMargins: true
+) {
+  $width_forumula: calc((100vw - 100%) / 2);
+  position: relative;
+
+  @if $includeMargins {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    display: block;
+    width: $width_forumula;
+    height: 100%;
+    background: $background;
+  }
+
+  &::before {
+    right: 100%;
+  }
+
+  &::after {
+    left: 100%;
+  }
+
+  @if $direction == left {
+    &::before {
+      width: calc(#{$width_forumula} - 50%);
+    }
+
+    &::after {
+      display: none;
+    }
+  } @else if $direction == right {
+    &::after {
+      width: calc(#{$width_forumula} - 50%);
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+// Box shadow underline for links
+@mixin link-underline($color, $thickness: -1px, $hideOnHover: true) {
+  box-shadow: inset 0 $thickness 0 0 $color;
+
+  @if $hideOnHover {
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+@mixin csis-block-full-width-wrapper {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+@mixin csis-block-full-width-content {
+  max-width: $size__content-wide-max-width;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--container-padding);
+  padding-left: var(--container-padding);
+}

@@ -1,0 +1,125 @@
+@use 'abstracts' as *;
+
+.footer {
+  --padding-top: #{rem(24)};
+  --padding-bottom: #{rem(40)};
+
+  $gradient: linear-gradient(180deg, rgba(36, 50, 56, 0.88) 0%, #242c30 100%);
+
+  display: grid;
+  grid-row-gap: rem(16);
+  grid-template-areas:
+    'logo'
+    'csisdesc'
+    'magdesc'
+    'contact'
+    'copyright';
+  grid-template-columns: 1fr;
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+  color: $color-text-gray-05;
+  @extend %font-body-sm;
+  background: $gradient;
+  @include full-width-background($gradient);
+
+  @include breakpoint('medium') {
+    --padding-top: #{rem(32)};
+    --padding-bottom: #{rem(48)};
+    grid-column-gap: rem(40);
+    grid-template-areas:
+      'logo .'
+      'csisdesc contact'
+      'magdesc contact'
+      'copyright copyright';
+    grid-template-columns: 2fr 1fr;
+  }
+
+  @include breakpoint('large') {
+    grid-template-areas:
+      'logo . .'
+      'csisdesc magdesc contact'
+      'copyright copyright copyright';
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  @include breakpoint('large') {
+    --padding-top: #{rem(40)};
+    --padding-bottom: #{rem(56)};
+  }
+
+  .single & {
+    margin-top: rem(64);
+  }
+
+  a {
+    &:hover {
+      color: $color-white-100;
+    }
+  }
+
+  &__logo {
+    grid-area: logo;
+    max-width: 300px;
+
+    &,
+    &:visited {
+      color: $color-text-gray-10;
+    }
+  }
+
+  .widget:first-of-type {
+    grid-area: csisdesc;
+  }
+
+  .widget:nth-of-type(2) {
+    grid-area: magdesc;
+  }
+
+  &__contact {
+    display: grid;
+    grid-area: contact;
+    grid-row-gap: rem(16);
+    align-content: start;
+    margin-top: rem(16);
+    padding-top: rem(16);
+    border-top: 1px solid $color-white-130;
+
+    @include breakpoint('medium') {
+      margin-top: 0;
+      padding-top: 0;
+      padding-left: rem(16);
+      border-top: 0;
+      border-left: 1px solid $color-white-130;
+    }
+  }
+
+  &__address {
+    font-style: normal;
+  }
+
+  &__copyright {
+    grid-area: copyright;
+    margin-top: rem(8);
+    color: $color-text-ltblue-80;
+    @extend %font-body-2-xs;
+
+    @include breakpoint($break: 'medium', $until: 'large') {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    a {
+      @include link-underline($color-text-ltblue-100);
+    }
+  }
+
+  &__address,
+  &__copyright,
+  &__phone {
+    text-align: center;
+
+    @include breakpoint('medium') {
+      text-align: left;
+    }
+  }
+}
