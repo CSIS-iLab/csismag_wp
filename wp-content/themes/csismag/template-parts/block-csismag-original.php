@@ -28,7 +28,10 @@
 	<?php
 		the_excerpt();
   	csismag_authors();
-  	get_template_part( 'template-parts/featured-image' );
+
+		echo '<figure class="post-block__img">
+			<a href="' . esc_url ( get_permalink() ) . '">' . get_the_post_thumbnail() . '</a>
+		</figure>';
 	?>
 
 </article><!-- .post -->
