@@ -14,7 +14,7 @@ $block: '.csis-block';
 
   > * {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: auto 1fr;
     @include csis-block-full-width-content();
 
     > *:not(.csis-block__section-link) {
@@ -38,7 +38,7 @@ $block: '.csis-block';
       grid-column-gap: var(--gap);
       grid-template-areas: var(--grid-areas);
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: max-content auto;
+      grid-template-rows: max-content 1fr;
 
       @include breakpoint('medium') {
         --gap: #{rem(40)};

@@ -12,7 +12,7 @@ $block: '.csis-block';
       'title desc'
       'cta desc';
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto max-content max-content;
+    grid-template-rows: auto max-content max-content 1fr;
   }
 
   @include breakpoint('large') {
