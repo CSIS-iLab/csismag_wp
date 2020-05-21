@@ -356,21 +356,6 @@ function csismag_body_classes( $classes ) {
 		$classes[] = 'singular';
 	}
 
-	// Check whether the current page should have an overlay header.
-	if ( is_page_template( array( 'templates/template-cover.php' ) ) ) {
-		$classes[] = 'overlay-header';
-	}
-
-	// Check whether the current page has full-width content.
-	if ( is_page_template( array( 'templates/template-full-width.php' ) ) ) {
-		$classes[] = 'has-full-width-content';
-	}
-
-	// Check for enabled search.
-	if ( true === get_theme_mod( 'enable_header_search', true ) ) {
-		$classes[] = 'enable-search-modal';
-	}
-
 	// Check for post thumbnail.
 	if ( is_singular() && has_post_thumbnail() ) {
 		$classes[] = 'has-post-thumbnail';
