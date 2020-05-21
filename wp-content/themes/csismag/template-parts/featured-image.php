@@ -21,7 +21,13 @@ if ( has_post_thumbnail() && ! post_password_required() ) {
 				echo '<a href="' . esc_url ( get_permalink() ) . '">';
 			}
 
-			the_post_thumbnail();
+			$size = '';
+
+			if ( $is_singular && !$is_front_page ) {
+				$size = 'csismag-fullscreen';
+			}
+
+			the_post_thumbnail( $size );
 
 			if ( !$is_singular || $is_front_page ) {
 				echo '</a>';
