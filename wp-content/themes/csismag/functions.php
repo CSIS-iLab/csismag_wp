@@ -215,8 +215,8 @@ function csismag_register_styles() {
 			wp_enqueue_style( 'csismag-style-post--color', get_stylesheet_directory_uri() . '/assets/css/pages/post--color.min.css', array(), $theme_version );
 		}
 
-		if ( is_page_template( 'templates/minimal.php' ) ) {
-			wp_enqueue_style( 'csismag-style-post--minimal', get_stylesheet_directory_uri() . '/assets/css/pages/post--minimal.min.css', array(), $theme_version );
+		if ( is_page_template( 'templates/split.php' ) ) {
+			wp_enqueue_style( 'csismag-style-post--split', get_stylesheet_directory_uri() . '/assets/css/pages/post--split.min.css', array(), $theme_version );
 		}
 	}
 

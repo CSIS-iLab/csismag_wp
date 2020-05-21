@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Minimal Template
+ * Template Name: Split Text Template
  * Template Post Type: post
  *
  * @package CSIS iLab
