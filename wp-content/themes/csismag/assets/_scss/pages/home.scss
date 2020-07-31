@@ -91,6 +91,10 @@
     &-articles {
       grid-area: articles;
       margin-bottom: var(--padding-top);
+
+      > *:not(:first-child) .post-block__excerpt {
+        display: none;
+      }
     }
 
     &-archive {
@@ -112,10 +116,6 @@
 
       &::before {
         width: calc(100vw - 100%);
-
-        @include breakpoint('large') {
-          width: 100%;
-        }
       }
 
       &:hover {
