@@ -16,12 +16,10 @@
     background: $color-white-100;
     border-radius: 100%/20%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.13);
-    visibility: hidden;
-    transition: clip-path 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    transition: clip-path 0.3s ease-in-out;
     clip-path: inset(100% 0 0 0);
 
     &.is-active {
-      visibility: visible;
       clip-path: inset(-10%);
     }
 

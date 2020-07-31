@@ -84,20 +84,10 @@ function csismag_lazyblock_handlebars_helper_img ( $handlebars ) {
   $handlebars->registerHelper('display-img', function($img) {
 		$srcset = wp_get_attachment_image_srcset($img['id']);
 		$info = wp_get_attachment_image_src($img['id'], 'large');
+		// $width = $info['width'];
 		$width = $info[1];
 
 		return '<img src="' . $img['url'] . '" alt="' . $img['alt'] . '" class="wp-image-' . $img['id'] . '" srcset="' . $srcset . '" sizes="(max-width: ' . $width . 'px) 100vw, ' . $width . 'px" />';
-
-	});
-
-	$handlebars->registerHelper('display-img-attachment', function($img) {
-		$srcset = wp_get_attachment_image_srcset($img['id']);
-		$info = wp_get_attachment_image_src($img['id'], 'large');
-		$url = get_attachment_link($img['id']);
-
-		$width = $info[1];
-
-		return '<a href="' . $url . '" rel="attachment wp-att-' . $img['id'] . '" class="single-image-gallery"><img src="' . $img['url'] . '" alt="' . $img['alt'] . '" class="wp-image-' . $img['id'] . '" srcset="' . $srcset . '" sizes="(max-width: ' . $width . 'px) 100vw, ' . $width . 'px" />' . csismag_get_svg( 'expand' ) . '</a>';
 
 	});
 }
