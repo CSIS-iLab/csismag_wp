@@ -28,7 +28,7 @@
     }
   }
 
-  &__date {
+  &__date:not(:only-child) {
     margin-left: rem(8);
 
     &::before {

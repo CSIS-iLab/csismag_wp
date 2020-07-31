@@ -184,7 +184,7 @@ function csismag_authors() {
 		$authors = get_the_author();
 	}
 
-	if ( !$authors ) {
+	if ( !$authors || get_field( 'hide_authors' ) ) {
 		return;
 	}
 
