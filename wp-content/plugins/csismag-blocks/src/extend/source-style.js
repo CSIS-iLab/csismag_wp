@@ -9,6 +9,9 @@
  * @param name
  */
 
+import "./style.scss";
+import "./editor.scss";
+
 const { registerFormatType, toggleFormat } = wp.richText;
 const { RichTextToolbarButton } = wp.blockEditor;
 

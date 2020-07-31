@@ -1,33 +1,41 @@
 @use '../abstracts' as *;
 
 .single__title {
-  @extend %font-heading-4-xl-sans;
+  &.post-template-default {
+    @extend %font-heading-4-xl-sans;
+  }
+
+  &:not(.post-template-default) {
+    @extend %font-heading-4-xl-serif;
+  }
 }
 
 .single__header {
-  @include breakpoint('medium') {
-    min-height: 540px;
-  }
+  .post-template-default & {
+    @include breakpoint('medium') {
+      min-height: 540px;
+    }
 
-  @include breakpoint('xlarge') {
-    min-height: 640px;
-  }
+    @include breakpoint('xlarge') {
+      min-height: 640px;
+    }
 
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: rem(-48);
-    left: 50%;
-    width: 2px;
-    height: 80px;
-    /* stylelint-disable */
-    background-image: linear-gradient(
-      to bottom,
-      $color-white-130,
-      $color-white-130 40%,
-      $color-black-125 40%
-    );
-    /* stylelint-enable */
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: rem(-48);
+      left: 50%;
+      width: 2px;
+      height: 80px;
+      /* stylelint-disable */
+      background-image: linear-gradient(
+        to bottom,
+        $color-white-130,
+        $color-white-130 40%,
+        $color-black-125 40%
+      );
+      /* stylelint-enable */
+    }
   }
 
   .single__excerpt {
@@ -160,8 +168,10 @@
     margin-top: rem(12);
     @extend %font-label-sm;
 
-    @include breakpoint('medium') {
-      margin-left: calc(60px + 1.5rem);
+    .post-template-default & {
+      @include breakpoint('medium') {
+        margin-left: calc(60px + 1.5rem);
+      }
     }
 
     .post-meta__label {

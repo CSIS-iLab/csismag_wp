@@ -74,6 +74,8 @@ $block: '.csis-block';
   }
 
   #{$block}__img {
+    position: relative;
+    align-self: start;
     box-shadow: 0 0 12px rgba(36, 44, 48, 0.14),
       0 4px 5px rgba(10, 52, 80, 0.02);
 
@@ -81,5 +83,18 @@ $block: '.csis-block';
       grid-column: var(--img-col, 1);
       grid-row: 1 / 4;
     }
+
+    a {
+      display: block;
+    }
+  }
+
+  .icon-expand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: $color-white-100;
+    @include font-size(32px);
+    pointer-events: none;
   }
 }

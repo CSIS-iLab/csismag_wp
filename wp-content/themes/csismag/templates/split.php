@@ -1,7 +1,7 @@
 <?php
 /**
- * Template Name: Full Width Template
- * Template Post Type: post, page
+ * Template Name: Split Text Template
+ * Template Post Type: post
  *
  * @package CSIS iLab
  * @subpackage @package CSISMag

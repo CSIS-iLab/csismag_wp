@@ -30,7 +30,7 @@
       'logo .'
       'csisdesc contact'
       'magdesc contact'
-      'copyright copyright';
+      'copyright .';
     grid-template-columns: 2fr 1fr;
   }
 
@@ -102,11 +102,6 @@
     margin-top: rem(8);
     color: $color-text-ltblue-80;
     @extend %font-body-2-xs;
-
-    @include breakpoint($break: 'medium', $until: 'large') {
-      margin-right: auto;
-      margin-left: auto;
-    }
 
     a {
       @include link-underline($color-text-ltblue-100);
