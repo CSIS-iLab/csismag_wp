@@ -165,6 +165,10 @@ function csismag_register_styles() {
 		wp_enqueue_style( 'csismag-style-home', get_stylesheet_directory_uri() . '/assets/css/pages/home.min.css', array(), $theme_version );
 	}
 
+	if ( is_archive() ) {
+		wp_enqueue_style( 'csismag-style-archive', get_stylesheet_directory_uri() . '/assets/css/pages/archive.min.css', array(), $theme_version );
+	}
+
 	if ( is_singular() ) {
 		wp_enqueue_style( 'csismag-style-single', get_stylesheet_directory_uri() . '/assets/css/pages/single.min.css', array(), $theme_version );
 	}
