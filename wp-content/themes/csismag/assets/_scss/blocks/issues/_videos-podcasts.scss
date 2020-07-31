@@ -63,7 +63,7 @@ $block: '.csis-block';
     grid-column: 2;
     max-width: fit-content;
     margin: rem(32) 0 0 auto;
-    padding: rem(8) 0 rem(8) rem(12);
+    padding: rem(8) 0 rem(12) rem(16);
     color: var(--section-link-color);
 
     @include full-width-background($color-white-100, 'left', false);

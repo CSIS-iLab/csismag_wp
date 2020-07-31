@@ -3,8 +3,15 @@
 $block: '.csis-block';
 
 #{$block}--interactive {
+  display: grid;
+  grid-template-areas:
+    'title'
+    'meta'
+    'desc'
+    'cta'
+    'embed';
+
   @include breakpoint('medium') {
-    display: grid;
     grid-column-gap: rem(40);
     grid-template-areas:
       'embed embed'
@@ -20,8 +27,11 @@ $block: '.csis-block';
   }
 
   .interactive__content {
+    grid-area: embed;
+    margin-top: 1rem;
+
     @include breakpoint('medium') {
-      grid-area: embed;
+      margin-top: 0;
     }
   }
 

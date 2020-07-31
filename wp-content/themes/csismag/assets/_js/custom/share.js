@@ -14,18 +14,34 @@ document.addEventListener('DOMContentLoaded', function () {
     return
   }
 
+  let currentExpandedButton
+  let currentExpandedButtonParent
+
   shareBtns.forEach((btn) => {
     btn.addEventListener('click', function () {
+      currentExpandedButton = this
+      currentExpandedButtonParent = this.parentNode
       const expanded = this.getAttribute('aria-expanded')
-      const list = this.parentNode.querySelector('.addtoany_list')
+      const list = currentExpandedButtonParent.querySelector('.addtoany_list')
 
       if (expanded === 'false') {
         this.setAttribute('aria-expanded', 'true')
         list.classList.add('is-active')
+        document.addEventListener('click', outsideClickListener)
       } else {
         this.setAttribute('aria-expanded', 'false')
         list.classList.remove('is-active')
+        document.removeEventListener('click', outsideClickListener)
       }
     })
   })
+
+  // Close the expanded share menu if the user clicked anywhere outside of it
+  function outsideClickListener(event) {
+    const isClickInside = currentExpandedButtonParent.contains(event.target)
+
+    if (!isClickInside) {
+      currentExpandedButton.click()
+    }
+  }
 })
