@@ -61,7 +61,7 @@
 .wp-block-lazyblock-post-video:not(.alignfull):not(.aligncenter),
 .wp-block-lazyblock-post-interactive:not(.alignfull):not(.alignwide):not(.aligncenter) {
   @include breakpoint('large') {
-    max-width: 40vw;
+    max-width: 50vw;
   }
 
   @include breakpoint('xlarge') {

@@ -18,7 +18,9 @@ if ( ! function_exists('csismag_breadcrumbs') ) {
 	function csismag_breadcrumbs() {
 		$items = '';
 
-		if ( !is_front_page() && !is_home() ) {
+		if ( is_front_page() || is_home() ) {
+			$items .= '<li class="breadcrumbs__active"><span>Archive</span></li>';
+		} else {
 			$items .= '<li><a href="' . get_home_url() . '" title="Go to the Archive">Archive</a></li>';
 		}
 
