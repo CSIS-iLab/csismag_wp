@@ -1,4 +1,5 @@
 @use '../abstracts' as *;
+@use '../components/footnotes';
 
 .single__title {
   @extend %font-heading-4-xl-sans;

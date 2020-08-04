@@ -1,0 +1,8 @@
+@use '../abstracts' as *;
+
+.easy-footnote {
+  a {
+    color: $color-primary-base !important;
+    box-shadow: none !important;
+  }
+}
