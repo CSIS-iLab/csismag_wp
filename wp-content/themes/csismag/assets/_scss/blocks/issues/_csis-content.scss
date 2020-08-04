@@ -74,6 +74,7 @@ $block: '.csis-block';
   }
 
   #{$block}__img {
+    align-self: start;
     box-shadow: 0 0 12px rgba(36, 44, 48, 0.14),
       0 4px 5px rgba(10, 52, 80, 0.02);
 

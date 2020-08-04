@@ -57,6 +57,9 @@ function csismag_theme_support() {
 	 */
 	add_theme_support( 'post-thumbnails' );
 
+	// Don't compress uploaded images
+	add_filter('jpeg_quality', function($arg){ return 100; });
+
 	// Set post thumbnail size.
 	set_post_thumbnail_size( 1200, 9999 );
 
