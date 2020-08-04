@@ -24,7 +24,6 @@ $block: '.csis-block';
   --stat-bg: #{$color-bg-lt-blue};
   --stat-padding: #{rem(20)};
   --stat-padding-bottom: #{rem(24)};
-  --arrow-bg: #{$color-text-link-light-base};
   position: relative;
   display: flex;
   flex-direction: column;
@@ -56,7 +55,6 @@ $block: '.csis-block';
 
   &:hover {
     --stat-bg: #{$color-primary-darkest};
-    --arrow-bg: #{$color-text-ltblue-100};
     color: $color-white-100;
 
     &::after {
@@ -98,22 +96,7 @@ $block: '.csis-block';
   }
 
   #{$block}__title {
-    display: flex;
-    align-items: center;
     @extend %font-heading-lg-sans;
-
-    &-icon {
-      display: flex;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      margin-left: 0.5rem;
-      padding: 0.4rem;
-      color: var(--stat-bg);
-      background: var(--arrow-bg);
-      border-radius: 50%;
-      transition: color 0.3s ease-in-out, background 0.3s ease-in-out;
-    }
   }
 
   #{$block}__meta {
@@ -123,10 +106,8 @@ $block: '.csis-block';
   &::after,
   #{$block}__title,
   #{$block}__meta {
-    @media (hover: hover) {
-      visibility: hidden;
-      opacity: 0;
-      transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    }
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
   }
 }
