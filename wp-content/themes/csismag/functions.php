@@ -352,37 +352,37 @@ add_action( 'widgets_init', 'csismag_sidebar_registration' );
 /**
  * Enqueue supplemental block editor styles.
  */
-function csismag_block_editor_styles() {
+// function csismag_block_editor_styles() {
 
-	$css_dependencies = array();
+// 	$css_dependencies = array();
 
-	// Enqueue the editor styles.
-	wp_enqueue_style( 'csismag-block-editor-styles', get_theme_file_uri( '/assets/css/editor-style-block.css' ), $css_dependencies, wp_get_theme()->get( 'Version' ), 'all' );
-	wp_style_add_data( 'csismag-block-editor-styles', 'rtl', 'replace' );
+// 	// Enqueue the editor styles.
+// 	wp_enqueue_style( 'csismag-block-editor-styles', get_theme_file_uri( '/assets/css/editor-style-block.css' ), $css_dependencies, wp_get_theme()->get( 'Version' ), 'all' );
+// 	wp_style_add_data( 'csismag-block-editor-styles', 'rtl', 'replace' );
 
-	// Add inline style from the Customizer.
-	wp_add_inline_style( 'csismag-block-editor-styles', csismag_get_customizer_css( 'block-editor' ) );
+// 	// Add inline style from the Customizer.
+// 	wp_add_inline_style( 'csismag-block-editor-styles', csismag_get_customizer_css( 'block-editor' ) );
 
-	// Enqueue the editor script.
-	wp_enqueue_script( 'csismag-block-editor-script', get_theme_file_uri( '/assets/js/editor-script-block.js' ), array( 'wp-blocks', 'wp-dom' ), wp_get_theme()->get( 'Version' ), true );
-}
+// 	// Enqueue the editor script.
+// 	wp_enqueue_script( 'csismag-block-editor-script', get_theme_file_uri( '/assets/js/editor-script-block.js' ), array( 'wp-blocks', 'wp-dom' ), wp_get_theme()->get( 'Version' ), true );
+// }
 
-add_action( 'enqueue_block_editor_assets', 'csismag_block_editor_styles', 1, 1 );
+// add_action( 'enqueue_block_editor_assets', 'csismag_block_editor_styles', 1, 1 );
 
-/**
- * Enqueue classic editor styles.
- */
-function csismag_classic_editor_styles() {
+// /**
+//  * Enqueue classic editor styles.
+//  */
+// function csismag_classic_editor_styles() {
 
-	$classic_editor_styles = array(
-		'/assets/css/editor-style-classic.css',
-	);
+// 	$classic_editor_styles = array(
+// 		'/assets/css/editor-style-classic.css',
+// 	);
 
-	add_editor_style( $classic_editor_styles );
+// 	add_editor_style( $classic_editor_styles );
 
-}
+// }
 
-add_action( 'init', 'csismag_classic_editor_styles' );
+// add_action( 'init', 'csismag_classic_editor_styles' );
 
 /**
  * Output Customizer settings in the classic editor.
