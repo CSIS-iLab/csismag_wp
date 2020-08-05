@@ -62,7 +62,7 @@ get_header();
 
 		$seriesPosts = new WP_Query( $args );
 
-		if ( $seriesPosts->have_posts() ) { ?>
+		?>
 
 			<aside class="home__series">
 				<h2 class="home__series-title"><?php echo esc_html( $series->name ); ?></h2>
@@ -83,23 +83,26 @@ get_header();
 						echo '<a href="' . $archive_url . '" class="home__series-img">' . wp_get_attachment_image( $image, $size ) . '</a>';
 					}
 
-					echo '<div class="home__series-articles">';
+					if ( $seriesPosts->have_posts() ) {
 
-					while ( $seriesPosts->have_posts() ) {
-						$seriesPosts->the_post();
+						echo '<div class="home__series-articles">';
 
-						get_template_part( 'template-parts/block', get_post_type() );
+						while ( $seriesPosts->have_posts() ) {
+							$seriesPosts->the_post();
+
+							get_template_part( 'template-parts/block', get_post_type() );
+						}
+
+						wp_reset_postdata();
+
+						echo '</div>';
+
+						echo '<a href="' . $archive_url . '" class="home__series-archive">' . $archive_text . csismag_get_svg( 'arrow-right') . '</a>';
+
 					}
-
-					wp_reset_postdata();
-
-					echo '</div>';
-
-					echo '<a href="' . $archive_url . '" class="home__series-archive">' . $archive_text . csismag_get_svg( 'arrow-right') . '</a>';
 				?>
 			</aside>
 		<?php
-		}
 	}
 	?>
 
