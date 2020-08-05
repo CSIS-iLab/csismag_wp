@@ -97,9 +97,9 @@ get_header();
 
 						echo '</div>';
 
-						echo '<a href="' . $archive_url . '" class="home__series-archive">' . $archive_text . csismag_get_svg( 'arrow-right') . '</a>';
-
 					}
+
+					echo '<a href="' . $archive_url . '" class="home__series-archive">' . $archive_text . csismag_get_svg( 'arrow-right') . '</a>';
 				?>
 			</aside>
 		<?php
