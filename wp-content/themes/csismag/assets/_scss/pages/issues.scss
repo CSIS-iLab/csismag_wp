@@ -44,6 +44,10 @@
       }
     }
 
+    &::after {
+      z-index: -1;
+    }
+
     &-title {
       position: relative;
       margin-bottom: rem(8);

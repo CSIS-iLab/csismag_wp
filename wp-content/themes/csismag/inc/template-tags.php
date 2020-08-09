@@ -179,7 +179,7 @@ function csismag_post_meta( array $options = array()
  */
 function csismag_authors() {
 	if ( function_exists( 'coauthors' ) ) {
-    $authors = coauthors( ', ', ', ', null, null, false );
+    $authors = coauthors_links( ', ', ', ', null, null, false );
 	} else {
 		$authors = get_the_author();
 	}
@@ -188,7 +188,7 @@ function csismag_authors() {
 		return;
 	}
 
-	echo '<div class="post-meta post-meta__authors"><span class="post-meta__label">Written by</span> <span class="post-meta__value">' . $authors . '</span></div>';
+	echo '<div class="post-meta post-meta__authors"><span class="post-meta__label">By</span> <span class="post-meta__value">' . $authors . '</span></div>';
 }
 
 if (! function_exists('csismag_authors_list_extended')) :

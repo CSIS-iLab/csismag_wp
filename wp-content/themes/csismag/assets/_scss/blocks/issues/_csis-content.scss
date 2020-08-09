@@ -17,8 +17,7 @@ $block: '.csis-block';
       display: grid;
       grid-column-gap: var(--gap);
       grid-template-columns: repeat(2, 1fr);
-      // grid-template-rows: repeat(2, max-content);
-      grid-template-rows: max-content max-content 1fr;
+      grid-template-rows: max-content max-content min-content 1fr;
     }
 
     @include breakpoint('medium') {
@@ -81,7 +80,7 @@ $block: '.csis-block';
 
     @include breakpoint('small') {
       grid-column: var(--img-col, 1);
-      grid-row: 1 / 4;
+      grid-row: 1 / 5;
     }
 
     a {

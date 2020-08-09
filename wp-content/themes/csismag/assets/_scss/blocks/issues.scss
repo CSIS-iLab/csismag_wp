@@ -47,4 +47,29 @@
     @extend %font-button;
     text-transform: uppercase;
   }
+
+  &--interactive,
+  &--content {
+    .post-meta__authors {
+      --post-meta: #{$color-gray-1};
+      display: flex;
+      @extend %font-label-sm;
+
+      li:first-child:not(:empty)::before {
+        content: 'By ';
+        color: $color-primary-darkest;
+        font-weight: 600;
+        font-style: italic;
+      }
+
+      /* stylelint-disable-next-line */
+      li + li::before {
+        content: ', ';
+      }
+
+      a:hover {
+        color: $color-primary-base;
+      }
+    }
+  }
 }

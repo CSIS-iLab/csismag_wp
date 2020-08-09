@@ -64,12 +64,15 @@ $block: '.csis-block';
       --padding-right: #{rem(64)};
     }
 
+    a {
+      &:hover {
+        color: $color-primary-base;
+      }
+    }
+
     .post-meta__label {
-      display: block;
       color: $color-primary-darkest;
       font-weight: 600;
-      font-style: normal;
-      text-transform: uppercase;
     }
   }
 
