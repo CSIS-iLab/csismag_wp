@@ -99,15 +99,17 @@ $block: '.csis-block';
 
   #{$block}__title {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     @extend %font-heading-lg-sans;
 
     &-icon {
       display: flex;
+      flex: 0 0 auto;
       align-items: center;
       width: 32px;
       height: 32px;
-      margin-left: 0.5rem;
+      margin-left: 0.75rem;
       padding: 0.4rem;
       color: var(--stat-bg);
       background: var(--arrow-bg);
@@ -118,6 +120,11 @@ $block: '.csis-block';
 
   #{$block}__meta {
     color: $color-text-link-light-base;
+  }
+
+  .post-meta__authors {
+    @extend %font-label-sm;
+    font-weight: normal;
   }
 
   &::after,

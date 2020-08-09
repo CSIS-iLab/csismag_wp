@@ -4,12 +4,7 @@ $block: '.csis-block';
 
 #{$block}--interactive {
   display: grid;
-  grid-template-areas:
-    'title'
-    'meta'
-    'desc'
-    'cta'
-    'embed';
+  grid-template-areas: 'title' 'meta' 'desc' 'authors', 'cta' 'embed';
 
   @include breakpoint('medium') {
     grid-column-gap: rem(40);
@@ -17,9 +12,10 @@ $block: '.csis-block';
       'embed embed'
       'meta desc'
       'title desc'
+      'authors desc'
       'cta desc';
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto max-content max-content 1fr;
+    grid-template-rows: auto max-content max-content min-content 1fr;
   }
 
   @include breakpoint('large') {
@@ -64,5 +60,9 @@ $block: '.csis-block';
     grid-area: cta;
     align-self: start;
     width: fit-content;
+  }
+
+  .post-meta__authors {
+    grid-area: authors;
   }
 }
