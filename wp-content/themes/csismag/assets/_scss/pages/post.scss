@@ -165,12 +165,14 @@
       margin-left: calc(60px + 1.5rem);
     }
 
+    a {
+      &:hover {
+        color: var(--page-title);
+      }
+    }
+
     .post-meta__label {
-      display: block;
-      margin-bottom: rem(4);
       font-weight: 600;
-      font-style: normal;
-      text-transform: uppercase;
     }
   }
 
