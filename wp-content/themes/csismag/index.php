@@ -21,7 +21,7 @@ get_header();
 
 	<?php
 
-	if ( is_archive() ) {
+	if ( is_post_type_archive('issues') ) {
 		if ( have_posts() ) {
 			$i = 0;
 
@@ -41,16 +41,11 @@ get_header();
 		}
 	} else {
 		if ( have_posts() ) {
-			$i = 0;
 
 			while ( have_posts() ) {
-				$i++;
-				if ( $i > 1 ) {
-					echo '<hr class="post-separator styled-separator is-style-wide section-inner" aria-hidden="true" />';
-				}
 				the_post();
 
-				get_template_part( 'template-parts/content', get_post_type() );
+				get_template_part( 'template-parts/block', get_post_type() );
 
 			}
 		}
@@ -58,8 +53,6 @@ get_header();
 	?>
 
 </main><!-- #site-content -->
-
-<?php get_template_part( 'template-parts/footer-menus-widgets' ); ?>
 
 <?php
 get_footer();

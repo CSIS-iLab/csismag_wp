@@ -19,9 +19,16 @@ if ( 'issues' === get_post_type() ) {
 	$show_issue_prefix = false;
 }
 
+$bg = get_field( 'accent_color_background');
+$style = '';
+
+if ( is_page_template( 'templates/color.php' ) && $bg != '' ) {
+	$style = ' style="--bg: ' . $bg . ';"';
+}
+
 ?>
 
-<header class="single__header<?php echo esc_attr( $entry_header_classes ); ?>">
+<header class="single__header<?php echo esc_attr( $entry_header_classes ); ?>"<?php echo $style; ?>>
 
 	<div class="single__header-wrapper">
 

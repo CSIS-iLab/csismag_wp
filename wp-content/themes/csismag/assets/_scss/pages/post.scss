@@ -2,7 +2,13 @@
 @use '../components/footnotes';
 
 .single__title {
-  @extend %font-heading-4-xl-sans;
+  &.post-template-default {
+    @extend %font-heading-4-xl-sans;
+  }
+
+  &:not(.post-template-default) {
+    @extend %font-heading-4-xl-serif;
+  }
 }
 
 .single__header {
@@ -14,7 +20,7 @@
     min-height: 640px;
   }
 
-  &::before {
+  .post-template-default &::before {
     content: '';
     position: absolute;
     bottom: rem(-48);
@@ -161,8 +167,10 @@
     margin-top: rem(12);
     @extend %font-label-sm;
 
-    @include breakpoint('medium') {
-      margin-left: calc(60px + 1.5rem);
+    .post-template-default & {
+      @include breakpoint('medium') {
+        margin-left: calc(60px + 1.5rem);
+      }
     }
 
     a {
