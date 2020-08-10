@@ -21,7 +21,7 @@
       z-index: -1;
       width: 100vw;
       /* prettier-ignore */
-      background: linear-gradient(var(--post-header-gradient), transparent 30%);
+      background: linear-gradient(var(--post-header-gradient), transparent);
       background-color: var(--bg, #{$color-primary-darkest});
     }
   }
