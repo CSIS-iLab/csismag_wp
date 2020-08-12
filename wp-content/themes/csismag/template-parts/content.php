@@ -32,6 +32,7 @@
 		<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) { ADDTOANY_SHARE_SAVE_KIT(); } ?>
 		<?php echo csismag_get_notes(); ?>
 		<?php echo csismag_authors_list_extended(); ?>
+		<?php echo csismag_get_contributors(); ?>
 		<?php echo csismag_get_ilab_language(); ?>
 	</footer>
 

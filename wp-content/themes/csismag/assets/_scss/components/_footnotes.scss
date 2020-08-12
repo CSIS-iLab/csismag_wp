@@ -4,5 +4,37 @@
   a {
     color: $color-primary-base !important;
     box-shadow: none !important;
+
+    &:hover {
+      sup::before {
+        border-color: $color-primary-base;
+      }
+    }
+  }
+
+  sup {
+    position: relative;
+    width: 1px;
+    color: #fff;
+
+    &::before {
+      content: 'i';
+      position: absolute;
+      left: -4px;
+      display: inline-flex;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      width: 15px;
+      height: 15px;
+      color: $color-primary-base;
+      font-family: $font__source;
+      font-weight: bold;
+      @include font-size(8px);
+      line-height: 1;
+      border: 1px solid $color-black-125;
+      border-radius: 50%;
+      transition: border-color 0.3s ease-in-out;
+    }
   }
 }

@@ -200,7 +200,7 @@ if (! function_exists('csismag_authors_list_extended')) :
 		global $post;
 
 		if (function_exists('coauthors_posts_links')) {
-			$authors = '<h2 class="heading">Authors</h2>';
+			$authors = '<h2 class="heading">CSIS<i>Mag</i> Original By</h2>';
 
 			foreach (get_coauthors() as $coauthor) {
 				$name = $coauthor->display_name;
@@ -312,13 +312,38 @@ if ( ! function_exists('csismag_get_notes') ) {
 			return;
 		}
 
+		$notes_heading = get_field( 'notes_heading' );
 		$notes = get_field( 'notes' );
 
 		if ( !$notes ) {
 			return;
 		}
 
-		return '<div class="post__notes"><h2 class="heading">Notes</h2>' . $notes . '</div>';
+		return '<div class="post__notes"><h2 class="heading">' . $notes_heading . '</h2>' . $notes . '</div>';
+	}
+}
+
+/**
+ * Gets Post Contributors if contributors field is filled out.
+ *
+ * @return string Post Notes.
+ */
+if ( ! function_exists('csismag_get_contributors') ) {
+
+	function csismag_get_contributors() {
+
+		if ( 'post' !== get_post_type() ) {
+			return;
+		}
+
+		$contributors_heading = get_field( 'contributors_heading' );
+		$contributors = get_field( 'contributors' );
+
+		if ( !$contributors ) {
+			return;
+		}
+
+		return '<div class="post__contributors"><h2 class="heading">' . $contributors_heading . '</h2>' . $contributors . '</div>';
 	}
 }
 
