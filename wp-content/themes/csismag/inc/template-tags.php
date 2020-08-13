@@ -272,7 +272,7 @@ if ( ! function_exists('csismag_get_csismag_original') ) {
 			return;
 		}
 
-		return '<div class="post-meta__original">CSISMag Original Feature</div>';
+		return '<div class="post-meta__original">CSIS<i>Mag</i> Original Feature</div>';
 	}
 }
 
