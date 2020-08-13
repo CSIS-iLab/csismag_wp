@@ -190,12 +190,12 @@
 }
 
 %font-label-lg {
-  @include font-size(15px);
+  @include font-size(16px);
   font-family: $font__source;
   line-height: 1;
 
   @include breakpoint('medium') {
-    @include font-size(16px);
+    @include font-size(17px);
   }
 }
 
