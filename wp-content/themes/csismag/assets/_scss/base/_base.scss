@@ -16,7 +16,7 @@
 
   @include breakpoint('medium') {
     --logo-width: 175px;
-    --logo-height: 48px;
+    --logo-height: 68px;
   }
 }
 
@@ -67,10 +67,11 @@ body {
 
   &::before,
   &::after {
+    --barWidth: calc(var(--logo-width) + 20px);
     content: '';
     position: absolute;
-    left: calc(50% - (var(--logo-width) / 2));
-    width: var(--logo-width);
+    left: calc(50% - (var(--barWidth) / 2));
+    width: var(--barWidth);
     height: 2px;
   }
 

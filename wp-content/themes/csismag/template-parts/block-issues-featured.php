@@ -51,7 +51,7 @@
 
 		echo '
 		<div class="post-block__originals">
-			<h2 class="post-meta post-meta__original">CSISMag Original</h2>';
+			<h2 class="post-meta post-meta__original">CSISMag Original Feature</h2>';
 
 		while ( $originals->have_posts() ) {
 			$originals->the_post();

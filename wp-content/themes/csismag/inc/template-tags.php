@@ -200,7 +200,7 @@ if (! function_exists('csismag_authors_list_extended')) :
 		global $post;
 
 		if (function_exists('coauthors_posts_links')) {
-			$authors = '<h2 class="heading">CSIS<i>Mag</i> Original By</h2>';
+			$authors = '<h2 class="heading">CSIS<i>Mag</i> Original Feature By</h2>';
 
 			foreach (get_coauthors() as $coauthor) {
 				$name = $coauthor->display_name;
@@ -272,7 +272,7 @@ if ( ! function_exists('csismag_get_csismag_original') ) {
 			return;
 		}
 
-		return '<div class="post-meta__original">CSISMag Original</div>';
+		return '<div class="post-meta__original">CSISMag Original Feature</div>';
 	}
 }
 

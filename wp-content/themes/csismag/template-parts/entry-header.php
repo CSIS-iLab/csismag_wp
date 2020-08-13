@@ -56,17 +56,6 @@ if ( is_page_template( 'templates/color.php' ) && $bg != '' ) {
 
 	<?php
 	if ( $is_issue ) {
-		$in_this_issue = get_field( 'in_this_issue' );
-
-		if ( $in_this_issue ) {
-			echo '
-			<div class="issue__overview">
-				<h2 class="issue__overview-title">In this Issue</h2>
-				' . $in_this_issue . '
-				<div class="issue__overview-marker"></div>
-			</div>';
-		}
-
 		echo '<div class="issue__scroll">Scroll</div>';
 	}
 	?>
