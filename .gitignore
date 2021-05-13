@@ -118,3 +118,5 @@ wp-content/themes/csismag/assets/js
 
 !wp-content/plugins/csismag-blocks/
 wp-content/plugins/csismag-blocks/dist/
+
+!.github

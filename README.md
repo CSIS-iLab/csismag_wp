@@ -18,13 +18,13 @@ The website for the CSIS*Mag* study by CSIS iDeas Lab. It is based off of the Tw
 1. Follow the instructions in the "Install Local" and "Connect Local to WP Engine" sections in this [blog post](https://wpengine.com/support/local/).
 2. Follow the instructions in the "pull to Local from WP Engine" section to pull the "CSISMag Staging" Environment to your local machine
 3. Navigate to the directory where Local created the site: eg `cd /Users/[YOUR NAME]/Local Sites/csismag/app/public`
-4. Initiate git & add remote origin. This will connect your local directory to the Git Repo and create a local `master` branch synced with the remote `master` branch.
+4. Initiate git & add remote origin. This will connect your local directory to the Git Repo and create a local `main` branch synced with the remote `main` branch.
 
 ```shell
 $ git init
 $ git remote add origin git@github.com:CSIS-iLab/csismag_wp.git
 $ git fetch origin
-$ git checkout origin/master -ft
+$ git checkout origin/main -ft
 ```
 
 ### If project is already set up:
@@ -41,9 +41,9 @@ $ npm start
 
 TravisCI will automatically run when pull requests are submitted. If successful:
 
-- Pull requests into `development` will be deployed to the [WP Engine Development Environment](https://csismagdev.wpengine.com/). The Development environment should be used to demo new features to programs. Once approved, a pull request should be submitted to `master`.
+- Pull requests into `development` will be deployed to the [WP Engine Development Environment](https://csismagdev.wpengine.com/). The Development environment should be used to demo new features to programs. Once approved, a pull request should be submitted to `main`.
 
-- Pull requests in `master` will be deployed to the [WP Engine Staging Environment](http://csismagstaging.wpengine.com/). The Staging environment should be used as a launchpad to add new features to Production.
+- Pull requests in `main` will be deployed to the [WP Engine Staging Environment](http://csismagstaging.wpengine.com/). The Staging environment should be used as a launchpad to add new features to Production.
 
 ### See More Commands
 
@@ -57,7 +57,7 @@ $ npm run
 
 ### Branching
 
-When modifying the code base, always make a new branch. Unless it's necessary to do otherwise, all branches should be created off of `master`.
+When modifying the code base, always make a new branch. Unless it's necessary to do otherwise, all branches should be created off of `main`.
 
 Branches should use the following naming conventions:
 
@@ -95,4 +95,4 @@ $ npm start
 
 ## Copyright / License Info
 
-Copyright © 2020 CSIS iDeas Lab under the [MIT License](https://github.com/CSIS-iLab/csismag_wp/blob/master/LICENSE).
+Copyright © 2020 CSIS iDeas Lab under the [MIT License](https://github.com/CSIS-iLab/csismag_wp/blob/main/LICENSE).
