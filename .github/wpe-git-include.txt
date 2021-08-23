@@ -1,3 +1,4 @@
 wp-content/themes/csismag/*.css
 wp-content/themes/csismag/assets
 wp-content/plugins/csismag-blocks/dist
+wp-content/plugins/csismag-blocks/dist/*.css
