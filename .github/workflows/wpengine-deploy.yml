@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - development
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,16 +40,13 @@ jobs:
       - name: Git fetch
         run: git fetch --prune --unshallow
 
-      - name: Set environment to production
-        if: endsWith(github.ref, '/main') ## Production Branch name
-        run: echo "WPE_ENVIRONMENT_NAME=${{ secrets.WPE_PROD_ENV_NAME }}" >> $GITHUB_ENV
-
-      - name: Set environment to development
-        if: endsWith(github.ref, '/development') ## Development Branch Name
-        run: echo "WPE_ENVIRONMENT_NAME=${{ secrets.WPE_DEV_ENV_NAME }}" >> $GITHUB_ENV
-
       - name: Push to WP Engine
         uses: epogeedesign/github-action-wpengine-git-deploy@master
         env:
+          WPE_ENVIRONMENT_NAME: ${{ secrets.WPE_DEV_ENV_NAME }}
           WPE_SSH_KEY_PRIVATE: ${{ secrets.WPE_SSH_KEY_PRIVATE }}
           WPE_SSH_KEY_PUBLIC: ${{ secrets.WPE_SSH_KEY_PUBLIC }}
+          WPE_ENVIRONMENT: "production" # Do not change this
+          WPE_LOCAL_BRANCH: "main" # Should match the name of the branch on line 4.
+          WPE_GIT_INCLUDE: ".github/wpe-git-include.txt"
+          WPE_GIT_EXCLUDE: ".github/wpe-git-exclude.txt"
