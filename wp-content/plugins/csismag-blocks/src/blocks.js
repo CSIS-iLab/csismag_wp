@@ -10,3 +10,5 @@
  */
 
 import "./extend/source-style.js";
+import "./editor.scss";
+import "./style.scss";
